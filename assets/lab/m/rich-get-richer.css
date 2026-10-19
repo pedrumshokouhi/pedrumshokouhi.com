@@ -1,0 +1,4 @@
+/* P.S. Lab, No. 22: The rich get richer. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.lx-sky { padding-block: 18px; background-image: var(--lx-stars), var(--grain-5),
+  radial-gradient(70% 110% at 50% 45%, var(--g-pool) 0%, var(--g-bg) 70%, color-mix(in srgb, var(--g-bg) 70%, #000) 100%);
+  background-size: 190px 190px, 128px 128px, 100% 100%; background-blend-mode: normal, overlay, normal; }

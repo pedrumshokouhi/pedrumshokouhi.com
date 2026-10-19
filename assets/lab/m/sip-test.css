@@ -1,0 +1,57 @@
+/* P.S. Lab, No. 12: The sip test. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.nc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.nc-cup { display: grid; grid-template-columns: 64px minmax(0, 1fr); column-gap: 18px; align-items: end; min-width: 0;
+  border: 1px solid var(--hair); border-radius: var(--r-paper); background: var(--card); padding: 16px 18px;
+  transition: border-color var(--d-3) var(--ease-out); }
+.nc-cup .k { grid-column: 1 / -1; margin-bottom: 14px; font: 600 var(--lbl-xs)/1.3 var(--sans); letter-spacing: var(--trk-xs); color: var(--dim); }
+.nc-cup.win { border-color: color-mix(in srgb, var(--accent) 55%, var(--hair)); }
+.nc-glass { position: relative; width: 64px; height: 92px; }
+.nc-glass::after { content: ""; position: absolute; inset: 0; background: var(--ink-2); pointer-events: none;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 92'%3E%3Cpath d='M1 1 L9.6 91 L54.4 91 L63 1' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 92'%3E%3Cpath d='M1 1 L9.6 91 L54.4 91 L63 1' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat; }
+.nc-liq { position: absolute; inset: 0; clip-path: polygon(3.75% 0, 96.25% 0, 83.9% 97.8%, 16.1% 97.8%);
+  background: color-mix(in srgb, var(--ink) 4%, transparent); }
+.nc-fill { position: absolute; left: 0; right: 0; bottom: 0; top: 12px; background: var(--c); transform: translateY(101%);
+  transition: transform .9s var(--ease-out); }
+.nc-wave { position: absolute; left: 0; top: -9px; width: 100%; height: 10px; display: block; overflow: visible; }
+.nc-wave path { fill: var(--c); }
+.nc-fill.a { --c: color-mix(in srgb, var(--dark) 80%, var(--accent)); }
+:root[data-tone="dark"] .nc-fill.a { --c: color-mix(in srgb, color-mix(in srgb, var(--accent) 20%, var(--ink)) 52%, var(--card)); }
+.nc-fill.b { --c: var(--accent); }
+.nc-pct { align-self: end; font: 300 40px/1 var(--num); letter-spacing: -.02em; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
+.nc-tl { position: relative; list-style: none; margin: 16px 0 0; padding: 0 0 0 24px; }
+.nc-tl:not(:empty)::before { content: ""; position: absolute; left: 4px; top: 14px; bottom: 14px; width: 1px; background: var(--hair-strong); }
+.nc-tl li { position: relative; padding: 7px 0; margin: 4px 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2);
+  opacity: 0; transform: translateY(6px); transition: opacity .5s var(--ease-out), transform .5s var(--ease-out); }
+.nc-tl li::before { content: ""; position: absolute; left: -24px; top: 14px; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--card); box-shadow: inset 0 0 0 1.5px var(--ink); }
+.nc-tl li.key::before { background: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
+.nc-tl li.in { opacity: 1; transform: none; }
+@media (max-width: 480px) {
+  .nc-cup { grid-template-columns: 48px minmax(0, 1fr); column-gap: 12px; padding: 14px; }
+  .nc-cup .k { min-height: 2.6em; margin-bottom: 10px; }
+  .nc-glass { width: 48px; height: 69px; }
+  .nc-pct { font-size: 30px; }
+}
+.exp .nc-row.lx-bench { gap: 0; margin-bottom: 16px; padding-block: 26px 0;
+  background-image: linear-gradient(to bottom, transparent calc(100% - 26px), color-mix(in srgb, var(--ink) 7%, var(--vellum)) calc(100% - 26px)),
+  radial-gradient(60% 130% at 50% 0%, color-mix(in srgb, var(--paper) 72%, transparent), transparent 72%); }
+.lx-bench .nc-cup { border: 0; border-radius: 0; background: none; padding: 0 18px 0; grid-template-columns: 92px minmax(0, 1fr); column-gap: 22px; }
+.lx-bench .nc-cup + .nc-cup { box-shadow: inset 1px 0 0 var(--hair); }
+.lx-bench .nc-cup.win .k { color: var(--ink); }
+.lx-bench .nc-glass { width: 92px; height: 132px; margin-bottom: 18px; }
+.lx-bench .nc-glass::after { background: color-mix(in srgb, var(--ink) 52%, transparent); }
+.lx-bench .nc-glass::before { content: ""; position: absolute; left: -14%; right: -14%; bottom: -12px; height: 14px; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--sh) 30%, transparent), transparent); }
+.lx-bench .nc-liq { background: linear-gradient(90deg, color-mix(in srgb, #fff 22%, transparent), color-mix(in srgb, var(--ink) 4%, transparent) 30%,
+  color-mix(in srgb, #fff 34%, transparent) 70%, color-mix(in srgb, var(--ink) 6%, transparent)); }
+.lx-bench .nc-liq::after { content: ""; position: absolute; left: 16%; top: 4%; bottom: 8%; width: 7%; border-radius: 4px; pointer-events: none;
+  background: linear-gradient(to bottom, color-mix(in srgb, #fff 70%, transparent), color-mix(in srgb, #fff 10%, transparent)); }
+.lx-bench .nc-pct { margin-bottom: 26px; font-size: 48px; }
+@media (max-width: 480px) {
+  .lx-bench .nc-cup { grid-template-columns: 60px minmax(0, 1fr); column-gap: 12px; padding: 0 12px; }
+  .lx-bench .nc-glass { width: 60px; height: 86px; }
+  .lx-bench .nc-pct { font-size: 32px; }
+}
+.nc-fill:not([style*="transform"]) { transform: translateY(32%); }
+.nc-pct:empty::before { content: "\00a0"; }

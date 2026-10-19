@@ -1,0 +1,31 @@
+/* P.S. Lab, No. 26: The marshmallow clock. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.mm-stage { display: flex; flex-wrap: wrap; align-items: center; gap: 18px clamp(22px, 4vw, 44px); }
+.mm-dial { position: relative; flex: none; width: 176px; height: 176px; }
+.mm-dial svg { display: block; width: 100%; height: 100%; overflow: visible; rotate: -90deg; }
+.mm-bed { fill: none; stroke: var(--hair-strong); stroke-width: 1; }
+.mm-arc { fill: none; stroke: var(--accent); stroke-width: 4; stroke-dasharray: 1000; stroke-dashoffset: 1000; opacity: 0; }
+.mm-dial.drain .mm-arc { transition: stroke-dashoffset .7s var(--ease-out), opacity 0s linear .7s; }
+#mmTicks line { stroke: var(--hair-strong); stroke-width: 1; transition: stroke var(--d-2) var(--ease-out); }
+#mmTicks line.f { stroke-width: 1.5; }
+#mmTicks line.on { stroke: var(--ink); }
+.mm-mid { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+.mm-t { font: 300 46px/1 var(--num); letter-spacing: -.02em; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
+.mm-holding .mm-t { color: var(--foil-text); }
+.mm-u { font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink-2); }
+.exp #mmHold { min-height: var(--tap); touch-action: none; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+.exp.mm-holding #mmHold { background: var(--accent); border-color: var(--accent); color: color-mix(in srgb, var(--dark) 70%, #000); }
+.mm-stage.lx-bench { margin-top: 4px; padding-block: 30px 28px; gap: 22px clamp(28px, 6vw, 64px); }
+.lx-bench .mm-dial { width: 200px; height: 200px; }
+.lx-bench .mm-dial::before { content: ""; position: absolute; inset: 6px; border-radius: 50%;
+  background: radial-gradient(circle at 38% 30%, color-mix(in srgb, var(--paper) 50%, #fff) 0%, var(--paper) 58%, color-mix(in srgb, var(--paper) 90%, var(--ink)) 100%);
+  box-shadow: 0 0 0 1px var(--hair), inset 0 1px 0 color-mix(in srgb, #fff 70%, transparent), inset 0 -8px 18px -10px color-mix(in srgb, var(--sh) 26%, transparent),
+  0 18px 30px -16px color-mix(in srgb, var(--sh) 40%, transparent); }
+.lx-bench .mm-dial svg { position: relative; }
+.lx-bench .mm-arc { stroke-width: 6; stroke-linecap: round; }
+.lx-bench .mm-t { font-size: 54px; }
+@media (max-width: 480px) {
+  .lx-bench .mm-dial { width: 176px; height: 176px; }
+  .lx-bench .mm-t { font-size: 46px; }
+}
+.mm-stage.lx-bench { padding-block: 22px 20px; }
+.lx-bench .mm-dial { width: 188px; height: 188px; }

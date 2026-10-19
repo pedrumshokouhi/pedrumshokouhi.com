@@ -1,0 +1,4 @@
+/* P.S. Lab, No. 21: The herd. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+#hdC { transition: border-color var(--d-2) var(--ease-out); }
+.exp[data-m="herd"].stampede #hdC { border-color: color-mix(in srgb, var(--ink) 55%, transparent); }
+.exp[data-m="herd"].stampede .lx-bench { box-shadow: inset 0 1px 0 var(--hair), inset 0 -1px 0 var(--hair), inset 0 0 0 2px color-mix(in srgb, var(--ink) 50%, transparent); }

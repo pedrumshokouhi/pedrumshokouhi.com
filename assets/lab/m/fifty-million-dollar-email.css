@@ -1,0 +1,27 @@
+/* P.S. Lab, No. 09: The fifty million dollar email. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.br-caps { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.br-caps .v.gone { color: var(--dim); text-decoration: line-through; text-decoration-thickness: 1px; text-decoration-color: var(--loss); }
+.br-meter { display: block; position: relative; height: 3px; margin-top: 12px; overflow: hidden; background: var(--hair); }
+.br-meter b { position: absolute; inset: 0; background: var(--ink); transform-origin: left; transform: scaleX(var(--m, 0));
+  transition: transform .9s var(--ease-out); }
+.mh-cell.sw .br-meter b { background: var(--accent); }
+.br-tree { display: block; width: 100%; height: 74px; margin: 0 0 14px; overflow: visible; }
+.br-tree .h { fill: none; stroke: var(--ink-2); stroke-width: 1; stroke-dasharray: 3 4; }
+.br-tree .y { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; }
+.br-tree .y.new { stroke-dasharray: 1; stroke-dashoffset: 1; animation: brDraw .9s var(--ease-out) forwards; }
+.br-tree circle { fill: var(--card); stroke: var(--ink-2); stroke-width: 1; }
+.br-tree circle.on { fill: var(--accent); stroke: var(--accent); }
+.br-tree circle.done { fill: var(--ink); stroke: var(--ink); }
+.br-tree text { font: var(--lbl-w) 10px var(--sans); letter-spacing: .08em; fill: var(--dim); font-variant-numeric: lining-nums tabular-nums; }
+.br-tree text.on { fill: var(--ink); }
+.br-tree text.k { fill: var(--ink-2); }
+.br-scene { font-size: 16.5px; line-height: 1.65; color: var(--ink); text-wrap: pretty; }
+.br-whisper { font-style: italic; color: var(--ink-2); font-size: 14.5px; line-height: 1.6; margin: 10px 0 16px; text-wrap: pretty; }
+.br-whisper:empty { display: none; }
+@media (max-width: 480px) {
+  .br-caps .mh-cell .k { min-height: 2.6em; }
+}
+.exp .br-card.lx-bench { border: 0; border-radius: 0; padding-block: 24px 26px; margin-top: 4px; }
+.lx-bench .br-tree circle { fill: var(--vellum); }
+.lx-bench .br-tree text { font-size: 11px; }
+.exp .br-caps { gap: 24px; margin-bottom: 20px; }

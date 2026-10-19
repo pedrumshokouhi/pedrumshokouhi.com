@@ -1,0 +1,541 @@
+/* Final round: the interview room at night. An espresso stage under one lamp holds the case in hand: paper models on a kraft
+   board, cream case folders on the desk, the clock and the phase rail. The work itself happens on paper below it, on single
+   sheets with elevation and no box inside a box. Tokens only, so every light resolves without theme code. Shared parts come
+   from kit.css (.lk-*); these are the machine's own (cs-). Hues sit on surfaces, edges and marks, never on text. */
+.cs { --cs-grid: color-mix(in srgb, var(--ink) 6%, transparent); --cs-folder: #EEE7D8; }
+
+/* ---------- the stage: one espresso ground with its pool, grain and bronze hairlines (site.css) ---------- */
+.cs-stage { position: relative; border-radius: var(--r-card, 6px); padding: clamp(18px, 3.4cqi, 34px) clamp(16px, 3.4cqi, 36px) clamp(20px, 3.4cqi, 34px);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--bronze-hi) 16%, transparent), var(--elev-2);
+  /* the stage's own inks, kept for the paper models below, which re-point --ink to the paper's */
+  --cs-od: var(--ink); --cs-od2: var(--ink-2); --cs-pool: var(--card); }
+/* the paper the models and posters are made of: one stock in every light, an object on the desk rather than the page */
+.cs-paper { --paper: #EFE8D8; --card: #F7F2E8; --ink: #17120D; --ink-2: #4E4A43; --muted: #8B877C; --line: #DCD3C0;
+  --hair: color-mix(in srgb, #17120D 16%, transparent); --hair-strong: color-mix(in srgb, #17120D 28%, transparent);
+  --m-top: #F2ECDF; --m-left: #DCD3C0; --m-right: #C2B7A2; --m-plaster: #B0A28A; --m-foil: var(--accent);
+  /* a pencil-grey outline: it holds 3:1 against the stage in every light and still edges the paper */
+  --m-shadow: color-mix(in srgb, #000 52%, transparent); --m-sil: #978E81;
+  --foil-line: color-mix(in srgb, var(--accent) 88%, #17120D); }
+/* void's accent is white, the colour of the paper: its live part prints in ink instead */
+:root[data-theme="void"] .cs-paper { --m-foil: #2B2723; --foil-line: #17120D; }
+
+.cs-sub { margin: 0 0 12px; font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
+.cs-note, .cs-cap { margin: 8px 0; font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
+.cs-cap { margin-top: 0; }
+.cs-src { margin: 8px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
+.cs-dim { color: var(--ink-2); font-style: italic; }
+.cs-link { display: inline-flex; align-items: center; min-height: 32px; margin: 0; padding: 0; border: 0; background: none; color: var(--ink); cursor: pointer;
+  font: var(--lbl-w) var(--lbl-xs)/1.2 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; text-decoration: underline;
+  text-decoration-color: var(--hair-strong); text-underline-offset: 4px; transition: text-decoration-color var(--d-1) var(--ease-out); }
+@media (hover: hover) { .cs-link:hover { text-decoration-color: var(--ink); } }
+@media (pointer: coarse) { .cs-link { min-height: var(--tap); } }
+.cs-mark { display: inline-block; margin: 0 6px 2px 0; padding: 3px 6px 2px; vertical-align: 1px; border: 1px solid color-mix(in srgb, var(--loss) 70%, var(--ink)); border-radius: 2px;
+  font: var(--lbl-w) var(--lbl-xs)/1.2 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); font-style: normal; }
+.cs-mark--ok { border-color: color-mix(in srgb, var(--gain) 70%, var(--ink)); }
+.cs-tag { display: inline-block; margin-left: 6px; padding: 2px 6px 1px; border: 1px solid var(--lk-warn); border-radius: 2px; vertical-align: 1px;
+  font: var(--lbl-w) var(--lbl-xs)/1.2 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+/* the kit's foil kicker and foil chip carry the accent as text; in this machine the accent stays on edges */
+.cs .lk-kicker--foil { color: var(--dim); }
+.cs .lk-chip--foil { color: var(--ink); background: color-mix(in srgb, var(--accent) 6%, transparent); box-shadow: inset 0 0 0 1px var(--foil-line); }
+.cs .lk-root b, .cs b { color: inherit; }
+
+/* ---------- the lobby: a cover, the case in hand, four folders on the desk ---------- */
+.cs-lobby .lk-head { margin: 0; }
+.cs-cover { display: grid; gap: 8px 40px; align-items: center; }
+.cs-cover-t { position: relative; z-index: 1; padding: 6px 0 0; }
+.cs-cover-t .lk-kicker { margin-bottom: 14px; color: var(--ink-2); }
+/* each sentence of the title keeps to its own line */
+.cs-lobby-h > span { display: inline-block; }
+.cs .cs-lobby-h { max-width: 14ch; margin: 0 0 18px; font: 400 clamp(36px, 6.6cqi, 60px)/.98 var(--serif); letter-spacing: -.03em; color: var(--ink); text-wrap: balance; }
+.cs-cover-t .lk-lede { max-width: 46ch; margin: 0; font-size: 15.5px; line-height: 1.62; color: var(--ink-2); }
+.cs-hero { position: relative; margin: 0; }
+.cs-hero-p { position: relative; aspect-ratio: 3 / 2; }
+/* the lamp: a warm pool on the desk under the model */
+.cs-hero-p::before { content: ""; position: absolute; inset: 4% -6% -4%; pointer-events: none;
+  background: radial-gradient(52% 46% at 50% 60%, color-mix(in srgb, var(--bronze-hi) 15%, transparent) 0%, transparent 72%); }
+.cs-pst { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; }
+.cs-pst.is-on { opacity: 1; visibility: visible; }
+.cs-hero-c { display: flex; align-items: baseline; gap: 12px; margin: 2px 0 0; padding: 10px 0 0; border-top: var(--hair-w) solid var(--hair); }
+.cs-hero-n { font: 400 22px/1 var(--serif); letter-spacing: 0; font-variant-numeric: lining-nums; color: var(--bronze); }
+.cs-hero-t { font: var(--lbl-w) var(--lbl-xs)/1.35 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); }
+@media (prefers-reduced-motion: no-preference) {
+  .cs-pst { transition: opacity var(--d-3) var(--ease-out), visibility 0s linear var(--d-3); }
+  .cs-pst.is-on { transition: opacity var(--d-3) var(--ease-out), visibility 0s; }
+  /* a drawing brought up by a folder sets its parts down in order, the board first; the first drawing is there at once */
+  .cs-pst.is-on.is-swap g[data-part] { animation: csSet var(--d-4, 520ms) var(--ease-out) both; animation-delay: calc(var(--i, 0) * 45ms); }
+}
+@keyframes csSet { from { opacity: 0; transform: translateY(-10px); } }
+
+/* poster faces: the tone classes come from site.css; these are the engine's line classes and the foil part */
+.cs-pst :is(.p-line2, .p-fl) { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.cs-pst .p-line2 { stroke: var(--ink-2); }
+.cs-pst .p-fl { stroke: var(--foil-line); }
+.cs-pst .p-sil { stroke-opacity: 1; }
+.cs-pst .cs-ft { fill: var(--m-foil); }
+.cs-pst .cs-fl { fill: color-mix(in srgb, var(--m-foil) 84%, #000); }
+.cs-pst .cs-fr { fill: color-mix(in srgb, var(--m-foil) 68%, #000); }
+.cs-pst .cs-edge { stroke: var(--ink-2); stroke-width: .7px; stroke-opacity: .55; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+
+/* the folders: cream stock on the desk, a tab on top, lifted by the lamp */
+.cs .cs-folders { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr)); gap: 40px 18px; margin: clamp(24px, 4cqi, 40px) 0 0;
+  padding: 22px 0 6px; list-style: none; }
+.cs-folder { --wall: var(--cs-folder); position: relative; display: flex; flex-direction: column; min-width: 0; padding: 20px 20px 18px;
+  border-radius: 0 var(--r-card, 6px) var(--r-card, 6px) var(--r-card, 6px); background: var(--wall);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 0 1px 1px rgba(0, 0, 0, .34), 0 14px 26px -12px rgba(0, 0, 0, .62), 0 34px 60px -30px rgba(0, 0, 0, .55); }
+.cs-tab { position: absolute; bottom: 100%; left: 0; padding: 7px 14px 4px; border-radius: var(--r-card, 6px) var(--r-card, 6px) 0 0; background: var(--wall);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7); font: var(--lbl-w) var(--lbl-xs)/1.3 var(--sans); letter-spacing: .14em; text-transform: uppercase;
+  font-variant-numeric: lining-nums tabular-nums; color: var(--ink-2); }
+.cs-folder.is-hot .cs-tab { color: var(--ink); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), inset 0 2px 0 var(--bronze); }
+.cs-fname { margin: 0 0 6px; font: 400 24px/1.12 var(--serif); letter-spacing: -.015em; color: var(--ink); text-wrap: balance; }
+.cs-fkind { margin: 0 0 12px; font: var(--lbl-w) var(--lbl-xs)/1.4 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); }
+.cs-fhook { margin: 0 0 18px; font: italic 400 15px/1.5 var(--serif); color: var(--ink-2); text-wrap: pretty; }
+.cs-fmeta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; margin: auto 0 14px; padding: 12px 0 0;
+  border-top: var(--hair-w) solid var(--hair); }
+.cs-diff { display: inline-flex; gap: 5px; }
+.cs-diff i { width: 7px; height: 7px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--ink-2); }
+.cs-diff i.is-on { background: var(--ink); box-shadow: none; }
+.cs-last { font: var(--lbl-w) var(--lbl-xs)/1.3 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); font-variant-numeric: lining-nums tabular-nums; }
+.cs-fbtns { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+/* the whole folder answers to its first button */
+.cs-fbtns > .ebtn::after { content: ""; position: absolute; inset: -22px 0 0; border-radius: inherit; }
+.cs-fbtns > .cs-redo { position: relative; z-index: 1; }
+.cs .cs-folder .ebtn { background: transparent; color: var(--ink); border-color: var(--ink); }
+.cs .cs-folder .ebtn.cs-go { background: var(--accent); border-color: var(--accent); color: #000; }
+.cs .cs-folder .ebtn:active { scale: .98; }
+:root[data-theme="void"] .cs .cs-folder .ebtn.cs-go { border-color: var(--ink); }
+@media (hover: hover) {
+  .cs .cs-folder .ebtn:not(.cs-go):hover { background: var(--ink); color: var(--wall); }
+  .cs .cs-folder .ebtn.cs-go:hover { background: var(--accent); color: #000; box-shadow: 0 6px 16px -6px color-mix(in srgb, var(--accent) 70%, transparent); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cs-folder { transition: transform var(--d-2) var(--ease-out), box-shadow var(--d-2) var(--ease-out); }
+  @media (hover: hover) {
+    .cs-folder:hover, .cs-folder:focus-within { transform: translateY(-4px);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 0 2px 2px rgba(0, 0, 0, .3), 0 22px 34px -12px rgba(0, 0, 0, .66), 0 48px 80px -36px rgba(0, 0, 0, .6); }
+  }
+  .cs-folder.is-hot { transform: translateY(-4px); }
+  .cs-folder:active { transform: scale(.99); transition-duration: var(--d-1); }
+}
+
+.cs-lobby-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin: 30px 0 4px; padding: 18px 0 0; border-top: var(--hair-w) solid var(--hair); }
+.cs-coachset { display: flex; align-items: center; gap: 10px; }
+.cs-coachset .lk-seg { margin: 0; }
+.cs-cstat { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+.cs-how { margin: 6px 0 0; }
+.cs-how > summary { display: inline-flex; align-items: center; min-height: 36px; cursor: pointer; font: var(--lbl-w) var(--lbl-xs)/1.2 var(--sans); letter-spacing: var(--trk-xs);
+  text-transform: uppercase; color: var(--ink-2); }
+@media (hover: hover) { .cs-how > summary:hover { color: var(--ink); } }
+@media (pointer: coarse) { .cs-how > summary { min-height: var(--tap); } }
+.cs-how-b { max-width: 64ch; padding: 4px 0 6px; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); }
+
+@container (min-width: 900px) {
+  .cs-cover { grid-template-columns: minmax(0, .95fr) minmax(0, 1.2fr); }
+  .cs-cover-t { padding: 0 0 36px; }
+}
+@container (min-width: 1040px) {
+  .cs .cs-folders { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+/* phones: the folders sit in a rail with the next one peeking; the one in the middle brings its drawing up */
+@container (max-width: 559px) {
+  .cs .cs-folders { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 84%; gap: 14px; margin: 18px calc(-1 * clamp(16px, 3.4cqi, 36px)) 0;
+    padding: 30px clamp(16px, 3.4cqi, 36px) 22px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
+    scroll-padding: 0 clamp(16px, 3.4cqi, 36px); scrollbar-width: none; }
+  .cs .cs-folders::-webkit-scrollbar { display: none; }
+  .cs-folder { scroll-snap-align: start; }
+  .cs-fname { font-size: 22px; }
+  /* the model comes up between the title and the lede, across the full width of the stage */
+  .cs-cover-t { display: contents; }
+  .cs-cover-t .lk-kicker { order: 0; margin-bottom: 4px; }
+  .cs .cs-lobby-h { order: 1; margin-bottom: 4px; }
+  .cs-hero { order: 2; margin: 0 calc(-1 * clamp(16px, 3.4cqi, 36px)); }
+  .cs-hero-p { aspect-ratio: 4 / 3; }
+  .cs-hero-c { margin: 0 clamp(16px, 3.4cqi, 36px); }
+  .cs-cover-t .lk-lede { order: 3; margin-top: 10px; }
+  .cs-lobby-bar { margin-top: 18px; }
+}
+
+/* ---------- the case room: the stage holds the title, the clock and the drawing ---------- */
+.cs-top { display: grid; gap: 4px 16px; margin: 0 0 18px; }
+.cs-top .cs-back { justify-self: start; margin: -6px 0 10px; color: var(--ink-2); }
+.cs-top .lk-kicker { margin: 0; color: var(--ink-2); }
+.cs .cs-case-k { margin: 0; font: 400 clamp(30px, 5.6cqi, 50px)/1.02 var(--serif); letter-spacing: -.028em; color: var(--ink); text-wrap: balance; }
+.cs-head { display: grid; gap: 14px; }
+.cs .cs-steps { display: flex; gap: 4px; margin: 0; padding: 0; list-style: none; counter-reset: cs; }
+.cs-steps li { flex: 1; min-width: 0; padding-top: 9px; border-top: 2px solid var(--hair-strong); font: var(--lbl-w) var(--lbl-xs)/1.3 var(--sans); letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cs-steps li.is-past { border-top-color: color-mix(in srgb, var(--ink) 55%, transparent); }
+.cs-steps li.is-now { border-top-color: var(--accent); color: var(--ink); }
+:root[data-theme="void"] .cs-steps li.is-now { box-shadow: 0 -4px 0 -1px var(--ink); }
+.cs-steps-s { display: none; margin: -6px 0 0; font: var(--lbl-w) var(--lbl-xs)/1.3 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
+/* the clock: the minute as a figure, then the bar with the budget line and the last five minutes hatched */
+.cs-clock { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: end; gap: 6px 20px; margin: 4px 0 0; }
+.cs-clock-f { display: flex; align-items: baseline; gap: 10px; margin: 0; }
+.cs-clock-n { font: 200 clamp(40px, 6cqi, 56px)/.86 var(--stat); letter-spacing: -.04em; font-variant-numeric: lining-nums tabular-nums; color: var(--ink); }
+.cs-clock-u { display: grid; gap: 4px; font: var(--lbl-w) var(--lbl-xs)/1.25 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); }
+.cs-over { justify-self: start; padding: 2px 6px 1px; border: 1px solid var(--loss); border-radius: 2px; color: var(--ink); }
+.cs-clock-bar { position: relative; height: 6px; margin-bottom: 6px; border-radius: 1px; background: color-mix(in srgb, var(--ink) 10%, transparent); }
+.cs-clock-bar > i { position: absolute; top: 0; bottom: 0; }
+.cs-clock-tick { width: 1px; background: var(--cs-pool, var(--card)); z-index: 2; }
+.cs-clock-hatch { background: repeating-linear-gradient(135deg, var(--hair-strong) 0 1px, transparent 1px 4px); }
+.cs-clock-used { left: 0; right: 0; transform-origin: left; transform: scaleX(var(--w, 0)); background: color-mix(in srgb, var(--ink) 78%, transparent); }
+.cs-clock-over { background: var(--loss); }
+.cs-clock-budget { top: -5px !important; bottom: -5px !important; width: 1px; background: var(--ink); z-index: 3; }
+.cs-clock-now { top: -6px !important; bottom: -6px !important; width: 3px; margin-left: -1px; border-radius: 1px; background: var(--accent); z-index: 4; }
+@media (prefers-reduced-motion: no-preference) { .cs-clock-used { transition: transform var(--d-3) var(--ease-out); } }
+
+/* ---------- the drawing: a paper model on its board, under the lamp ---------- */
+.cs-model { margin: clamp(20px, 3.4cqi, 32px) 0 0; padding: clamp(18px, 3cqi, 26px) 0 0; border-top: var(--hair-w) solid var(--hair); }
+.cs .cs-scene.iso { display: grid; grid-template-columns: minmax(0, 1fr); align-items: start; gap: 14px 32px; }
+.cs .cs-scene .iso-stage canvas { width: 100%; height: 100%; border: 0; border-radius: 0; background: none; }
+.cs-scene-h { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 10px 18px; }
+.cs-scene-h .lk-kicker { margin-bottom: 6px; color: var(--ink-2); }
+.cs-scene-t { margin: 0; font: 400 22px/1.2 var(--serif); letter-spacing: -.012em; color: var(--ink); }
+.cs-scene .cs-scene-seg { margin: 0; }
+.cs .cs-scene .iso-stage.cs-paper { height: clamp(320px, 62cqi, 540px); min-height: 0; border-radius: 4px;
+  background: radial-gradient(58% 54% at 50% 60%, color-mix(in srgb, var(--bronze-hi) 13%, transparent) 0%, transparent 72%); }
+.cs-scene .iso-stage.cs-paper:focus-visible { outline-color: var(--cs-od); }
+.cs-scene-wait { position: absolute; left: 0; right: 0; top: 50%; margin: -11px 0 0; text-align: center; font: italic 400 15px/22px var(--serif); color: var(--cs-od2);
+  transition: opacity var(--d-2) var(--ease-out); pointer-events: none; }
+.cs-scene.is-drawn .cs-scene-wait { opacity: 0; }
+.cs-scene .iso-keys { color: var(--cs-od2); }
+.cs-scene:not(.is-drawn):not(.is-off) .iso-stage::before { content: ""; position: absolute; top: 0; left: 18%; right: 18%; height: 1px; background: var(--accent);
+  transform-origin: left; transform: scaleX(0); animation: csDraw var(--d-5) var(--ease-io) 300ms forwards; }
+@keyframes csDraw { to { transform: scaleX(1); } }
+.cs-scene.is-off .cs-scene-seg, .cs-scene.is-off .iso-ctl, .cs-scene.is-off .cs-parts { display: none; }
+.cs-scene .iso-pins { transition: opacity var(--d-2) var(--ease-out); }
+.cs-scene:not(.is-drawn) .iso-pins { opacity: 0; }
+.cs-scene .iso-card { z-index: 3; }
+.cs-scene .iso-pins > .ps3d-leaders { color: var(--cs-od2); }
+/* labels ride the engine's label layer, on pills of the stage's own light */
+.cs-scene .iso-label.cs-lab { padding: 5px 9px 4px; border-radius: var(--r-pill, 999px); text-shadow: none; white-space: nowrap;
+  background: color-mix(in srgb, var(--cs-pool) 90%, var(--cs-od)); box-shadow: 0 0 0 1px color-mix(in srgb, var(--bronze-hi) 22%, transparent), 0 4px 12px -4px rgba(0, 0, 0, .5);
+  font: var(--lbl-w) 11px/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; font-variant-numeric: lining-nums tabular-nums; color: var(--cs-od2); }
+.cs-lab--l { translate: -100% -50%; margin: 0 0 0 -10px; }
+.cs-lab--r { translate: 0 -50%; margin: 0 0 0 10px; }
+.cs-lab--t { translate: -50% -100%; margin: -8px 0 0; }
+.cs-lab--b { translate: -50% 0; margin: 10px 0 0; }
+.cs-lab--c { translate: -50% -50%; margin: 0; }
+.cs-scene .iso-label.cs-lab--c { text-align: center; }
+.cs-scene .iso-label.cs-lab--q { max-width: min(46ch, 70cqi); padding: 7px 14px 6px; border-radius: 4px; white-space: normal; text-align: center;
+  font: italic 400 14px/1.4 var(--serif); letter-spacing: 0; text-transform: none; color: var(--cs-od); }
+.cs-lab b { font-weight: inherit; color: var(--cs-od); }
+.cs-lab i { font-style: normal; }
+.cs-scene figcaption { display: grid; align-content: start; gap: 12px; margin: 0; }
+.cs-scene-s { margin: 0; max-width: 62ch; font: italic 400 17px/1.5 var(--serif); color: var(--ink); text-wrap: pretty; }
+.cs-scene-s:empty { display: none; }
+.cs-scene-d { margin: 0; max-width: 70ch; font-size: 13.5px; line-height: 1.55; color: var(--ink-2); }
+/* the parts, as a ledger: name, a dot leader, the figure */
+.cs .cs-scene .iso-parts.cs-parts { display: block; max-height: none; overflow: visible; margin: 4px 0 0; padding: 0; list-style: none; border-top: var(--hair-w) solid var(--hair-strong); }
+.cs .cs-scene .iso-parts.cs-parts:empty { display: none; }
+.cs .cs-scene .iso-parts.cs-parts button { display: flex; align-items: baseline; gap: 0; width: 100%; min-height: 42px; padding: 11px 0 11px; border: 0;
+  border-bottom: var(--hair-w) solid var(--hair); border-radius: 0; background: none; color: var(--ink-2); cursor: pointer; text-align: left;
+  font: 400 15px/1.35 var(--serif); transition: color var(--d-1) var(--ease-out), box-shadow var(--d-1) var(--ease-out); }
+.cs .cs-scene .cs-parts button::after { content: ""; order: 2; flex: 1 1 18px; min-width: 18px; height: 1em; margin: 0 10px; align-self: baseline;
+  background: radial-gradient(circle, var(--hair-strong) 1px, transparent 1.2px) 0 85% / 6px 6px repeat-x; }
+.cs .cs-scene .cs-parts .n { order: 0; flex: none; width: 26px; font: var(--lbl-w) 11px/1.35 var(--sans); letter-spacing: .06em; color: var(--bronze); font-variant-numeric: lining-nums tabular-nums; }
+.cs .cs-scene .cs-parts .cs-pn { order: 1; flex: 0 1 auto; min-width: 0; }
+.cs .cs-scene .cs-parts .v { order: 3; flex: none; max-width: 52%; font: 400 15px/1.35 var(--num); font-variant-numeric: lining-nums tabular-nums; color: var(--ink); text-align: right; }
+.cs .cs-scene .cs-parts button.is-on, .cs .cs-scene .cs-parts button[aria-pressed="true"] { color: var(--ink); box-shadow: inset 2px 0 0 var(--foil-line); padding-left: 10px; }
+@media (hover: hover) { .cs .cs-scene .cs-parts button:hover { color: var(--ink); } }
+/* your tree reads as a list of verdicts, not figures: each branch, then what the exhibits said about it */
+.cs .cs-scene.is-tree .cs-parts button { flex-wrap: wrap; }
+.cs .cs-scene.is-tree .cs-parts button::after { display: none; }
+.cs .cs-scene.is-tree .cs-parts .v { flex-basis: 100%; max-width: none; margin: 4px 0 0 26px; text-align: left; font: italic 400 14px/1.45 var(--serif); color: var(--ink-2); }
+.cs-scene .iso-ctl { margin-top: 2px; }
+@container (min-width: 900px) {
+  .cs .cs-scene.iso { grid-template-columns: minmax(0, 1.55fr) minmax(260px, 1fr); }
+  .cs-scene-h { grid-column: 1 / -1; }
+  .cs .cs-scene .iso-stage.cs-paper { height: clamp(380px, 40cqi, 520px); }
+}
+.cs-scene-note { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; margin: -4px 0 16px; padding: 10px 0 10px 14px;
+  border-left: 2px solid var(--ink); font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
+.cs-scene-note .cs-link { min-height: 28px; }
+@container (max-width: 560px) {
+  .cs-scene-t { font-size: 19px; }
+  .cs .cs-scene .iso-stage.cs-paper { height: 300px; }
+  .cs-lab--c i { display: none; }
+  .cs .cs-scene .cs-parts .v { max-width: 46%; font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-scene:not(.is-drawn):not(.is-off) .iso-stage::before { animation: none; transform: scaleX(1); }
+  .cs-scene .iso-pins, .cs-scene-wait, .cs .cs-scene .iso-parts.cs-parts button { transition-duration: 160ms; }
+}
+@media print { .cs-model { break-inside: avoid; } .cs-scene-seg, .cs-scene .iso-ctl, .cs .cs-scene .iso-stage, .cs-scene-note .cs-link { display: none; } }
+
+/* ---------- the conversation: a transcript under the stage ---------- */
+.cs-talk { margin: clamp(22px, 3.6cqi, 34px) 0 22px; }
+.cs-log.lk-feed { --lk-feed-h: 260px; display: flex; flex-direction: column; margin: 0; padding: 18px 2px 14px 18px; background: none; border: 0;
+  border-left: 1px solid var(--hair-strong); border-radius: 0; }
+/* a short conversation sits at the foot of the roll, next to the work, and the roll scrolls once it fills */
+.cs-log.lk-feed > :first-child { margin-top: auto; }
+.cs-line { font-size: 14.5px; }
+.cs-line--int { font-family: var(--serif); font-style: italic; font-size: 16px; }
+.cs-line--int .lk-chip, .cs-line--note .lk-chip { font-style: normal; }
+.cs-line--note { font-size: 13.5px; }
+.cs-line--note .cs-link { min-height: 0; margin-left: 4px; vertical-align: 1px; }
+.cs-more { display: none; margin-top: 6px; }
+
+/* ---------- the work: single sheets on the paper, never a box inside a box ---------- */
+.cs-work { min-width: 0; }
+.cs-ph { margin: 0 0 14px; font: 400 clamp(26px, 4.4cqi, 34px)/1.1 var(--serif); letter-spacing: -.02em; color: var(--ink); }
+.cs-work .lk-coach { margin: 0 0 16px; }
+.cs-opts { margin: 0 0 8px; }
+.cs-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 6px; }
+.cs-chipq { max-width: 100%; min-height: var(--tap); padding: 10px 16px 11px; border: 1px solid var(--hair-strong); border-radius: 22px; background: var(--card);
+  color: var(--ink); cursor: pointer; text-align: left; font: 400 15px/1.35 var(--serif); box-shadow: var(--elev-1);
+  transition: border-color var(--d-1) var(--ease-out), box-shadow var(--d-2) var(--ease-out); }
+@media (hover: hover) { .cs-chipq:not(:disabled):hover { border-color: var(--ink); } }
+.cs-chipq[aria-pressed="true"] { border-color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, var(--card)); box-shadow: none; cursor: default; }
+.cs-chipq[aria-pressed="true"]::before { content: "Asked"; margin-right: 8px; font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); }
+.cs-chipq[aria-pressed="false"]:disabled { border-style: dashed; background: transparent; box-shadow: none; color: var(--ink-2); cursor: not-allowed; }
+
+/* the branch cards: index cards dealt on the paper */
+.cs-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 0 0 6px; }
+.cs-card { position: relative; min-width: 0; min-height: var(--tap); padding: 13px 15px 14px; text-align: left; border: 0; border-radius: var(--r-card, 6px);
+  background: var(--card); color: var(--ink); cursor: pointer; font: 400 15.5px/1.35 var(--serif);
+  box-shadow: inset 0 0 0 1px var(--hair), var(--elev-1); transition: box-shadow var(--d-2) var(--ease-out), transform var(--d-2) var(--ease-out); }
+@media (hover: hover) { .cs-card:not(:disabled):hover { box-shadow: inset 0 0 0 1px var(--hair-strong), var(--elev-2); } }
+.cs-card[aria-pressed="true"] { box-shadow: inset 0 0 0 1.5px var(--ink), var(--elev-2); }
+.cs-card:disabled { background: transparent; box-shadow: inset 0 0 0 1px var(--hair); color: var(--ink-2); cursor: not-allowed; }
+.cs-card-t { display: block; }
+.cs-card-s { display: flex; flex-wrap: wrap; gap: 2px 12px; margin-top: 8px; font: 400 13px/1.45 var(--sans); color: var(--ink-2); }
+.cs-card-s > span::before { content: ""; display: inline-block; width: 4px; height: 4px; margin: 0 6px 2px 0; border-radius: 50%; background: var(--hair-strong); }
+@media (prefers-reduced-motion: no-preference) { .cs-card:not(:disabled):active { transform: scale(.98); transition-duration: var(--d-1); } }
+
+/* the laid-out tree: the question on top, branches hung from one rule, drawn straight on the paper */
+.cs-tree { margin: 4px 0 18px; padding: 6px 0 0; }
+.cs-tree-q { position: relative; max-width: 46ch; margin: 0 auto; padding: 12px 16px; text-align: center; border-radius: 4px; background: var(--card);
+  box-shadow: inset 0 0 0 1px var(--ink), var(--elev-1); font: 400 17px/1.35 var(--serif); color: var(--ink); }
+.cs-tree-q::after { content: ""; position: absolute; left: 50%; bottom: -10px; width: 1px; height: 9px; background: var(--hair-strong); }
+.cs .cs-tree-b { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 10px; margin: 0; padding: 19px 0 0; list-style: none; }
+.cs-tree-b::before { content: ""; position: absolute; top: 9px; left: 8%; right: 8%; height: 1px; background: var(--hair-strong); }
+.cs-tree-b > li { position: relative; min-width: 0; padding: 10px 11px 11px; border-radius: 4px; background: var(--card); box-shadow: inset 0 0 0 1px var(--hair-strong), var(--elev-1); }
+.cs-tree-b > li::before { content: ""; position: absolute; top: -11px; left: 50%; width: 1px; height: 10px; background: var(--hair-strong); }
+.cs-tree-b > li.is-over { box-shadow: inset 0 0 0 1px var(--loss), inset 0 3px 0 var(--loss), var(--elev-1); }
+.cs-tree-b > li.is-trap { background: transparent; box-shadow: none; outline: 1px dashed var(--hair-strong); outline-offset: -1px; }
+.cs-tree-t { display: block; font: 400 14.5px/1.35 var(--serif); color: var(--ink); }
+.cs-tree-s { display: block; margin-top: 5px; font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+.cs-tree-why { display: block; margin-top: 6px; font: italic 400 13px/1.45 var(--serif); color: var(--ink); }
+.cs-tree-cap { margin: 14px 0 0; font-size: 13.5px; line-height: 1.7; color: var(--ink); }
+
+.cs-hyp { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; margin: 0 0 16px; padding: 10px 0; border-top: var(--hair-w) solid var(--hair-strong);
+  border-bottom: var(--hair-w) solid var(--hair); }
+.cs-hyp-t { flex: 1 1 18em; min-width: 0; font: italic 400 16px/1.45 var(--serif); color: var(--ink); }
+.cs-opts--hyp { margin-top: -4px; }
+.cs-alert { margin: 0 0 14px; font-size: 14px; color: var(--ink); }
+
+/* ---------- an exhibit: one slide on the desk, the headline slot waiting for your so-what ---------- */
+.cs-ex { position: relative; min-width: 0; margin: 6px 0 22px; padding: clamp(18px, 3.4cqi, 28px) clamp(16px, 3.4cqi, 30px) clamp(16px, 3cqi, 24px);
+  background: var(--card); border: 0; border-radius: var(--r-card, 6px); box-shadow: inset 0 0 0 1px var(--hair), var(--elev-2); }
+.cs-ex .lk-kicker { margin-bottom: 6px; font-variant-numeric: lining-nums; }
+.cs-ex-title { margin: 0; font: 400 clamp(20px, 3.2cqi, 24px)/1.22 var(--serif); letter-spacing: -.012em; color: var(--ink); text-wrap: balance; }
+.cs-ex-act { min-height: 44px; margin: 12px 0 16px; padding: 10px 0 12px; border-bottom: 1px dashed var(--hair-strong); font: italic 400 15px/1.45 var(--serif); color: var(--ink-2); }
+.cs-ex-act.is-set { padding: 4px 0 14px 14px; border-bottom: 1px solid var(--hair-strong); box-shadow: inset 2px 0 0 var(--ink); font: 400 clamp(18px, 2.8cqi, 21px)/1.35 var(--serif); color: var(--ink); }
+.cs-ex-act.is-weak { box-shadow: inset 2px 0 0 var(--hair-strong); border-bottom-style: dashed; color: var(--ink-2); font-style: italic; }
+.cs-ex-cor { margin: -8px 0 14px; font-size: 14px; color: var(--ink); }
+.cs-ex-body { min-width: 0; margin: 0 0 6px; }
+.cs-t td:first-child { font-size: 14px; }
+.cs-t tr.is-tot td { border-top: 0; background: linear-gradient(var(--ink), var(--ink)) 0 0 / 100% 1px no-repeat, linear-gradient(var(--ink-2), var(--ink-2)) 0 4px / 100% .5px no-repeat; padding-top: 12px; }
+.cs-t tr.is-tot td:first-child { font-family: var(--serif); }
+.cs-kv td:first-child { padding-right: 14px; color: var(--ink-2); }
+.cs-kv td:last-child { color: var(--ink); }
+.cs-pl td:first-child { min-width: 9em; }
+.cs-comm-t td:first-child { min-width: 8em; }
+
+/* charts: a 2px weight, a quiet track, the figure at the end of each bar */
+.cs-bars { margin: 10px 0 14px; }
+.cs-bar { display: grid; grid-template-columns: minmax(0, 12em) minmax(0, 1fr) minmax(4.2em, auto); align-items: center; gap: 4px 12px; padding: 5px 0; }
+.cs-bar-k { font-size: 13.5px; line-height: 1.3; color: var(--ink-2); }
+.cs-bar-t { position: relative; height: 14px; border-radius: 1px; background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.cs-bar-t > i { position: absolute; top: 0; bottom: 0; left: 0; width: calc(var(--w, 0) * 100%); border-radius: 1px; background: color-mix(in srgb, var(--ink) 72%, transparent); }
+.cs-bar.is-prev .cs-bar-t > i { background: transparent; box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--ink) 60%, transparent); }
+.cs-bar.is-you .cs-bar-t > i { background: var(--ink); box-shadow: inset -3px 0 0 var(--accent); }
+.cs-bar-v { font: 400 14.5px/1.2 var(--num); font-variant-numeric: lining-nums tabular-nums; text-align: right; color: var(--ink); }
+.cs-wf { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 8px; margin: 14px 0 12px; }
+.cs-wf-plot { position: relative; height: 160px; border-bottom: 1px solid var(--ink); }
+.cs-wf-plot > i { position: absolute; left: 14%; right: 14%; border-radius: 1px 1px 0 0;
+  background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--ink) 55%, transparent) 0 2px, color-mix(in srgb, var(--ink) 6%, transparent) 2px 5px);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 60%, transparent); }
+.cs-wf-col.is-base .cs-wf-plot > i, .cs-wf-col.is-tot .cs-wf-plot > i { background: color-mix(in srgb, var(--ink) 74%, transparent); box-shadow: none; }
+.cs-wf-plot > span { position: absolute; left: 0; right: 0; padding-bottom: 4px; text-align: center; font: 400 12.5px/1.2 var(--num); font-variant-numeric: lining-nums tabular-nums; color: var(--ink); }
+.cs-wf-k { display: block; margin-top: 7px; font-size: 12px; line-height: 1.35; text-align: center; color: var(--ink-2); overflow-wrap: anywhere; }
+
+/* questions: one open at a time, set off by a rule, graph paper only where you scribble */
+.cs-q { min-width: 0; margin: 16px 0 12px; padding: 14px 0 4px; background: none; border: 0; border-top: 1px solid var(--hair-strong); border-radius: 0; }
+fieldset.cs-q { min-inline-size: 0; }
+.cs-q-p { display: block; margin: 0 0 10px; padding: 0; font: 400 16.5px/1.42 var(--serif); color: var(--ink); }
+legend.cs-q-p { float: left; width: 100%; }
+legend.cs-q-p + * { clear: both; }
+.cs-q-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin: 0 0 10px; }
+.cs-q-row input { width: 9.5em; max-width: 100%; min-height: var(--tap); padding: 0 14px; border: 1px solid var(--hair-strong); border-radius: var(--r-card, 6px);
+  background: var(--paper); color: var(--ink); font: 400 19px/1 var(--num); font-variant-numeric: lining-nums tabular-nums;
+  box-shadow: inset 0 1px 2px color-mix(in srgb, var(--ink) 8%, transparent); }
+.cs-q-row input:focus { border-color: var(--ink); }
+.cs-unit { font: var(--lbl-w) var(--lbl-xs)/1.2 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); }
+.cs-q-fb { margin: 0 0 8px; font-size: 14px; color: var(--ink); }
+.cs-q-hint { margin: 4px 0 8px; padding: 2px 0 2px 12px; border-left: 2px solid var(--hair-strong); font-size: 14px; line-height: 1.5; color: var(--ink); }
+.cs-q-hint .lk-k { margin: 0 0 3px; }
+.cs-pad { margin: 6px 0 0; }
+.cs-pad > summary { display: inline-flex; align-items: center; min-height: 32px; cursor: pointer; font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink-2); }
+@media (pointer: coarse) { .cs-pad > summary { min-height: var(--tap); } }
+.cs-pad textarea { display: block; width: 100%; min-height: 96px; margin-top: 6px; padding: 8px 10px; resize: vertical; border: 1px solid var(--hair-strong); border-radius: 4px;
+  background-color: var(--paper); color: var(--ink); font: 400 14px/16px var(--num);
+  background-image: linear-gradient(var(--cs-grid) 1px, transparent 1px), linear-gradient(90deg, var(--cs-grid) 1px, transparent 1px); background-size: 16px 16px; }
+.cs-q--done { margin: 10px 0 4px; padding: 10px 0 4px; border-top: var(--hair-w) solid var(--hair); }
+.cs-q--done .cs-q-p { margin-bottom: 4px; font-size: 14.5px; color: var(--ink-2); }
+.cs-q-res { margin: 0; font-size: 15px; color: var(--ink); }
+.cs-q-res .lk-num { font-size: 16px; }
+.cs-q-how { margin: 4px 0 0; font: italic 400 14px/1.5 var(--serif); color: var(--ink-2); }
+.cs-q--wait { border-top-style: dashed; }
+.cs-q--wait .cs-sub { margin: 0; }
+.cs-pick { display: flex; flex-wrap: wrap; gap: 8px; }
+.cs-pick .ebtn2 { padding: 8px 14px; line-height: 1.25; letter-spacing: .1em; }
+.cs-multi { display: grid; gap: 6px; margin: 0 0 4px; }
+.cs-check { display: flex; align-items: center; gap: 10px; min-height: var(--tap); padding: 4px 12px; border: 1px solid var(--hair); border-radius: var(--r-card, 6px); background: var(--paper); cursor: pointer; font-size: 15px; }
+.cs-check input { flex: none; width: 18px; height: 18px; margin: 0; accent-color: var(--ink); }
+.cs-check:has(input:checked) { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.cs-so { margin: 18px 0 4px; padding: 14px 0 0; border-top: 1px solid var(--hair-strong); }
+.cs-so > .lk-k { margin: 0 0 10px; }
+.cs-ex-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 16px 0 0; padding: 12px 0 0; border-top: var(--hair-w) solid var(--hair); }
+.cs-ex-foot .cs-sub { margin: 0; }
+.cs-flag { min-height: 36px; padding: 0 14px; border: 1px solid var(--hair-strong); border-radius: 18px; background: none; color: var(--ink); cursor: pointer;
+  font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; }
+@media (hover: hover) { .cs-flag:hover { border-color: var(--ink); } }
+@media (pointer: coarse) { .cs-flag { min-height: var(--tap); } }
+.cs-flag-r { margin: 16px 0 0; padding: 12px 0 0; border-top: var(--hair-w) solid var(--hair); font-size: 14px; color: var(--ink); }
+
+/* the request list: a ledger of what you could ask for, each with its price in minutes */
+.cs-reqs { margin: 22px 0 6px; }
+.cs-reqs > .lk-kicker { margin-bottom: 10px; }
+.cs .cs-reql { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--hair-strong); }
+.cs-reql > li { margin: 0; }
+.cs-req { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 2px 14px; width: 100%; min-height: var(--tap); padding: 12px 4px 12px 0;
+  border: 0; border-bottom: var(--hair-w) solid var(--hair); background: none; color: var(--ink); cursor: pointer; text-align: left; font: inherit;
+  transition: background-color var(--d-1) var(--ease-out), padding var(--d-2) var(--ease-out); }
+@media (hover: hover) { .cs-req:not(:disabled):hover { background: color-mix(in srgb, var(--ink) 3%, transparent); padding-left: 8px; } }
+.cs-req-t { grid-column: 1; font: 400 16.5px/1.3 var(--serif); }
+.cs-req-m { grid-column: 1; font-size: 12.5px; line-height: 1.4; color: var(--ink-2); }
+.cs-req-c { grid-column: 2; grid-row: 1 / span 2; align-self: center; font: var(--lbl-w) var(--lbl-xs)/1.2 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); text-align: right; }
+.cs-req.is-cur { box-shadow: inset 2px 0 0 var(--foil-line); padding-left: 12px; }
+.cs-req.is-cur .cs-req-c { color: var(--ink); }
+.cs-req:disabled { cursor: not-allowed; }
+.cs-req:disabled .cs-req-t { color: var(--ink-2); }
+.cs-recrow { margin-top: 18px; }
+
+.cs-cb { margin: 4px 0 18px; padding: 20px 20px 18px; border: 0; border-radius: var(--r-card, 6px); box-shadow: inset 0 3px 0 var(--accent), inset 0 0 0 1px var(--hair), var(--elev-2); }
+.cs-cb-t { margin: 0 0 14px; font: 400 clamp(18px, 2.8cqi, 21px)/1.4 var(--serif); color: var(--ink); }
+.cs-cb .cs-sub { margin: 4px 0 0; }
+
+/* ---------- the pyramid ---------- */
+.cs-pyr { margin: 0 0 20px; padding: clamp(16px, 3cqi, 24px); border-radius: var(--r-card, 6px); background: var(--card); box-shadow: inset 0 0 0 1px var(--hair), var(--elev-2); }
+.cs-pyr > figcaption { margin: 0 0 12px; }
+.cs-pyr-top { position: relative; padding: 13px 16px; text-align: center; border-radius: 4px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--ink);
+  font: 400 17px/1.4 var(--serif); color: var(--ink); }
+.cs-pyr-top::after { content: ""; position: absolute; left: 50%; bottom: -10px; width: 1px; height: 9px; background: var(--hair-strong); }
+.cs-pyr-top.is-empty, .cs-pyr-box.is-empty { background: transparent; box-shadow: none; outline: 1px dashed var(--hair-strong); outline-offset: -1px; }
+.cs .cs-pyr-row { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 19px 0 0; list-style: none; }
+.cs-pyr-row::before { content: ""; position: absolute; top: 9px; left: 16.6%; right: 16.6%; height: 1px; background: var(--hair-strong); }
+.cs-pyr-box { position: relative; min-width: 0; padding: 11px 12px; border-radius: 4px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--hair-strong);
+  font-size: 14px; line-height: 1.45; color: var(--ink); }
+.cs-pyr-box::before { content: ""; position: absolute; top: -11px; left: 50%; width: 1px; height: 10px; background: var(--hair-strong); }
+.cs-pyr-n { display: block; margin: 0 0 4px; font: 400 18px/1 var(--serif); color: var(--bronze); }
+.cs-pyr-mv { display: flex; gap: 14px; margin-top: 6px; }
+.cs-pyr-foot { display: grid; gap: 4px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--hair-strong); font-size: 14px; line-height: 1.45; }
+.cs-pyr-foot p { margin: 0; }
+.cs-pyr-foot .lk-k { display: inline; margin-right: 8px; }
+.cs-rec { min-inline-size: 0; margin: 0 0 18px; padding: 0; border: 0; }
+.cs-rec > legend { float: left; width: 100%; padding: 0; margin: 0 0 10px; }
+.cs-rec > legend + * { clear: both; }
+.cs-choice { display: flex; align-items: flex-start; gap: 10px; min-height: var(--tap); margin: 0 0 6px; padding: 10px 13px; border: 1px solid var(--hair); border-radius: var(--r-card, 6px);
+  background: var(--card); cursor: pointer; font-size: 15px; line-height: 1.45; color: var(--ink); transition: border-color var(--d-1) var(--ease-out), box-shadow var(--d-1) var(--ease-out); }
+.cs-choice input { flex: none; width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--ink); }
+.cs-choice:has(input:checked) { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.cs-choice:has(input:disabled) { border-style: dashed; background: transparent; color: var(--ink-2); cursor: not-allowed; }
+@media (hover: hover) { .cs-choice:not(:has(input:disabled)):hover { border-color: var(--hair-strong); } }
+
+/* ---------- scorecard: one sheet, the overall as a stat figure, a note under every score ---------- */
+.cs-said { margin: 4px 0 0; }
+.cs-script { margin: 8px 0 0; padding: 4px 0 4px 18px; border: 0; border-left: 2px solid var(--ink); font: italic 400 clamp(17px, 2.6cqi, 19px)/1.6 var(--serif); color: var(--ink); }
+.cs-work .lk-debrief, .cs-comm .lk-debrief { margin: 24px 0 0; padding: clamp(20px, 4cqi, 36px) clamp(16px, 4cqi, 38px) clamp(20px, 3.6cqi, 32px);
+  border: 0; border-radius: var(--r-card, 6px); background: var(--card); box-shadow: inset 0 0 0 1px var(--hair), var(--elev-2); }
+.cs .lk-debrief > .lk-title { font-size: clamp(30px, 5.6cqi, 46px); line-height: 1.04; letter-spacing: -.025em; }
+.cs .lk-debrief > .lk-title .lk-sub { margin-top: 10px; font-size: clamp(16px, 2.4cqi, 19px); line-height: 1.4; letter-spacing: 0; }
+.cs .lk-stats { gap: 18px 26px; margin: 22px 0 6px; padding: 18px 0 0; border-top: 1px solid var(--hair-strong); }
+.cs .lk-stat .lk-v { margin-top: 8px; font: 200 clamp(30px, 4.6cqi, 40px)/.9 var(--stat); letter-spacing: -.035em; font-variant-numeric: lining-nums tabular-nums; color: var(--ink); }
+.cs .lk-stat:first-child .lk-v { font-size: clamp(56px, 10cqi, 88px); }
+.cs .lk-stat .lk-v.lk-loss, .cs .lk-stat .lk-v.lk-gain { color: var(--ink); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.cs .lk-stat .lk-v.lk-loss { text-decoration-color: var(--loss); }
+.cs .lk-stat .lk-v.lk-gain { text-decoration-color: var(--gain); }
+.cs .cs-sc { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--hair-strong); }
+.cs-sc-row { display: grid; grid-template-columns: 10em auto 2.4em minmax(0, 1fr); align-items: center; gap: 4px 14px; padding: 13px 0; border-bottom: var(--hair-w) solid var(--hair); }
+.cs-sc-d { font: var(--lbl-w) var(--lbl-xs)/1.3 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink-2); }
+.cs-sc-v { font: 200 28px/1 var(--stat); letter-spacing: -.03em; font-variant-numeric: lining-nums tabular-nums; color: var(--ink); }
+.cs-sc-w { font: italic 400 15px/1.3 var(--serif); color: var(--ink-2); }
+.cs .cs-sc-n, .cs .cs-pool { grid-column: 1 / -1; margin: 4px 0 0; padding: 0; list-style: none; }
+.cs-sc-n > li, .cs-pool > li { position: relative; margin: 4px 0; padding-left: 22px; font-size: 14.5px; line-height: 1.5; color: var(--ink); }
+.cs-sc-n > li::before, .cs-pool > li::before { position: absolute; left: 0; top: 2px; width: 14px; height: 14px; border-radius: 50%; text-align: center;
+  font: 400 12px/14px var(--num); color: var(--ink); }
+.cs-sc-n > li.is-pos::before, .cs-pool > li.is-pos::before { content: "+"; box-shadow: inset 0 0 0 1.5px var(--gain); }
+.cs-sc-n > li.is-neg::before, .cs-pool > li.is-neg::before { content: "−"; box-shadow: inset 0 0 0 1.5px var(--loss); }
+.cs-path { position: relative; height: 42px; margin: 16px 0 4px; border-bottom: 1px solid var(--hair-strong);
+  background: linear-gradient(var(--hair), var(--hair)) 0 8px / 100% 1px no-repeat, linear-gradient(var(--hair), var(--hair)) 0 20px / 100% 1px no-repeat, linear-gradient(var(--hair), var(--hair)) 0 32px / 100% 1px no-repeat; }
+.cs-path-b { position: absolute; top: -4px; bottom: -4px; width: 1px; background: var(--ink); }
+.cs-pt { position: absolute; top: calc(4px + var(--lane, 0) * 12px); width: 8px; height: 8px; margin-left: -4px; background: var(--ink); }
+.cs-pt--math { width: 7px; height: 7px; border-radius: 50%; }
+.cs-pt--so, .cs-pt--flag, .cs-pt--curve { height: 3px; width: 11px; margin-left: -5px; margin-top: 2px; }
+.cs-pt.is-bad { background: var(--loss); }
+.cs-pt.is-root { outline: 2px solid var(--accent); outline-offset: 1px; }
+.cs-path-l { display: flex; justify-content: space-between; margin: 0 0 8px; font: var(--lbl-w) var(--lbl-xs)/1.3 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
+.cs-path-key { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0; font-size: 12.5px; color: var(--ink-2); }
+.cs-path-key > span { display: inline-flex; align-items: center; gap: 6px; }
+.cs-key { display: inline-block; width: 8px; height: 8px; background: var(--ink); }
+.cs-key--math { border-radius: 50%; }
+.cs-key--so { height: 3px; width: 11px; }
+.cs-key--bad { background: var(--loss); }
+.cs-key--root { background: var(--ink); outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* ---------- lunch: the partner's napkin ---------- */
+.cs-lunch .cs-top { margin-bottom: 14px; }
+.cs-lunch .lk-head { margin-bottom: 18px; }
+.cs .cs-lunch-h { font-size: clamp(30px, 5.6cqi, 46px); line-height: 1.04; letter-spacing: -.025em; }
+.cs-lunch .lk-line, .cs-lunch .cs-q { max-width: 64ch; }
+.cs-lm { margin: 22px 0 14px; padding: clamp(18px, 3.6cqi, 30px); border-radius: var(--r-card, 6px); background: var(--card); box-shadow: inset 0 0 0 1px var(--hair), var(--elev-2); }
+.cs-lm > .lk-kicker { margin-bottom: 14px; }
+.cs-lm-out.lk-strip { gap: 18px 24px; margin: 0 0 18px; padding: 0 0 18px; border: 0; border-bottom: 1px solid var(--hair-strong); }
+.cs-lm-out .lk-cell { padding: 0; border: 0; }
+.cs-lm-out .lk-v { margin-top: 10px; font: 200 clamp(30px, 5cqi, 44px)/.92 var(--stat); letter-spacing: -.035em; color: var(--ink); }
+.cs-partner { margin: 0 0 18px; font: italic 400 17px/1.5 var(--serif); color: var(--ink); }
+.cs-partner .lk-chip { font-style: normal; }
+.cs-close { margin-top: 20px; }
+.cs-lunch .lk-line { color: var(--ink); }
+.cs-lunch .cs-line--int { font-family: var(--serif); font-style: italic; font-size: 16.5px; }
+@container (max-width: 560px) { .cs-lm-out.lk-strip { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- narrow machines: everything stacks, the transcript keeps its last four lines and only its newest field note ---------- */
+@container (max-width: 560px) {
+  .cs-talk:not(.is-open) .cs-log { height: auto; overflow: visible; -webkit-mask-image: none; mask-image: none; }
+  .cs-talk:not(.is-open) .cs-log > :not(:nth-last-child(-n+4)) { display: none; }
+  .cs-talk:not(.is-open) .cs-log > .cs-line--note:not(:last-child) { display: none; }
+  .cs-talk.is-open .cs-log { height: 60vh; }
+  .cs-more { display: inline-flex; }
+  .cs-steps li { font-size: 0; letter-spacing: 0; padding-top: 0; }
+  .cs-steps-s { display: block; }
+  .cs-clock { grid-template-columns: minmax(0, 1fr); }
+  .cs .cs-pyr-row { grid-template-columns: minmax(0, 1fr); padding: 12px 0 0 12px; border-left: 1px solid var(--hair-strong); margin-left: 6px; }
+  .cs-pyr-row::before, .cs-pyr-box::before { display: none; }
+  .cs-pyr-top::after { display: none; }
+  .cs-sc-row { grid-template-columns: minmax(0, 1fr) auto 2.4em; }
+  .cs-sc-w { grid-column: 1 / -1; }
+}
+@container (max-width: 480px) {
+  .cs-cards { grid-template-columns: minmax(0, 1fr); }
+  .cs .cs-tree-b { grid-template-columns: minmax(0, 1fr); padding: 12px 0 0 12px; margin-left: 6px; border-left: 1px solid var(--hair-strong); }
+  .cs-tree-b::before, .cs-tree-b > li::before, .cs-tree-q::after { display: none; }
+  .cs-bar { grid-template-columns: minmax(0, 1fr) auto; }
+  .cs-bar-k { grid-column: 1 / -1; }
+  .cs-wf-plot { height: 128px; }
+  .cs-wf-plot > span { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-folder, .cs-card, .cs-req, .cs-chipq, .cs-choice { transition: none; }
+}

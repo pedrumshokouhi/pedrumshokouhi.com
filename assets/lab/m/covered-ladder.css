@@ -1,0 +1,38 @@
+/* P.S. Lab, No. 39: The covered ladder. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.rl-bmenu { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin: 0 0 12px; }
+@media (max-width: 680px) {
+  .rl-bmenu { grid-template-columns: repeat(3, 1fr); }
+}
+.rl-bmenu .rl-cell { background: transparent; font-family: inherit; cursor: pointer; width: 100%; }
+@media (hover: hover) {
+  .rl-bmenu .rl-cell:hover { border-color: var(--ink); }
+}
+#glWheel { background: none !important; border: 0; cursor: grab; touch-action: pan-y; }
+#glWheel:active { cursor: grabbing; }
+@media (min-width: 720px) {
+  .exp[data-m="covered-ladder"] :where(.lm-root) > .readout:not(.readout--inline) { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  #glSimWrap .readout:not(.readout--inline) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  #glSimWrap .readout .v { font-size: 22px; }
+}
+.gl-histcap { margin-top: 18px; }
+#glTruth b { font-weight: 400; color: var(--ink); font-variant-numeric: lining-nums; }
+@media (max-width: 620px) {
+  .btnrow > #glGo { grid-column: 1 / -1; }
+  .exp[data-m="covered-ladder"] .rl-mode { display: flex; }
+  .exp[data-m="covered-ladder"] .rl-seg { flex: 1; }
+  #glBMenu { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 42%; overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: -18px; padding: 0 18px 2px; scroll-padding-inline: 18px; }
+  #glBMenu::-webkit-scrollbar { display: none; }
+  #glBMenu .rl-cell { scroll-snap-align: start; }
+}
+.exp[data-m="covered-ladder"] .rl-top { padding-block: 30px 28px; align-items: center;
+  background-image: var(--grain-5),
+  radial-gradient(46% 70% at 27% 46%, color-mix(in srgb, var(--g-pool) 76%, #E2B07E) 0%, var(--g-pool) 30%, var(--g-bg) 64%,
+  color-mix(in srgb, var(--g-bg) 50%, #000) 100%); }
+.exp[data-m="covered-ladder"] .rl-top > * { position: relative; }
+@media (max-width: 720px) {
+  .exp[data-m="covered-ladder"] .rl-top { background-image: var(--grain-5),
+    radial-gradient(80% 40% at 50% 26%, color-mix(in srgb, var(--g-pool) 76%, #E2B07E) 0%, var(--g-pool) 36%, var(--g-bg) 72%, color-mix(in srgb, var(--g-bg) 50%, #000) 100%); }
+}

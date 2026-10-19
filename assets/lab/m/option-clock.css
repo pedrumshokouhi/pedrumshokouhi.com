@@ -1,0 +1,39 @@
+/* P.S. Lab, No. 25: The option clock. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.oc-head, .oc-foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px 14px;
+  font: 600 var(--lbl-xs)/1.35 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--dim);
+  font-variant-numeric: lining-nums tabular-nums; }
+.oc-head { margin-bottom: 10px; }
+.oc-head #ocDays { color: var(--ink); }
+.oc-meter { position: relative; margin-bottom: 30px; }
+.oc-track { position: relative; height: 30px; overflow: hidden; background: var(--paper); border: 1px solid var(--hair); border-radius: var(--r-paper); }
+#ocInt, #ocTime { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; transform-origin: left; transition: transform .35s var(--ease-out); }
+#ocInt { background: var(--accent); transform: scaleX(0); }
+#ocTime { background: color-mix(in srgb, var(--ink) 30%, transparent); }
+.oc-paid { position: absolute; top: -4px; height: 38px; width: 1px; margin-left: -.5px; background: var(--ink); pointer-events: none; }
+.oc-paid-cap { position: absolute; top: calc(100% + 9px); translate: -50% 0; white-space: nowrap;
+  font: 600 var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
+.oc-pips { display: grid; grid-template-columns: repeat(30, minmax(0, 1fr)); gap: 3px; margin: 0 0 14px; perspective: 120px; }
+.oc-pips i { height: 8px; border-radius: 1px; background: var(--ink); opacity: .72; transform-origin: 50% 0; }
+.oc-pips i.spent { opacity: .12; }
+@media (prefers-reduced-motion: no-preference) {
+  .oc-pips i.spent { animation: ocFlip .5s var(--ease-out); }
+}
+.oc-drip { position: absolute; top: 31px; width: 3px; height: 5px; margin-left: -1.5px; border-radius: 0 0 2px 2px; pointer-events: none;
+  background: color-mix(in srgb, var(--ink) 30%, transparent); animation: ocDrip .7s var(--ease-in) forwards; }
+.oc-lg > span { white-space: nowrap; }
+.oc-dot { margin: 0 .5em; }
+@media (max-width: 480px) {
+  .oc-dot { display: none; }
+  .oc-lg { display: flex; flex-wrap: wrap; column-gap: 14px; }
+}
+.oc-sw { display: inline-block; width: 8px; height: 8px; margin-right: 7px; border-radius: 1px; vertical-align: 0; }
+.oc-sw.i { background: var(--accent); }
+.oc-sw.t { background: color-mix(in srgb, var(--ink) 30%, transparent); }
+.oc-card.lx-bench { border: 0; border-radius: 0; padding-block: 24px 20px; }
+.lx-bench .oc-track { height: 40px; border: 0; border-radius: 5px; background: var(--paper);
+  box-shadow: inset 0 1px 3px color-mix(in srgb, var(--ink) 18%, transparent), 0 0 0 1px var(--hair); }
+.lx-bench #ocTime { background: linear-gradient(to bottom, color-mix(in srgb, var(--ink) 34%, var(--paper)), color-mix(in srgb, var(--ink) 46%, var(--paper))); }
+.lx-bench #ocInt { background: linear-gradient(to bottom, color-mix(in srgb, var(--accent) 80%, #fff), var(--accent)); }
+.lx-bench .oc-paid { top: -6px; height: 52px; width: 2px; margin-left: -1px; }
+.lx-bench .oc-pips i { height: 12px; border-radius: 2px; opacity: .8; }
+.lx-bench .oc-pips i.spent { opacity: .12; }

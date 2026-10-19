@@ -1,0 +1,30 @@
+/* P.S. Lab, No. 30: The trust machine. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.tm-row { display: grid; grid-template-columns: 30px minmax(0, 1fr) 56px; align-items: center; gap: 14px; }
+.tm-row .k { font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink-2); }
+.tm-row .v { justify-self: end; font: 300 28px/1 var(--num); letter-spacing: -.02em; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
+.tm-row .v.up { color: var(--foil-text); }
+.tm-cells { display: grid; grid-template-columns: repeat(10, minmax(0, 26px)); gap: 5px; perspective: 260px; }
+.tm-cells i { position: relative; aspect-ratio: 1; border-radius: var(--r-paper); box-shadow: inset 0 0 0 1px var(--hair);
+  transition: box-shadow var(--d-2) var(--ease-out); }
+.tm-cells i.c { background: var(--accent); box-shadow: none; }
+.tm-cells i.b { box-shadow: inset 0 0 0 1.5px var(--ink);
+  background: linear-gradient(to top right, transparent calc(50% - .75px), var(--ink) calc(50% - .75px) calc(50% + .75px), transparent calc(50% + .75px)); }
+.tm-cells i.c::after, .tm-cells i.b::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px;
+  background: color-mix(in srgb, var(--card) 72%, transparent); }
+.tm-row .v { display: inline-block; }
+@media (prefers-reduced-motion: no-preference) {
+  .tm-cells i.c, .tm-cells i.b { transform-origin: 50% 0; animation: tmFlap 560ms var(--ease-out) both; }
+  #tmRowIt i.c, #tmRowIt i.b { animation-delay: 160ms; }
+  .tm-row .v.flap { animation: tmFlap 420ms var(--ease-out); }
+}
+.tm-ledger.lx-bench { max-width: none; margin: 6px calc(-1 * var(--xpad)) 4px; padding: 22px var(--xpad); border: 0; gap: 14px;
+  box-shadow: inset 0 1px 0 var(--hair), inset 0 -1px 0 var(--hair), inset 0 14px 18px -18px color-mix(in srgb, var(--sh) 60%, transparent); }
+.lx-bench .tm-row { max-width: 560px; grid-template-columns: 34px minmax(0, 1fr) 60px; }
+.lx-bench .tm-cells { grid-template-columns: repeat(10, minmax(0, 34px)); gap: 6px; }
+.lx-bench .tm-cells i.next { box-shadow: inset 0 0 0 1.5px var(--ink); }
+.lx-bench .tm-cells i.c { background: linear-gradient(to bottom, color-mix(in srgb, var(--accent) 80%, #fff), var(--accent)); box-shadow: 0 2px 4px -1px color-mix(in srgb, var(--accent) 50%, transparent); }
+.lx-bench .tm-cells i.b { background-color: var(--card); }
+.lx-bench .tm-row .v { font-size: 34px; }
+.lx-bench .tm-cells i.b { box-shadow: inset 0 0 0 1.5px var(--ink);
+  background: linear-gradient(to top right, transparent calc(50% - .9px), var(--ink) calc(50% - .9px) calc(50% + .9px), transparent calc(50% + .9px)) var(--sheet); }
+.tm-row .v.up { color: var(--ink); text-decoration: underline 2px var(--accent); text-underline-offset: .16em; text-decoration-skip-ink: none; }

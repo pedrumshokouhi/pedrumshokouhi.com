@@ -1,0 +1,10 @@
+/* P.S. Lab, No. 17: The honest coin. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.exp .readout > .hc-go { grid-column: 1 / -1; order: -1; display: flex; align-items: center; gap: 16px; }
+.hc-coin { width: 44px; height: 44px; perspective: 300px; }
+.hc-coin .gc-spin { transition-duration: .34s; }
+.hc-coin .gc-spin i { font-size: 15px; }
+.exp[data-m="honest-coin"] .hc-coin { width: 52px; height: 52px; }
+.exp[data-m="honest-coin"] .hc-coin .gc-spin .h { color: #2B1A06; background: radial-gradient(circle at 34% 28%, #FFF1C9 0%, #E2B866 32%, #B98A35 64%, #7E5A1F 100%);
+  box-shadow: inset 0 0 0 3px color-mix(in srgb, #F6DFA0 60%, transparent), inset 0 -3px 7px color-mix(in srgb, #4A3210 40%, transparent), 0 4px 10px -4px color-mix(in srgb, #000 45%, transparent); }
+.exp[data-m="honest-coin"] .hc-coin .gc-spin .t { color: #1C1A17; background: radial-gradient(circle at 34% 28%, #FFFFFF 0%, #D9D6CE 30%, #A9A49A 64%, #6E6A62 100%);
+  box-shadow: inset 0 0 0 3px color-mix(in srgb, #F2F0EA 60%, transparent), inset 0 -3px 7px color-mix(in srgb, #3A3832 40%, transparent), 0 4px 10px -4px color-mix(in srgb, #000 45%, transparent); }

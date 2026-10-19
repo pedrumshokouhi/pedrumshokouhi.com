@@ -1,0 +1,15 @@
+/* P.S. Lab, No. 31: The birthday party. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+@media (max-width: 600px) {
+  .exp canvas.bd-ring { height: 270px; }
+}
+.lx-year { --card: var(--m-top); margin-top: 18px; }
+.exp .lx-year canvas.bd-ring { margin-top: 0;
+  background: radial-gradient(circle at 50% 50%, var(--m-top) 0, var(--m-top) 70px, color-mix(in srgb, var(--m-top) 70%, var(--m-plaster)) 108px,
+  var(--m-plaster) 117px, color-mix(in srgb, var(--m-plaster) 80%, var(--ink)) 120px, transparent 121px),
+  radial-gradient(circle at 50% calc(50% + 12px), color-mix(in srgb, var(--sh) 16%, transparent) 0, color-mix(in srgb, var(--sh) 10%, transparent) 112px, transparent 134px); }
+@media (max-width: 600px) {
+  .exp .lx-year canvas.bd-ring {
+    background: radial-gradient(circle at 50% 50%, var(--m-top) 0, var(--m-top) 60px, color-mix(in srgb, var(--m-top) 70%, var(--m-plaster)) 93px,
+    var(--m-plaster) 102px, color-mix(in srgb, var(--m-plaster) 80%, var(--ink)) 105px, transparent 106px),
+    radial-gradient(circle at 50% calc(50% + 10px), color-mix(in srgb, var(--sh) 16%, transparent) 0, color-mix(in srgb, var(--sh) 10%, transparent) 98px, transparent 118px); }
+}

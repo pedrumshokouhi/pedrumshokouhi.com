@@ -1,0 +1,53 @@
+/* P.S. Lab, No. 35: Fourth down. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.fd-text { margin-bottom: 14px; font: 400 21px/1.35 var(--serif); letter-spacing: -.01em; color: var(--ink); text-wrap: pretty; }
+.fd-field { position: relative; height: 34px; margin: 6px 0 16px; overflow: hidden; border: 1px solid var(--hair); border-radius: var(--r-paper);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--ink) 7%, transparent) 0 8.3333%, transparent 8.3333% 91.6667%,
+  color-mix(in srgb, var(--ink) 7%, transparent) 91.6667%); }
+.fd-field::before { content: ""; position: absolute; left: 8.3333%; right: 8.3333%; top: 0; bottom: 0; pointer-events: none;
+  border-right: 1px solid var(--hair-strong);
+  background-image: linear-gradient(90deg, var(--hair) 1px, transparent 1px),
+  linear-gradient(90deg, transparent calc(50% - .5px), var(--hair-strong) calc(50% - .5px) calc(50% + .5px), transparent calc(50% + .5px));
+  background-size: 10% 100%, 100% 100%; background-repeat: repeat-x, no-repeat; }
+.fd-field i { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; pointer-events: none;
+  transition: transform var(--d-4) var(--ease-out); }
+.fd-togo { transform-origin: left; transform: translateX(calc(var(--b, .46) * 100%)) scaleX(calc(var(--g, .47) - var(--b, .46)));
+  background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.fd-gain { transform: translateX(calc(var(--g, .47) * 100%)); }
+.fd-chain { position: relative; height: 30px; margin: 2px 0 0; }
+.fd-chain i { position: absolute; top: 18px; height: 12px; left: calc((var(--g, .47) - .08333) * 100%); width: 8.3333%;
+  border-left: 1.5px solid var(--ink); border-right: 1.5px solid var(--ink); transition: left var(--d-4) var(--ease-out); }
+.fd-chain i::before { content: ""; position: absolute; left: 0; right: 0; top: 5px; height: 2px;
+  background: radial-gradient(circle, var(--ink-2) .9px, transparent 1.3px) 0 50% / 5px 2px repeat-x; }
+.fd-chain::after { content: "4"; position: absolute; top: 0; left: calc(var(--b, .46) * 100%); translate: -50% 0; min-width: 15px; padding: 3px 3px 2px;
+  text-align: center; font: var(--lbl-w) 10px/1 var(--sans); color: var(--card); background: var(--ink); border-radius: 1px;
+  transition: left var(--d-4) var(--ease-out); }
+.fd-q.hop .fd-chain::after, .fd-q.hop .fd-field i { transition-duration: 220ms; }
+.fd-call { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.fd-call path { fill: none; stroke: var(--ink-2); stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; opacity: 0; }
+.fd-call.on path { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .fd-call.on { animation: fdDraw 700ms var(--ease-out); }
+}
+.fd-yards { position: relative; height: 10px; margin: -10px 0 18px; font: var(--lbl-w) 10px/1 var(--sans); letter-spacing: .04em; color: var(--ink-2);
+  font-variant-numeric: lining-nums tabular-nums; }
+.fd-yards span { position: absolute; top: 0; left: calc(var(--x) / 120 * 100%); translate: -50% 0; }
+.fd-gain::before { content: ""; position: absolute; left: -1px; top: 0; bottom: 0; width: 2px; background: var(--accent); }
+.fd-ball { transform: translateX(calc(var(--b, .46) * 100%)); }
+.fd-ball::before { content: ""; position: absolute; left: -6px; top: 50%; width: 12px; height: 8px; margin-top: -4px; border-radius: 50%;
+  background: var(--ink); box-shadow: 0 0 0 2px var(--card); }
+@media (hover: hover) {
+  .exp .lx-table #fdChoices .q-opt:not([disabled]):hover { box-shadow: var(--elev-2), 0 0 0 1px var(--ink); }
+}
+.lx-table #fdChoices .q-opt--mine { box-shadow: var(--elev-1), 0 0 0 1.5px var(--ink); }
+.lx-table #fdChoices .q-opt--right { box-shadow: var(--elev-1), 0 0 0 2px var(--accent); }
+.lx-table .fd-field { height: 48px; border: 0; border-radius: 3px;
+  background: linear-gradient(90deg, #2C4A22 0 8.3333%, transparent 8.3333% 91.6667%, #2C4A22 91.6667%),
+  repeating-linear-gradient(90deg, #3E6630 0 4.1667%, #46713A 4.1667% 8.3333%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, #000 30%, transparent), 0 8px 16px -10px color-mix(in srgb, var(--sh) 50%, transparent); }
+.lx-table .fd-field::before { border-right-color: color-mix(in srgb, #fff 70%, transparent);
+  background-image: linear-gradient(90deg, color-mix(in srgb, #fff 42%, transparent) 1.5px, transparent 1.5px),
+  linear-gradient(90deg, transparent calc(50% - 1px), color-mix(in srgb, #fff 80%, transparent) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)); }
+.lx-table .fd-togo { background: color-mix(in srgb, var(--accent) 34%, transparent); }
+.lx-table .fd-ball::before { background: #6B3D1E; box-shadow: 0 0 0 1.5px color-mix(in srgb, #fff 80%, transparent); }
+.lx-table .fd-call path { stroke: #FFFFFF; stroke-width: 1.6; }
+.lx-table .fd-yards { margin-top: -6px; font-size: 11px; }

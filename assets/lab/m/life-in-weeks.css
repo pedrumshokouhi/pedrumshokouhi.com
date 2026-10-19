@@ -1,0 +1,17 @@
+/* P.S. Lab, No. 01: Your life in weeks. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.lw-now { position: absolute; left: 0; top: 0; width: 5px; height: 5px; border-radius: 1px; background: var(--accent); pointer-events: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .lw-now { animation: lwPulse 1.4s var(--ease-io) infinite; }
+  .exp:not(.on-screen) .lw-now { animation-play-state: paused; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lw-now { box-shadow: 0 0 0 2px var(--card), 0 0 0 3px var(--accent); }
+}
+.lw-hov { position: absolute; left: 0; top: 0; pointer-events: none; opacity: 0; box-shadow: 0 0 0 1.5px var(--ink); border-radius: 1px; }
+.lw-tip { position: absolute; left: 0; top: 0; pointer-events: none; opacity: 0; white-space: nowrap; padding: 7px 10px 6px;
+  background: var(--paper); border: 1px solid var(--hair-strong); border-radius: var(--r-paper); box-shadow: var(--elev-1);
+  font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink);
+  font-variant-numeric: lining-nums tabular-nums; transition: opacity var(--d-1) var(--ease-out); }
+.lw-stage.tip :is(.lw-tip, .lw-hov) { opacity: 1; }
+#lwC { cursor: crosshair; }
+.lx-bench .lw-tip { background: var(--sheet); }

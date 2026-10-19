@@ -1,0 +1,105 @@
+/* P.S. 3D explorer.css v2: the isometric explorer. Lit paper, one label layer, one foil leader. */
+.iso { margin: 0; display: grid; gap: 20px; }
+.iso-stage {
+  position: relative; height: var(--iso-h, 440px); min-height: 260px; touch-action: pan-y; overflow: hidden;
+  border-radius: var(--r-paper, 2px); outline-offset: 6px; cursor: grab; -webkit-tap-highlight-color: transparent;
+  user-select: none; -webkit-user-select: none;
+}
+.iso-stage:focus-visible { outline: 2px solid var(--focus, #FF4D00); outline-offset: 6px; }
+.iso-stage.is-active { cursor: grabbing; }
+.iso-stage > .ps3d-poster { position: absolute; inset: 0; width: 100%; height: 100%; }
+.iso-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+.iso-leaders { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.iso-leaders line { stroke: var(--ink-2); stroke-width: 1; vector-effect: non-scaling-stroke; transition: opacity var(--d-1, 160ms) var(--ease-out); }
+.iso-leaders line.is-sel { stroke: var(--foil-line); }
+.iso-pins { position: absolute; inset: 0; pointer-events: none; }
+.iso-pin, .iso-label { position: absolute; left: 0; top: 0; will-change: transform; }
+.iso-pin {
+  width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; display: grid; place-items: center; pointer-events: auto; cursor: pointer;
+  background: var(--card); border: 1px solid var(--hair-strong); color: var(--ink);
+  font: 500 11px/1 var(--num, var(--sans)); font-variant-numeric: lining-nums tabular-nums;
+  transition: opacity var(--d-2, 320ms) var(--ease-out), border-color var(--d-1, 160ms) var(--ease-out);
+}
+.iso-pin.is-occ { border-color: var(--hair); background: color-mix(in srgb, var(--card) 60%, transparent); color: var(--ink-2); }
+.iso-pin.is-on { border-color: var(--foil-line); }
+.iso-label {
+  white-space: nowrap; translate: -50% -100%; margin-top: -6px; color: var(--ink-2);
+  font: 500 11px/1 var(--sans); letter-spacing: .08em; text-transform: uppercase;
+  text-shadow: 0 0 3px var(--paper), 0 0 6px var(--paper);   /* a knockout where a label crosses the drawing */
+}
+/* on a dark stage a label sits on a pill of the stage's own light, with a hair */
+.iso-stage.is-dark .iso-label {
+  padding: 4px 8px; border-radius: var(--r-pill, 999px); text-shadow: none; color: var(--on-dark-2, #CBC7BA);
+  background: color-mix(in srgb, var(--dark) 92%, var(--on-dark)); box-shadow: 0 0 0 1px var(--hair-on-dark);
+}
+/* labels: [{part, at, text, align}] ride with their part; 'start' reads rightward from the anchor, 'end' leftward */
+.iso-label.is-start { translate: 0 -50%; margin: 0 0 0 10px; }
+.iso-label.is-end { translate: -100% -50%; margin: 0 0 0 -10px; }
+.iso-card {
+  position: absolute; left: 16px; top: 16px; max-width: 260px; padding: 14px 16px; pointer-events: none;
+  background: var(--card); border: 1px solid var(--hair-strong); border-radius: var(--r-paper, 2px); box-shadow: var(--elev-1);
+  opacity: 0; translate: 0 6px;
+  transition: opacity var(--d-1, 160ms) var(--ease-in, cubic-bezier(.7,0,.84,0)), translate var(--d-1, 160ms) var(--ease-in, cubic-bezier(.7,0,.84,0));
+}
+.iso-card.on { opacity: 1; translate: 0 0; transition-duration: var(--d-2, 320ms); transition-timing-function: var(--ease-out); }
+.iso-card .tag { display: block; font-size: 11px; color: var(--ink-2); }
+.iso-fig { display: block; margin: 6px 0 4px; font: 400 var(--fs-fig, 28px)/1.1 var(--serif); font-variant-numeric: lining-nums tabular-nums; color: var(--ink); }
+.iso-why { margin: 0; font: 400 var(--fs-cap, 13px)/1.45 var(--sans); color: var(--ink-2); max-width: 38ch; }
+.iso-card.is-sheet {
+  left: 8px !important; right: 8px; top: auto !important; bottom: 8px; max-width: none; border-radius: var(--r-glass, 18px);
+  background: var(--glass, var(--card)); -webkit-backdrop-filter: var(--glass-fx, none); backdrop-filter: var(--glass-fx, none);
+  border-color: var(--hair); box-shadow: 0 0 0 1px var(--hair), var(--elev-1);
+}
+.iso-card.is-sheet.is-top { top: 8px !important; bottom: auto; }
+.iso-keys {
+  position: absolute; left: 12px; bottom: 10px; margin: 0; opacity: 0; pointer-events: none;
+  font: 500 11px/1.3 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2);
+  transition: opacity var(--d-1, 160ms) var(--ease-out);
+}
+.iso-stage:focus-visible .iso-keys { opacity: 1; }
+.iso figcaption { display: grid; gap: 14px; align-content: start; font: 400 var(--fs-cap, 13px)/1.45 var(--sans); color: var(--ink-2); }
+.iso-parts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.iso-parts button {
+  display: inline-flex; align-items: baseline; gap: 6px; min-height: 32px; padding: 6px 12px; cursor: pointer;
+  background: transparent; color: var(--ink-2); border: 1px solid var(--hair); border-radius: var(--r-pill, 999px);
+  font: 400 13px/1.2 var(--sans); text-align: left;
+  transition: color var(--d-1, 160ms) var(--ease-out), border-color var(--d-1, 160ms) var(--ease-out);
+}
+.iso-parts .n, .iso-parts .v { font-family: var(--num, var(--sans)); font-variant-numeric: lining-nums tabular-nums; }
+.iso-parts .n { color: var(--ink-2); font-size: 11px; }
+.iso-parts .v { color: var(--ink); }
+.iso-parts .v:empty { display: none; }
+.iso-parts button:hover, .iso-parts button.is-on { color: var(--ink); border-color: var(--hair-strong); }
+.iso-parts button[aria-pressed="true"] { border-color: var(--foil-line); }
+.iso-ctl, .iso-step-nav { display: flex; flex-wrap: wrap; gap: 10px; }
+.iso-ctl .ps-cap, .iso-step-nav .ps-cap { min-height: 44px; padding: 0 18px; }
+.iso-step-nav .ps-cap:disabled { opacity: .4; cursor: default; }
+.iso-steps { display: grid; gap: 6px; }
+.iso-steps p { margin: 0; }
+.iso-step-k { font: 500 11px/1.3 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
+.iso-step-t { font: 400 22px/1.25 var(--serif); color: var(--ink); }
+.iso-step-x { font: 400 15px/1.5 var(--serif); color: var(--ink-2); max-width: 46ch; }
+.iso-steps.is-in .iso-step-t, .iso-steps.is-in .iso-step-x { animation: isoIn var(--d-2, 320ms) var(--ease-io, ease) both; }
+@keyframes isoIn { from { opacity: 0; translate: 0 12px; } }
+@media (min-width: 1000px) {
+  .iso.iso--side, .iso:has(> figcaption .iso-parts) { grid-template-columns: minmax(0, 1fr) 300px; align-items: start; gap: 32px; }
+  .iso:has(> figcaption .iso-parts) .iso-parts { display: grid; gap: 0; counter-reset: none; }
+  .iso:has(> figcaption .iso-parts) .iso-parts button {
+    width: 100%; min-height: 40px; padding: 10px 0; border: 0; border-bottom: 1px solid var(--hair); border-radius: 0;
+    display: grid; grid-template-columns: 24px 1fr auto; gap: 8px;
+  }
+  .iso:has(> figcaption .iso-parts) .iso-parts li:first-child button { border-top: 1px solid var(--hair); }
+  .iso:has(> figcaption .iso-parts) .iso-parts button[aria-pressed="true"] { border-bottom-color: var(--foil-line); }
+}
+@media (max-width: 999px) { .iso-parts { max-height: 84px; overflow: auto; } }
+@media (max-width: 599px) { .iso-stage { height: min(var(--iso-h, 440px), 92vw + 40px); } }
+:root[data-tone="dark"] .iso-pin, .band--dark .iso-pin { background: var(--card); }
+.band--dark .iso-card { background: var(--dark-2); color: var(--on-dark); border-color: var(--hair-on-dark); }
+@media (prefers-reduced-motion: reduce) {
+  .iso-card, .iso-card.on { translate: none; transition-duration: 160ms; }
+  .iso-steps.is-in .iso-step-t, .iso-steps.is-in .iso-step-x { animation: none; }
+}
+/* the shared label layer's leaders */
+.iso-pins > .ps3d-leaders { color: var(--ink-2); }
+.iso-stage.is-dark .iso-pins > .ps3d-leaders { color: var(--on-dark-2, #CBC7BA); }
+@media print { .iso-stage canvas, .iso-pins, .iso-leaders, .iso-card, .iso-keys { display: none !important; } .iso-stage > .ps3d-poster { opacity: 1 !important; visibility: visible !important; } }

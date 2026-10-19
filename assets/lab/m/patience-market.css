@@ -1,0 +1,7 @@
+/* P.S. Lab, No. 18: The patience market. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.lx-term { padding-block: 18px; }
+.lx-term::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(color-mix(in srgb, var(--on-dark) 5%, transparent) 1px, transparent 1px),
+  linear-gradient(90deg, color-mix(in srgb, var(--on-dark) 5%, transparent) 1px, transparent 1px);
+  background-size: 100% 38px, 64px 100%; background-position: 0 18px, var(--xpad) 0; }
+.lx-term > canvas { position: relative; }

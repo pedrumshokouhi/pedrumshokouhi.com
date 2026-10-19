@@ -1,0 +1,216 @@
+/* P.S. Lab, No. 02: The three doors. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.mh-doors { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 2vw, 18px);
+  max-width: 540px; margin: 8px auto 18px; perspective: 900px; }
+.mh-door { position: relative; aspect-ratio: 2 / 2.9; padding: 0; cursor: pointer; background: var(--card); perspective: 1300px;
+  border: 1.5px solid var(--ink); border-radius: 3px 3px 1px 1px;
+  box-shadow: inset 0 0 0 6px var(--card), inset 0 0 0 7px var(--hair-strong);
+  transition: transform var(--d-2) var(--ease-out), border-color var(--d-2) var(--ease-out),
+  box-shadow var(--d-2) var(--ease-out), opacity var(--d-3) var(--ease-out), scale var(--d-1) var(--spring); }
+@media (hover: hover) {
+  .mh-door:hover:not([disabled]) { transform: translateY(-3px);
+    box-shadow: inset 0 0 0 6px var(--card), inset 0 0 0 7px var(--hair-strong), var(--elev-1); }
+}
+.mh-door:focus-visible:not([disabled]) { transform: translateY(-3px); }
+.mh-door:active:not([disabled]) { scale: .98; }
+.mh-door.picked { border-color: var(--accent);
+  box-shadow: inset 0 0 0 6px var(--card), inset 0 0 0 7px color-mix(in srgb, var(--accent) 45%, transparent),
+  0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent); }
+.mh-door.dim { opacity: .5; }
+.mh-door[disabled] { cursor: default; }
+.mh-face { position: absolute; inset: 0; display: flex; align-items: flex-start; justify-content: center; padding-top: 22%;
+  background: var(--card); border-radius: 2px 2px 0 0; box-shadow: inset 0 0 0 6px var(--card), inset 0 0 0 7px var(--hair-strong);
+  transform-origin: left center; z-index: 1;
+  transition: transform 560ms var(--ease-out), box-shadow var(--d-2) var(--ease-out), background-color 560ms var(--ease-out); }
+.mh-door.picked .mh-face { box-shadow: inset 0 0 0 6px var(--card), inset 0 0 0 7px color-mix(in srgb, var(--accent) 45%, transparent); }
+.mh-face::after { content: ""; position: absolute; right: 13%; top: 52%; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--ink); transition: background-color var(--d-2) var(--ease-out); }
+.mh-door.picked .mh-face::after { background: var(--accent); }
+.mh-num { font: 400 clamp(36px, 6vw, 56px)/1 var(--serif); letter-spacing: -.02em; color: var(--ink); font-variant-numeric: lining-nums; }
+.mh-behind { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  font: 600 var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--dim); }
+.mh-behind b { font: 400 clamp(26px, 4.6vw, 40px)/1 var(--serif); letter-spacing: -.02em; text-transform: none; color: var(--ink);
+  font-variant-numeric: lining-nums; }
+.mh-behind.win b { color: var(--foil-text); }
+.mh-behind.lose b { color: var(--dim); font-weight: 400; }
+.mh-door.open .mh-face { transform: rotateY(-100deg); pointer-events: none; background: color-mix(in srgb, var(--ink) 7%, var(--card)); }
+.mh-door.open .mh-face > * { visibility: hidden; }
+.mh-behind::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background: linear-gradient(100deg, color-mix(in srgb, var(--ink) 20%, transparent), transparent 46%);
+  clip-path: polygon(0 0, 46% 100%, 0 100%); transition: opacity 560ms var(--ease-out); }
+.mh-door.open .mh-behind::before { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .mh-door.open .mh-behind { animation: labIn var(--d-3) var(--ease-out) .12s backwards; }
+}
+.mh-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+.mh-score { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 560px; margin: 0 auto; }
+.mh-bars { max-width: 560px; margin: 18px auto 0; }
+.mh-bar { position: relative; height: 38px; margin-top: 8px; overflow: hidden; background: var(--card);
+  border: 1px solid var(--hair); border-radius: var(--r-paper); }
+.mh-fill { position: absolute; inset: 0; transform-origin: left; transform: scaleX(0); transition: transform 1.1s var(--ease-out); }
+.mh-fill.stay { background: color-mix(in srgb, var(--ink) 22%, transparent); }
+.mh-fill.sw { background: var(--accent); }
+.mh-bl { position: relative; z-index: 1; display: flex; align-items: center; height: 100%; padding-left: 14px; white-space: nowrap;
+  font: 600 var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink);
+  font-variant-numeric: lining-nums tabular-nums; opacity: 0; transition: opacity var(--d-2) var(--ease-out); }
+.mh-bars.go .mh-bl { opacity: 1; }
+.mh-fill.sw + .mh-bl { color: color-mix(in srgb, var(--dark) 70%, #000); }
+.mh-why { display: none; position: relative; margin-top: 24px; padding: 4px 0 4px 20px; border-left: var(--hair-w) solid var(--hair-strong); }
+.mh-why.show { display: block; }
+.mh-why h4, .mh-hundred h4 { font: 400 clamp(20px, 2vw, 23px)/1.2 var(--serif); letter-spacing: -.012em; margin-bottom: 12px; text-wrap: balance; }
+.mh-case { display: flex; gap: 10px; align-items: center; margin: 10px 0; font-size: 14.5px; color: var(--ink-2); flex-wrap: wrap; }
+.mh-case .mc { width: 24px; height: 32px; flex: none; display: inline-flex; align-items: center; justify-content: center;
+  border: 1.5px solid var(--ink); border-radius: 2px 2px 1px 1px; font: 400 14px/1 var(--serif); color: var(--ink); }
+.mh-case .mc.p { background: var(--accent); border-color: var(--accent); color: color-mix(in srgb, var(--dark) 70%, #000); }
+.mh-case .mc.x { border-style: dashed; color: var(--dim); opacity: .6; }
+.mh-case .mc.y { box-shadow: 0 0 0 2.5px color-mix(in srgb, var(--accent) 35%, transparent); }
+.mh-why .verdict { margin-top: 14px; font-style: italic; color: var(--ink); font-size: 15.5px; line-height: 1.6; text-wrap: pretty; }
+.mh-host { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 4px 0 14px; }
+.mh-hn { display: inline-flex; align-items: center; gap: 9px; font: 600 var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); color: var(--ink); }
+.mh-hn::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  transition: opacity var(--d-2) var(--ease-out); }
+.mh-host:not(.live) .mh-hn::before { animation: none; opacity: .35; }
+@media (prefers-reduced-motion: no-preference) {
+  .mh-host.live .mh-hn::before { animation: bootBlink 1.2s steps(2) infinite; }
+}
+.mh-round { font: 600 var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); color: var(--dim); font-variant-numeric: lining-nums tabular-nums; }
+.mh-conf { position: absolute; left: 50%; top: 46%; z-index: 5; width: 4px; height: 4px; margin: -2px 0 0 -2px; border-radius: 50%;
+  background: var(--accent); pointer-events: none; animation: mhConf .9s var(--ease-out) both; }
+.mh-hundred { margin-top: 28px; border-top: var(--hair-w) solid var(--hair); padding-top: 24px; }
+.mh-hsub { font-size: 15px; color: var(--ink-2); margin: 6px 0 4px; }
+.mh100-grid { display: grid; grid-template-columns: repeat(20, 1fr); gap: 4px; max-width: 580px; margin: 16px auto; }
+@media (hover: hover) {
+  .mh100-grid button:hover:not([disabled]) { background: color-mix(in srgb, var(--ink) 10%, var(--card)); }
+}
+.mh100-grid button { position: relative; }
+.mh100-grid button::after { content: ""; position: absolute; right: 20%; top: 52%; width: 2px; height: 2px; border-radius: 50%;
+  background: var(--ink); opacity: .6; }
+.mh100-grid button.pk::after { background: color-mix(in srgb, var(--dark) 70%, #000); }
+.mh100-grid button.pz::after { background: var(--paper); opacity: .8; }
+.mh100-grid button.o::after { display: none; }
+.mh100-grid button.pk { background: var(--accent); border-color: var(--accent); }
+.mh100-grid button.o { background: transparent; border-color: var(--hair-strong); opacity: .18; transform: scale(.86); cursor: default; }
+.mh100-grid button.hold { position: relative; z-index: 1; transform: translateY(-3px);
+  box-shadow: 0 0 0 2px var(--accent), 0 0 0 8px color-mix(in srgb, var(--accent) 14%, transparent); }
+.mh100-grid button.pz { background: var(--ink); border-color: var(--ink); box-shadow: 0 0 0 2px var(--accent); }
+@media (max-width: 600px) {
+  .mh100-grid { grid-template-columns: repeat(10, 1fr); }
+}
+.mh-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0 8px; }
+.mh-step { position: relative; padding: 24px 16px 14px; border: 1px solid var(--hair); border-radius: var(--r-paper); background: var(--card); }
+.msn { position: absolute; top: -9px; left: 12px; padding: 0 8px; background: var(--card); color: var(--ink);
+  font: 600 var(--lbl-xs)/18px var(--sans); letter-spacing: var(--trk-xs); }
+.ms-row { display: flex; gap: 16px; align-items: flex-start; justify-content: center; margin: 8px 0 18px; }
+.ms-col { display: flex; flex-direction: column; align-items: center; gap: 9px; }
+.msd { width: 34px; height: 48px; display: flex; align-items: center; justify-content: center; background: var(--paper);
+  border: 1.5px solid var(--ink); border-radius: 3px 3px 1px 1px; font: 400 16px/1 var(--serif); font-variant-numeric: lining-nums; }
+.msd.you { border-color: var(--accent); box-shadow: 0 0 0 2.5px color-mix(in srgb, var(--accent) 22%, transparent); }
+.msd.win { background: var(--accent); border-color: var(--accent); color: color-mix(in srgb, var(--dark) 70%, #000); }
+.msd.x { border-style: dashed; opacity: .45; }
+.ms-pair { display: flex; gap: 8px; padding: 6px; border: 1px dashed color-mix(in srgb, var(--accent) 70%, transparent); border-radius: 6px; }
+.mspill { padding: 4px 10px 3px; white-space: nowrap; background: var(--paper); border: 1px solid var(--hair-strong); border-radius: 999px;
+  font: 600 var(--lbl-xs)/1 var(--sans); letter-spacing: .06em; font-variant-numeric: lining-nums; }
+.mspill.hot { background: var(--accent); border-color: var(--accent); color: color-mix(in srgb, var(--dark) 70%, #000); }
+.mh-step p { font-size: 14px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
+.mh-kid { position: relative; margin: 22px 0 16px; padding: 20px 18px 16px; border: 1px solid var(--hair-strong); border-radius: var(--r-paper);
+  font-size: 15.5px; line-height: 1.65; text-wrap: pretty; }
+.mh-kid b { font-weight: 400; color: var(--foil-text); }
+.mh-kid-tag { position: absolute; top: -9px; left: 14px; padding: 0 8px; background: var(--card); color: var(--foil-text);
+  font: 600 var(--lbl-xs)/18px var(--sans); letter-spacing: var(--trk-xs); }
+@media (max-width: 700px) {
+  .mh-steps { grid-template-columns: 1fr; gap: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mh-conf { display: none; }
+  .mh-host.live .mh-hn::before, .mh-conf { animation: none; }
+}
+.mh-wall { --door: color-mix(in srgb, var(--on-dark) 92%, var(--g-bg)); --door-lo: color-mix(in srgb, var(--on-dark) 74%, var(--g-bg));
+  --gap: color-mix(in srgb, var(--bronze-hi) 82%, #fff);
+  margin-top: 6px; padding-block: 26px 22px;
+  background-image: var(--grain-5),
+  linear-gradient(to bottom, transparent 0 calc(100% - 92px), color-mix(in srgb, #000 22%, transparent) calc(100% - 92px), transparent),
+  radial-gradient(70% 70% at 50% 18%, var(--g-pool) 0%, var(--g-bg) 70%, color-mix(in srgb, var(--g-bg) 72%, #000) 100%);
+  background-size: 128px 128px, 100% 100%, 100% 100%; background-blend-mode: overlay, normal, normal; }
+.mh-wall .mh-host { margin-top: 0; }
+.mh-wall .mh-doors { max-width: 560px; margin-bottom: 26px; gap: clamp(16px, 3.4vw, 34px); }
+.mh-wall .mh-say { margin-bottom: 0; color: var(--ink-2); }
+.mh-wall .mh-door { --ink: var(--on-light); --ink-2: var(--on-light-2); --dim: color-mix(in srgb, var(--on-light-2) 88%, var(--door));
+  --card: var(--door); color-scheme: light; color: var(--ink);
+  border: 0; border-radius: 3px 3px 0 0; background: color-mix(in srgb, var(--g-bg) 70%, #000);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--g-bg) 58%, #000), 0 0 0 6px color-mix(in srgb, var(--bronze-hi) 26%, transparent),
+  0 18px 26px -14px #000; }
+.mh-wall .mh-door:not(.open)::after { content: ""; position: absolute; left: 6%; right: 6%; bottom: -1px; height: 3px; border-radius: 2px;
+  background: var(--gap); box-shadow: 0 0 10px 2px color-mix(in srgb, var(--bronze-hi) 60%, transparent),
+  0 6px 22px 6px color-mix(in srgb, var(--bronze-hi) 22%, transparent);
+  opacity: .78; transition: opacity var(--d-2) var(--ease-out), box-shadow var(--d-2) var(--ease-out); }
+@media (hover: hover) {
+  .mh-wall .mh-door:hover:not([disabled]) { transform: none;
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--g-bg) 58%, #000), 0 0 0 6px color-mix(in srgb, var(--bronze-hi) 46%, transparent), 0 18px 26px -14px #000; }
+  .mh-wall .mh-door:hover:not([disabled])::after { opacity: 1; }
+}
+.mh-wall .mh-door:focus-visible:not([disabled]) { transform: none; }
+.mh-wall .mh-face { background: linear-gradient(98deg, var(--door-lo) 0%, var(--door) 16%, color-mix(in srgb, var(--door) 70%, #fff) 52%, var(--door) 84%, var(--door-lo) 100%);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 50%, transparent), inset 0 -10px 18px -12px color-mix(in srgb, #000 30%, transparent);
+  padding-top: 0; align-items: center; }
+.mh-wall .mh-face::before { content: ""; position: absolute; left: 15%; right: 15%; top: 9%; bottom: 40%; border-radius: 2px; pointer-events: none;
+  box-shadow: inset 1px 1px 0 color-mix(in srgb, #000 16%, transparent), inset -1px -1px 0 color-mix(in srgb, #fff 55%, transparent),
+  1px 1px 0 color-mix(in srgb, #fff 50%, transparent), -1px -1px 0 color-mix(in srgb, #000 10%, transparent); }
+.mh-wall .mh-face > .mh-num { position: absolute; left: 0; right: 0; top: 9%; bottom: 40%; display: grid; place-items: center; text-align: center;
+  color: color-mix(in srgb, var(--on-light) 88%, var(--door)); text-shadow: 0 1px 0 color-mix(in srgb, #fff 60%, transparent); }
+.mh-wall .mh-face::after { right: 12%; top: 58%; width: 10px; height: 10px; margin-top: -5px;
+  background: radial-gradient(circle at 34% 30%, #FFF3CF 0%, #D4B266 34%, #8C6A2A 78%, #5E451A 100%);
+  box-shadow: 0 2px 3px color-mix(in srgb, #000 40%, transparent); }
+.mh-wall .mh-door.picked { border: 0;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--g-bg) 58%, #000), 0 0 0 7px var(--accent), 0 0 0 14px color-mix(in srgb, var(--accent) 16%, transparent),
+  0 18px 26px -14px #000; }
+.mh-wall .mh-door.picked .mh-face { box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 50%, transparent), inset 0 -10px 18px -12px color-mix(in srgb, #000 30%, transparent); }
+.mh-wall .mh-door.picked .mh-face::after { background: radial-gradient(circle at 34% 30%, color-mix(in srgb, var(--accent) 40%, #fff), var(--accent) 50%, color-mix(in srgb, var(--accent) 60%, #000)); }
+.mh-wall .mh-door.picked::after { opacity: 1; background: color-mix(in srgb, var(--accent) 60%, #fff);
+  box-shadow: 0 0 12px 3px color-mix(in srgb, var(--accent) 55%, transparent), 0 6px 24px 8px color-mix(in srgb, var(--accent) 22%, transparent); }
+.mh-wall .mh-door.dim { opacity: .42; }
+.mh-wall .mh-door.open .mh-face { background: linear-gradient(90deg, var(--door-lo), var(--door)); }
+.mh-wall .mh-behind.lose { --ink: var(--on-dark); --dim: var(--on-dark-2); color: var(--on-dark-2);
+  background: radial-gradient(90% 70% at 50% 100%, color-mix(in srgb, var(--g-pool) 80%, var(--on-dark)) 0%, color-mix(in srgb, var(--g-bg) 60%, #000) 80%); }
+.mh-wall .mh-behind.win { --ink: var(--on-light); color: var(--on-light);
+  background: radial-gradient(85% 75% at 50% 40%, #FFF6DF 0%, #F2D493 46%, #C99A4C 100%); }
+.mh-wall .mh-behind.win b { color: var(--on-light); }
+.mh-wall .mh-behind.win span { color: color-mix(in srgb, var(--on-light) 82%, #C99A4C); }
+.mh-wall .mh-behind::before { opacity: 0; }
+.mh-wall .mh-door.open .mh-behind::before { opacity: .5; }
+.mh-wall--100 { margin-top: 16px; padding-block: 24px 20px; }
+.mh-wall--100 .mh100-grid { margin-top: 0; gap: 5px; }
+.mh-wall .mh100-grid button { border: 0; border-radius: 1.5px 1.5px 0 0; background: linear-gradient(98deg, var(--door-lo), var(--door) 22%, color-mix(in srgb, var(--door) 72%, #fff) 55%, var(--door) 86%);
+  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--g-bg) 50%, #000), 0 2px 0 -.5px color-mix(in srgb, var(--bronze-hi) 70%, transparent); }
+@media (hover: hover) {
+  .mh-wall .mh100-grid button:hover:not([disabled]) { background: var(--door); box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--g-bg) 50%, #000), 0 2px 4px 0 color-mix(in srgb, var(--bronze-hi) 80%, transparent); }
+}
+.mh-wall .mh100-grid button::after { background: #A88540; opacity: .9; }
+.mh-wall .mh100-grid button.pk { background: var(--accent); box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--g-bg) 50%, #000), 0 0 10px 1px color-mix(in srgb, var(--accent) 60%, transparent); }
+.mh-wall .mh100-grid button.o { background: color-mix(in srgb, var(--g-bg) 60%, #000); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--on-dark) 14%, transparent); opacity: .5; }
+.mh-wall .mh100-grid button.hold { box-shadow: 0 0 0 2px var(--accent), 0 0 0 8px color-mix(in srgb, var(--accent) 18%, transparent), 0 0 18px 4px color-mix(in srgb, var(--bronze-hi) 40%, transparent); }
+.mh-wall .mh100-grid button.pz { background: radial-gradient(85% 75% at 50% 40%, #FFF6DF 0%, #F2D493 46%, #C99A4C 100%); box-shadow: 0 0 0 2px var(--accent), 0 0 16px 3px color-mix(in srgb, #F2D493 60%, transparent); }
+.mh-wall .mh100-grid button.pz::after { background: var(--on-light); }
+.mh-wall .mh-door:not(.open)::before { content: ""; position: absolute; left: -14%; right: -14%; top: 100%; height: 26px; pointer-events: none;
+  background: radial-gradient(50% 100% at 50% 0%, color-mix(in srgb, var(--bronze-hi) 34%, transparent), transparent 72%);
+  opacity: .8; transition: opacity var(--d-2) var(--ease-out); }
+.mh-wall .mh-door.picked::before { background: radial-gradient(50% 100% at 50% 0%, color-mix(in srgb, var(--accent) 40%, transparent), transparent 72%); opacity: 1; }
+@media (hover: hover) {
+  .mh-wall .mh-door:hover:not([disabled])::before { opacity: 1; }
+}
+.mh-wall .mh-door:not(.open)::after { height: 2px; bottom: 0; background: #FFE7B0;
+  box-shadow: 0 0 6px 1px color-mix(in srgb, var(--bronze-hi) 85%, transparent), 0 0 18px 4px color-mix(in srgb, var(--bronze-hi) 40%, transparent); }
+.mh-wall .mh-face { background:
+  linear-gradient(to bottom, color-mix(in srgb, #000 10%, transparent), transparent 22%, transparent 78%, color-mix(in srgb, #000 8%, transparent)),
+  linear-gradient(98deg, var(--door-lo) 0%, var(--door) 16%, color-mix(in srgb, var(--door) 70%, #fff) 52%, var(--door) 84%, var(--door-lo) 100%); }
+.mh-wall { background-image: var(--grain-5),
+  radial-gradient(22% 60% at 50% 0%, color-mix(in srgb, var(--bronze-hi) 9%, transparent), transparent 80%),
+  linear-gradient(to bottom, transparent 0 calc(100% - 92px), color-mix(in srgb, #000 22%, transparent) calc(100% - 92px), transparent),
+  radial-gradient(70% 70% at 50% 18%, var(--g-pool) 0%, var(--g-bg) 70%, color-mix(in srgb, var(--g-bg) 72%, #000) 100%);
+  background-size: 128px 128px, 100% 100%, 100% 100%, 100% 100%; background-blend-mode: overlay, normal, normal, normal; }
+.mh-wall .mh-door.dim { opacity: .5; }
+.exp .mh-score { margin-top: 6px; gap: 24px; }
+.mh-wall .mh-face { --aa-bg: var(--door-lo); }
+.exp .mh-case .mc.x { opacity: 1; color: var(--ink-2); border-color: var(--hair-strong); }
+.exp .msd.x { opacity: 1; color: var(--ink-2); border-color: var(--hair-strong); }
+.mh-fill.sw + .mh-bl { --aa-bg: var(--accent); }
+.mh-kid b, .mh-behind.win b { color: var(--ink); }
+.mh-kid-tag { color: var(--ink); }

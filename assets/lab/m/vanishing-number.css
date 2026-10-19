@@ -1,0 +1,38 @@
+/* P.S. Lab, No. 36: The vanishing number. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.vn-stage { position: relative; height: 124px; display: flex; align-items: center; justify-content: center; overflow: hidden;
+  border: 1px solid var(--line-2); border-radius: var(--r-paper); background: var(--card);
+  transition: box-shadow var(--d-2) var(--ease-out); }
+.vn-digits { display: flex; align-items: flex-end; gap: clamp(6px, 1.4vw, 12px); }
+.vn-slot, .vn-d { width: clamp(24px, 4vw, 36px); text-align: center; font: 400 clamp(40px, 6vw, 56px)/1 var(--serif); color: var(--ink);
+  font-variant-numeric: lining-nums tabular-nums; }
+.vn-slot { height: clamp(40px, 6vw, 56px); border-bottom: 1.5px solid var(--hair-strong); }
+.vn-d { padding-bottom: 1px; border-bottom: 1.5px solid transparent; }
+.vn-long .vn-digits { gap: 4px; }
+.vn-long .vn-slot, .vn-long .vn-d { width: clamp(18px, 3vw, 28px); font-size: clamp(30px, 4.4vw, 42px); }
+.vn-long .vn-slot { height: clamp(30px, 4.4vw, 42px); }
+@media (prefers-reduced-motion: no-preference) {
+  .vn-d { animation: vnIn var(--d-3) var(--ease-out) calc(var(--i, 0) * 45ms) backwards; }
+  .vn-stage.gone .vn-digits { gap: clamp(16px, 3.4vw, 30px); transition: gap 420ms var(--ease-in); }
+  .vn-stage.gone .vn-d { animation: vnOut 400ms var(--ease-in) calc(var(--i, 0) * 22ms) forwards; }
+}
+.vn-drain { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--accent); transform-origin: left; transform: scaleX(0); }
+.vn-stage.draining .vn-drain { animation: vnDrain 2.5s linear forwards; }
+.exp .vn-input { display: block; width: min(320px, 80%); padding: 8px 4px 6px; text-align: center; font: 400 34px/1.1 var(--serif);
+  letter-spacing: .14em; color: var(--ink); background: transparent; border: 0; border-bottom: 1.5px solid var(--ink); border-radius: 0; }
+.exp .vn-input::placeholder { font: italic 400 18px/1.1 var(--serif); letter-spacing: 0; color: var(--dim); }
+.exp .vn-input:focus-visible { outline: none; border-bottom-color: var(--accent); }
+.vn-stage.ok { box-shadow: inset 0 0 0 2px var(--accent); }
+.vn-stage.no .vn-d { color: var(--dim); }
+@media (prefers-reduced-motion: no-preference) {
+  .vn-stage.no { animation: vnShake .42s var(--ease-out); }
+}
+.exp .vn-stage[data-ground] { height: 168px; border: 0; border-radius: 0;
+  background-color: var(--g-bg);
+  background-image: var(--grain-5), radial-gradient(55% 90% at 50% 50%, var(--g-pool) 0%, var(--g-bg) 72%, color-mix(in srgb, var(--g-bg) 70%, #000) 100%);
+  background-size: 128px 128px, 100% 100%; background-blend-mode: overlay, normal; }
+.vn-stage[data-ground] .vn-slot, .vn-stage[data-ground] .vn-d { font-size: clamp(46px, 7vw, 68px); width: clamp(28px, 4.6vw, 44px); }
+.vn-stage[data-ground] .vn-slot { height: clamp(46px, 7vw, 68px); border-bottom-color: color-mix(in srgb, var(--on-dark) 32%, transparent); }
+.vn-stage[data-ground].vn-long .vn-slot, .vn-stage[data-ground].vn-long .vn-d { font-size: clamp(32px, 5vw, 48px); width: clamp(20px, 3.4vw, 32px); }
+.vn-stage[data-ground].vn-long .vn-slot { height: clamp(32px, 5vw, 48px); }
+.vn-stage[data-ground] .vn-drain { height: 3px; box-shadow: 0 0 10px 1px color-mix(in srgb, var(--accent) 60%, transparent); }
+.exp .vn-stage[data-ground] .vn-input { border-bottom-color: color-mix(in srgb, var(--on-dark) 60%, transparent); }

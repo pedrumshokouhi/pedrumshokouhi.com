@@ -1,0 +1,1830 @@
+/* ============================================================
+   P.S.: the personal study of Pedrum Shokouhi
+   v3.1 "Lit Paper": paper, ink and one orange, now with light, pictures and depth.
+   Paper is square, glass is round and only for things you touch.
+   Orange means one of three things: the P.S. periods, the thing you
+   selected or the thing that is live, and the one primary action per view.
+   Bronze means one of three things: numerals, the second line of a caption,
+   and frames and seals. It never signals state. Text never takes a hue token.
+
+   THE MOTION VOCABULARY. These five moves are the only motion allowed.
+   Durations come from --d-1 .. --d-5 below.
+   | Move    | Used for                     | Spec                                                     |
+   | Develop | images (.plate)              | warm mono to true colour, filter over --d-4; clip-path   |
+   |         |                              | inset(6%) to inset(0) and scale 1.035 to 1 (.mv-develop)  |
+   | Set     | type                         | opacity plus an 8px rise, --d-3, --stagger 50ms, no blur |
+   | Sheen   | foil (.foil on deep grounds) | one pass, background-position 100% to 0%, --d-5, once    |
+   | Turn    | chapter change (PS.stage)    | chrome re-tint only: .locnav, #progress, the dial ring   |
+   | Land    | hash and programmatic jumps  | PS.land(el): instant jump, a 600ms foil outline pulse,   |
+   |         |                              | focus on the first h2 or h3                              |
+   Presses scale to .98 on --spring over --d-1. Nothing loops, nothing blurs,
+   no h1 is masked or clipped at frame 0. Reduced motion turns every move into
+   an instant swap (the last block in this file).
+   ============================================================ */
+
+:root {
+  --paper:   #F6F4ED;
+  --card:    #FCFBF6;
+  --ink:     #121110;
+  --ink-2:   #55524B;
+  --muted:   #8B877C;
+  --line:    #DCD8CB;
+  --line-2:  #EAE7DD;
+  --accent:  #FF4D00;
+  --dark:    #0E0D0C;
+  --dark-2:  #171614;
+  --serif:   Georgia, "Times New Roman", serif;
+  --sans:    "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  /* v3.1 grounds and materials (daylight values; every other theme derives them below) */
+  --vellum:     #ECE6D8;   /* the alternate light ground */
+  --espresso:   #17110C;   /* warm near-black: stages, deep chapters */
+  --espresso-2: #241A13;   /* the light pool at the centre of an espresso stage */
+  --forest:     #14302A;   /* the second deep colour */
+  --forest-2:   #1C3D35;   /* forest light pool */
+  --bronze:     #7E4E2E;   /* numerals, caption second lines, frames on paper: 6.3:1 on paper, 5.6:1 on vellum */
+  --bronze-hi:  #E2B07E;   /* foil highlight, deep grounds only */
+  --stat: "Helvetica Neue", Helvetica, Arial, sans-serif; /* stat figures, weight 200 */
+}
+/* every theme derives the new grounds from its own five colours: two-colour mixes that sum to 100, so nothing carries alpha */
+:root[data-theme] {
+  --vellum: color-mix(in srgb, var(--paper) 90%, var(--ink-2));
+  --espresso: color-mix(in srgb, var(--dark) 95%, var(--accent));
+  --espresso-2: color-mix(in srgb, var(--espresso) 92%, var(--on-dark));
+  --forest: color-mix(in srgb, var(--dark) 72%, #1E5A48);
+  --forest-2: color-mix(in srgb, var(--forest) 92%, var(--on-dark));
+  --bronze: color-mix(in srgb, var(--foil-text) 70%, #7E4E2E);
+}
+/* on the dark papers the spec mix sits near 4.5:1 on vellum, so bronze takes a share of the foil highlight instead */
+:root[data-theme][data-tone="dark"] { --bronze: color-mix(in srgb, var(--foil-text) 60%, var(--bronze-hi)); }
+:root {
+  /* the desk and blackboard ground: the World's #board slate, in every theme */
+  --slate: color-mix(in srgb, var(--on-dark) 6%, var(--dark));
+  --slate-2: color-mix(in srgb, var(--slate) 93%, var(--on-dark));
+  /* ink for a light wall hung inside a dark theme */
+  --on-light: #121110; --on-light-2: #4A4740;
+}
+
+/* tokens A: type, space, materials, motion (theme-neutral) */
+:root {
+  --num: "Helvetica Neue", Helvetica, Arial, sans-serif; /* use with lining-nums tabular-nums */
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace; /* 3D readouts and lab data only */
+  --fs-d0: clamp(84px, 15vw, 232px);    /* the one colossal moment per page (.colossal) */
+  --trk-d0: -.035em;
+  --fs-d1: clamp(52px, 8.4vw, 116px);   /* world head */
+  --fs-d2: clamp(38px, 5.6vw, 64px);    /* essay h1 */
+  --fs-h1: clamp(30px, 4.2vw, 52px);    /* room h2, door-panel h3 */
+  --fs-h2: clamp(26px, 3.4vw, 42px);    /* essay h2 */
+  --fs-h3: clamp(20px, 2vw, 24px);      /* enav .t, chart h3 */
+  --fs-lede: clamp(19px, 1.7vw, 22px);
+  --fs-body: clamp(17.5px, calc(.45vw + 16px), 19px);
+  --fs-num: clamp(44px, 6vw, 68px);
+  --fs-fig: 28px;   /* callout figures, tabular */
+  --fs-cap: 13px;   /* callout body: line-height 1.45, max 38ch */
+  --trk-d: -.03em;  /* display tracking, any heading 64px or larger (-.02em from 40 to 63px) */
+  --lbl-w: 500;     /* every tracked label (Arial has no 500 and falls back to 400) */
+  --lbl-l: 12px;   --trk-l: .08em;   /* buttons, CTAs */
+  --lbl-m: 11px;   --trk-m: .12em;   /* nav, .tag */
+  --lbl-s: 11px;   --trk-s: .12em;   /* footer, meta, .dir, credits */
+  --lbl-xs: 11px;  --trk-xs: .12em;  /* rail, chips, hints: the floor. Nothing below 11px, never --dim */
+  /* the side gutter clears a notch or rounded corner on a phone held sideways (viewport-fit=cover) */
+  --safe-x: max(env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+  --gutter: max(clamp(20px, 5vw, 56px), var(--safe-x));
+  --frame: 1320px;
+  --frame-pad: max(var(--gutter), calc((100% - var(--frame)) / 2));
+  --measure: 680px;
+  --section-y: clamp(88px, 12vw, 160px); /* padding-block for World rooms and Lab wing plates */
+  --r-paper: 2px; --r-card: 6px; --r-inner: 10px; --r-glass: 18px; --r-pill: 999px;
+  --hair-w: 1px;
+  --sh-a1: 6%; --sh-a2: 10%; --sh-a3: 18%; --rim-a: 55%;
+  --glass: color-mix(in srgb, var(--paper) 88%, transparent);
+  --glass-fx: blur(20px); /* no saturate: it tinted the cream into a yellow band at scroll 0 */
+  /* one curve family: arrive out, leave in, travel io, reveal a stage with the curtain, press with the spring */
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --ease-in: cubic-bezier(.7, 0, .84, 0);
+  --ease-io: cubic-bezier(.65, 0, .35, 1);
+  --ease-curtain: cubic-bezier(.76, 0, .24, 1);
+  --spring: cubic-bezier(.34, 1.3, .64, 1); /* presses and toggles only */
+  /* d-1 color/pressed, d-2 hover/small enter/copy crossfade, d-3 component reveal,
+     d-4 media/camera/explode, d-5 ceremony (the maximum). Leaving takes about .55 of arriving. */
+  --d-1: 160ms; --d-2: 320ms; --d-3: 560ms; --d-4: 900ms; --d-5: 1100ms; --d-page: 640ms;
+  --d-leave: 180ms;
+  --d-rv: 560ms; --rise: 8px; --stagger: 50ms; /* Set: --d-3, 8px, 50ms */
+  --d-set: 240ms; /* psFadeUp: opacity only */
+  --d-land: 600ms;
+  --z-nav: 50; --z-progress: 80; --z-picker: 90; --z-scrim: 96; --z-sheet: 97;
+  --tap: 44px; /* the touch floor for every control */
+  --tap-l: 48px; /* a primary key or a sheet row on a coarse pointer */
+  /* the nav's row height (about 90px on a desk, 56px on phones, 48px on a phone held sideways), and --nav-b, the y of its visible lower
+     edge: theme.js writes it while a sticky nav shows and sets it to 0px while the nav is away */
+  --nav-h: 90px; --nav-b: 0px;
+  --sheet-grab: 0px; /* the grab handle's band at the top of a bottom sheet (20px on phones) */
+  /* paper grain: one feTurbulence tile (baseFrequency .9, 2 octaves, 128px). --grain is opaque grey noise;
+     --grain-5 carries 5% alpha so a ground can overlay it inside its own background, with no extra layer */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.66 .66 .66 0 -.48 .66 .66 .66 0 -.48 .66 .66 .66 0 -.48 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='128' height='128' filter='url(%23g)'/%3E%3C/svg%3E");
+  --grain-5: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.66 .66 .66 0 -.48 .66 .66 .66 0 -.48 .66 .66 .66 0 -.48 0 0 0 0 .05'/%3E%3C/filter%3E%3Crect width='128' height='128' filter='url(%23g)'/%3E%3C/svg%3E");
+  /* foil: the dark stops sit at 3:1 or better on the brightest deep pool in every theme (large text only, 40px and up);
+     the highlight is pale gold, so the leaf reads as metal and the sheen shows */
+  --foil-lo: #BC8750; --foil-mid: #D6AA70; --foil-mid-2: #BD8B57; --foil-hi: #F3D6A4;
+}
+@supports (transition-timing-function: linear(0, 1)) {
+  :root { --spring: linear(0, .05 1.2%, .2 2.6%, .44 4.6%, .66 6.8%, .82 9.2%, .93 12%, .99 15.4%, 1.015 19.6%, 1.02 24%, 1.012 32%, 1.003 44%, 1); }
+}
+@media (min-resolution: 2dppx) { :root { --hair-w: .5px; } } /* separators only, never control outlines */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { :root { --glass: var(--paper); } }
+/* MOBILE SYSTEM (v3.2). The queries, as theme.js exports them in PS.Q:
+     phone (max-width: 640px) | narrow (max-width: 759px) | land (max-height: 500px) and (pointer: coarse)
+     tablet (min-width: 641px) and (max-width: 1023px) | coarse (pointer: coarse)
+   A touch screen never blurs: glass is a solid 96% paper there, and every sticky bar reads as a solid ground. */
+@media (pointer: coarse) { :root { --glass: color-mix(in srgb, var(--paper) 96%, transparent); --glass-fx: none; } }
+@media (max-width: 640px) { :root { --nav-h: 56px; --sheet-grab: 20px; } }
+@media (max-width: 359px) { :root { --gutter: max(16px, var(--safe-x)); } }
+@media (max-height: 500px) and (pointer: coarse) { :root { --nav-h: 48px; } }
+
+/* tokens B: color-derived. They re-resolve on body, and again inside any dark stage (.tone-dark, .band--dark,
+   the deep grounds espresso, forest and slate, a dark wall, a monogram plate) and inside a light wall */
+:root, body, .tone-dark, .band--dark,
+:is([data-ground="espresso"], [data-ground="forest"], [data-ground="slate"], [data-ground="wall"], .plate--mono) {
+  --hair: color-mix(in srgb, var(--ink) 16%, transparent);
+  --hair-strong: color-mix(in srgb, var(--ink) 28%, transparent);
+  --hair-on-dark: color-mix(in srgb, var(--on-dark) 16%, transparent);
+  --foil-soft: color-mix(in srgb, var(--accent) 55%, transparent);
+  --on-dark-3: color-mix(in srgb, var(--on-dark) 58%, var(--dark));
+  --focus: color-mix(in srgb, var(--accent) 82%, var(--ink));          /* >= 3.4:1 on paper and on dark stages, all 16 themes */
+  --dim: color-mix(in srgb, var(--ink-2) 80%, var(--muted));          /* 11px labels and up; >= 4.5:1 on paper and vellum */
+  --foil-text: color-mix(in srgb, var(--accent) 62%, var(--ink));     /* small foil-coloured text: >= 4.9:1 in every theme */
+  --foil-line: color-mix(in srgb, var(--accent) 88%, var(--ink));     /* foil as a UI boundary (rings, selected edges): >= 3.1:1 */
+  --sh: color-mix(in srgb, var(--dark) 55%, #000);
+  --rim: inset 0 1px 0 color-mix(in srgb, #fff var(--rim-a), transparent);
+  --elev-1: 0 1px 2px color-mix(in srgb, var(--sh) var(--sh-a1), transparent),
+            0 6px 16px -6px color-mix(in srgb, var(--sh) var(--sh-a2), transparent);
+  --elev-2: 0 1px 1px color-mix(in srgb, var(--sh) var(--sh-a1), transparent),
+            0 12px 28px -8px color-mix(in srgb, var(--sh) var(--sh-a2), transparent),
+            0 32px 64px -24px color-mix(in srgb, var(--sh) var(--sh-a2), transparent);
+  --elev-3: 0 2px 4px color-mix(in srgb, var(--sh) var(--sh-a1), transparent),
+            0 24px 56px -16px color-mix(in srgb, var(--sh) var(--sh-a3), transparent),
+            0 64px 120px -40px color-mix(in srgb, var(--sh) var(--sh-a3), transparent);
+}
+
+/* tokens C: material fills. The 3D engine reads the --m-* set, the SVG posters use them through the .p-* classes,
+   and .plate reads --plate-f / --plate-blend. Light contexts first, then every dark context (a dark theme, a deep
+   ground, a dark stage or wall), then a light wall hung inside a dark theme. */
+:root, body, [data-ground="wall"][data-tone="light"] {
+  --m-top: color-mix(in srgb, var(--paper) 55%, #fff);
+  --m-left: color-mix(in srgb, var(--paper) 93%, var(--ink));
+  --m-right: color-mix(in srgb, var(--paper) 84%, var(--ink));
+  --m-plaster: color-mix(in srgb, var(--paper) 94%, var(--ink));
+  --m-shadow: color-mix(in srgb, var(--ink) 24%, transparent);
+  --m-sil: color-mix(in srgb, var(--ink) 90%, transparent);
+  --plate-f: grayscale(1) sepia(.22) contrast(1.08) brightness(1.02);
+  --plate-blend: multiply;
+  --plate-deep: 0;
+  --mat: var(--vellum);
+}
+/* daylight is the reference the GL renderer is tuned to: a paper box reads 1.00 : .88 : .74 (top, lit side, shade side) */
+:root:not([data-theme]), :root:not([data-theme]) body { --m-top: #FBFAF5; --m-left: #E7E3D7; --m-right: #CFC9BB; }
+:root[data-tone="dark"], :root[data-tone="dark"] body, .tone-dark, .band--dark,
+:is([data-ground="espresso"], [data-ground="forest"], [data-ground="slate"], [data-ground="wall"][data-tone="dark"], .plate--mono) {
+  --m-top: color-mix(in srgb, var(--paper) 87%, var(--on-dark));
+  --m-left: color-mix(in srgb, var(--paper) 91.5%, var(--on-dark));
+  --m-right: color-mix(in srgb, var(--paper) 95%, var(--on-dark));
+  --m-plaster: color-mix(in srgb, var(--paper) 97%, var(--on-dark));
+  --m-shadow: color-mix(in srgb, #000 55%, transparent);
+  --m-sil: color-mix(in srgb, var(--on-dark) 85%, transparent);
+  --plate-f: grayscale(1) sepia(.18) contrast(1.1) brightness(.9);
+  --plate-blend: normal;
+  --plate-deep: 1;
+  --mat: var(--espresso);
+}
+:root, body, .tone-dark, .band--dark,
+:is([data-ground="espresso"], [data-ground="forest"], [data-ground="slate"], [data-ground="wall"], .plate--mono) {
+  --m-foil: var(--accent);
+  --m-metal-hi: color-mix(in srgb, var(--muted) 45%, var(--paper));
+  --m-metal-lo: color-mix(in srgb, var(--muted) 70%, var(--ink));
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* no smooth scrolling on html: long jumps are instant and land with a pulse (PS.land); short ones may glide (PS.scrollTo) */
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: auto; /* legibility shaping only where it shows: display type and labels */
+  font-kerning: normal;
+  font-synthesis: none;
+}
+/* paper grain: the light papers only (daylight, gallery, play, riso), one fixed tile multiplied at 2.5% */
+body::before {
+  content: none; position: fixed; inset: 0; z-index: 299; pointer-events: none;
+  background: var(--grain) 0 0 / 128px 128px repeat; opacity: .025; mix-blend-mode: multiply;
+}
+:root:not([data-theme]) body::before,
+:root:is([data-theme="gallery"], [data-theme="play"], [data-theme="riso"]) body::before { content: ""; }
+
+h1, h2, h3, .mark, .tag { text-rendering: optimizeLegibility; }
+:root { accent-color: var(--accent); caret-color: var(--accent); }
+
+::selection { background: color-mix(in srgb, var(--accent) 28%, var(--paper)); color: var(--ink); }
+:root[data-tone="dark"] ::selection { background: color-mix(in srgb, var(--accent) 38%, var(--paper)); }
+:root[data-theme="void"] ::selection { background: #fff; color: #000; }
+
+a {
+  color: inherit;
+  transition: color var(--d-1) var(--ease-out), border-color var(--d-1) var(--ease-out),
+    background-color var(--d-1) var(--ease-out);
+}
+
+img { max-width: 100%; height: auto; }
+
+h1, h2, h3, h4 { font-feature-settings: "kern", "liga"; }
+/* display tracking by size, with no breakpoints: -.03em at 64px and up, -.02em from 40 to 63px, 0 below 40px
+   (zero specificity, pages win). The first clamp is the 64px step, the second gives the .02em back under 40px. */
+:root { --trk-ladder: calc(clamp(-.03em, (63.5px - 1em) * 100, -.02em) + clamp(0em, (39.5px - 1em) * 100, .02em)); }
+:where(h1, h2) { letter-spacing: var(--trk-ladder); }
+/* headings say their words in ink: no italic orange word */
+:where(h1, h2) em { font-style: normal; color: inherit; }
+
+/* ---------- focus: one ring, tinted from the foil ---------- */
+:where(a, button, summary, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus); outline-offset: 3px; border-radius: var(--r-paper); }
+#themeBtn:focus-visible { outline-offset: 4px; border-radius: 50%; }
+#themePanel .th-tile:focus-visible { outline-offset: 2px; border-radius: var(--r-card); }
+/* 3D stages stand further off their ring; the hero draws its ring on the stage when its hidden button has focus */
+:where(.iso-stage, .ps3d-stage):focus-visible { outline-offset: 6px; }
+.hero3d:has(.hero3d-btn:focus-visible) { outline: 2px solid var(--focus); outline-offset: 6px; border-radius: var(--r-paper); }
+
+/* ---------- labels ---------- */
+.tag {
+  font-family: var(--sans);
+  font-size: var(--lbl-m);
+  font-weight: var(--lbl-w);
+  letter-spacing: var(--trk-m);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.tag.dim { color: var(--dim); }
+/* the one surviving quote device: the curly quotes around the proper name "The World" (span.q in nav and footer links) */
+.q, .footer span.q {
+  font-family: var(--serif); font-weight: 400; font-size: 1.32em; line-height: 0;
+  vertical-align: -.2em; letter-spacing: 0; color: var(--ink-2); }
+.q:first-child { margin-right: .08em; }
+.q:not(:first-child) { margin-left: -.04em; }
+
+/* ---------- type utilities ---------- */
+/* two-tone lede: grey, then the sentence that matters in ink */
+.sub, .lede { color: var(--ink-2); }
+.sub b, .lede b { color: var(--ink); font-weight: 400; font-style: normal; }
+.display { letter-spacing: var(--trk-ladder); font-weight: 400; }
+/* the index numeral that hangs before a room's h2 */
+.idx {
+  font-family: var(--serif); font-weight: 400; font-size: var(--fs-h1); line-height: 1.08;
+  font-variant-numeric: lining-nums tabular-nums; letter-spacing: 0; color: var(--dim);
+}
+/* callout figure and caption (3D cards, room data) */
+.num-fig { font: 400 var(--fs-fig)/1.1 var(--num); font-variant-numeric: lining-nums tabular-nums; letter-spacing: -.01em; color: var(--ink); }
+.num-cap { font: 400 var(--fs-cap)/1.45 var(--sans); color: var(--ink-2); max-width: 38ch; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; letter-spacing: 0; }
+
+/* ---------- shared primitives ---------- */
+.vh { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+/* one arrow for the whole house: <span class="arr" aria-hidden="true">&#8594;</span> */
+.arr { display: inline-block; margin-left: .5em; transition: translate var(--d-2) var(--ease-out); }
+@media (hover: hover) {
+  a:hover > .arr, button:hover > .arr { translate: 3px 0; }
+  a:hover > .arr--down, button:hover > .arr--down { translate: 0 3px; }
+  a:hover > .arr--up, button:hover > .arr--up { translate: 0 -2px; }
+}
+a:focus-visible > .arr, button:focus-visible > .arr { translate: 3px 0; }
+a:focus-visible > .arr--down, button:focus-visible > .arr--down { translate: 0 3px; }
+a:focus-visible > .arr--up, button:focus-visible > .arr--up { translate: 0 -2px; }
+@keyframes psStamp { 0% { scale: 1.12; } 60% { scale: .98; } 100% { scale: 1; } }
+@keyframes psRead { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* ---------- links: a 1px rule that draws left to right, and retracts faster than it arrives ---------- */
+.lnk {
+  color: inherit; text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  padding-bottom: 2px;
+  transition: background-size var(--d-leave) var(--ease-in), color var(--d-1) var(--ease-out);
+}
+.lnk[aria-current], .lnk.is-on { background-size: 100% 1px; }
+@media (hover: hover) {
+  .lnk:hover { background-size: 100% 1px; transition: background-size var(--d-2) var(--ease-out), color var(--d-1) var(--ease-out); }
+}
+.lnk:focus-visible { background-size: 100% 1px; }
+/* prose links: a resting hairline 4px under the baseline that darkens on hover */
+.lnk--rest {
+  background: none; padding-bottom: 0;
+  text-decoration: underline 1px var(--hair-strong); text-underline-offset: 4px; text-decoration-skip-ink: auto;
+  transition: text-decoration-color var(--d-1) var(--ease-out), color var(--d-1) var(--ease-out);
+}
+@media (hover: hover) { .lnk--rest:hover { text-decoration-color: currentColor; } }
+
+/* ---------- press and lift ---------- */
+.press { transition: scale var(--d-1) var(--spring); }
+.press:active { scale: .98; }
+/* every control presses the same way: .98 on the spring over --d-1 (zero specificity, so a page's own transition wins) */
+:where(button, .ps-cap, [role="button"], summary) { transition: scale var(--d-1) var(--spring); }
+:where(button, .ps-cap, [role="button"], summary):where(:active:not(:disabled)) { scale: .98; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .lift, .lift-media :is(img, svg, canvas, video) { transition: scale 500ms var(--ease-in); }
+  .lift:hover, .lift-media:hover :is(img, svg, canvas, video) { scale: 1.02; transition: scale var(--d-4) var(--ease-out); }
+}
+.lift-media { overflow: hidden; }
+
+/* ---------- copy and save confirms: the label crossfades (PS.confirm in theme.js) ---------- */
+.cf-l { display: inline-block; transition: opacity var(--d-leave) var(--ease-in); }
+.cf-l.is-out { opacity: 0; }
+.cf-l.is-in { transition: opacity var(--d-2) var(--ease-out); }
+
+/* ---------- skip link: glass, hidden until the first Tab ---------- */
+.skip-link {
+  position: fixed; left: max(16px, env(safe-area-inset-left, 0px)); top: max(12px, env(safe-area-inset-top, 0px)); z-index: calc(var(--z-picker) + 5);
+  translate: 0 calc(-100% - 20px);
+  min-height: var(--tap); display: inline-flex; align-items: center; padding: 0 20px;
+  border-radius: var(--r-pill); background: var(--glass);
+  -webkit-backdrop-filter: var(--glass-fx); backdrop-filter: var(--glass-fx);
+  border: 1px solid var(--hair-strong); box-shadow: var(--rim);
+  font: var(--lbl-w) var(--lbl-l)/1 var(--sans); letter-spacing: var(--trk-l); text-transform: uppercase;
+  color: var(--ink); text-decoration: none;
+  transition: translate var(--d-leave) var(--ease-in), box-shadow var(--d-leave) var(--ease-in);
+}
+/* the drop shadow only exists while the link is on screen, so no smudge bleeds in at rest */
+.skip-link:focus-visible { translate: 0 0; box-shadow: var(--elev-2), var(--rim);
+  transition: translate var(--d-2) var(--ease-out), box-shadow var(--d-2) var(--ease-out); }
+body.locked .skip-link { display: none; }
+
+/* ---------- top nav ---------- */
+.nav {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 24px var(--frame-pad) 22px;
+  border-bottom: var(--hair-w) solid var(--hair);
+}
+.nav .mark {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  text-decoration: none;
+}
+.nav .mark i { font-style: normal; color: var(--accent); display: inline-block; transition: scale var(--d-1) var(--spring); }
+/* the wordmark, set by hand: each period tucks under its letter, the S closes on the first period */
+.nav .mark i, .footer .f-mark i, .nf-mark i, .sheet-mark i { margin-left: -.06em; }
+.nav .mark i:first-of-type, .footer .f-mark i:first-of-type, .nf-mark i:first-of-type, .sheet-mark i:first-of-type { margin-right: -.02em; }
+/* the wordmark stamp: the two periods press in, one after the other */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .nav .mark:hover i { scale: 1.25; }
+  .nav .mark:hover i + i { transition-delay: 40ms; }
+}
+.nav ul {
+  display: flex;
+  gap: clamp(16px, 3vw, 34px);
+  list-style: none;
+  align-items: baseline;
+}
+.nav ul a {
+  font-family: var(--sans);
+  font-size: var(--lbl-m);
+  font-weight: var(--lbl-w);
+  letter-spacing: var(--trk-m);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink-2);
+}
+.nav ul a:not(.lab) {
+  border-bottom: 0; padding-bottom: 5px;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size var(--d-leave) var(--ease-in), color var(--d-1) var(--ease-out);
+}
+@media (hover: hover) {
+  .nav ul a:not(.lab):hover { color: var(--ink); background-size: 100% 1px;
+    transition: background-size var(--d-2) var(--ease-out), color var(--d-1) var(--ease-out); }
+}
+.nav ul a:is(.active, [aria-current]) { color: var(--ink); background-size: 100% 1px; }
+
+/* the Experiments capsule: hover fills it with ink, nothing else moves */
+.nav ul a.lab {
+  position: relative; display: inline-flex; align-items: center;
+  min-height: 36px; padding: 0 16px;
+  border: 1px solid var(--hair-strong); border-radius: var(--r-pill);
+  color: var(--ink); font-weight: var(--lbl-w);
+  transition: background-color var(--d-leave) var(--ease-in), color var(--d-leave) var(--ease-in),
+    border-color var(--d-leave) var(--ease-in), scale var(--d-1) var(--spring);
+}
+@media (hover: hover) {
+  .nav ul a.lab:hover { background: var(--ink); color: var(--paper); border-color: var(--ink);
+    transition: background-color var(--d-2) var(--ease-out), color var(--d-1) var(--ease-out),
+      border-color var(--d-1) var(--ease-out), scale var(--d-1) var(--spring); }
+}
+.nav ul a.lab:active { scale: .98; }
+.nav ul a.lab:is(.active, [aria-current="page"]) { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+/* the Menu button: theme.js adds it on phones; without script the nav wraps to two rows */
+.nav-menu, .sheet-close {
+  display: none; align-items: center; justify-content: center; min-height: var(--tap); min-width: var(--tap);
+  padding: 0 4px; margin-right: -4px; background: none; border: 0; cursor: pointer; color: var(--ink);
+  font: var(--lbl-w) var(--lbl-m)/1 var(--sans); letter-spacing: var(--trk-m); text-transform: uppercase;
+}
+.sheet-close { display: inline-flex; }
+.nav-dial-m { display: none; }
+/* a touch screen from 641px (tablets): the nav keeps its desktop row, and every link gets a 44px target without
+   moving a pixel (inline padding grows the target, the underline keeps its 5px drop) */
+@media (pointer: coarse) and (min-width: 641px) {
+  .nav ul a:not(.lab) { padding-block: 17px; background-position: 0 calc(100% - 12px); }
+  .nav ul a.lab { min-height: var(--tap); margin-block: -4px; }
+  .nav .mark { padding-block: 3px; margin-block: -3px; }
+}
+
+@media (max-width: 640px) {
+  .nav { position: relative; flex-wrap: wrap; gap: 10px 0; padding: max(18px, env(safe-area-inset-top, 0px)) var(--gutter) 8px; }
+  .nav .mark { width: 100%; font-size: 22px; line-height: 44px; }
+  .nav ul { width: 100%; flex-wrap: wrap; justify-content: space-between; gap: 0 12px; align-items: center; }
+  .nav ul a:not(.lab) { display: inline-block; font-size: 11px; letter-spacing: .1em; padding: 14px 0;
+    white-space: nowrap; background-position: 0 calc(100% - 10px); }
+  .nav ul a.lab { min-height: 44px; padding: 0 14px; font-size: 11px; letter-spacing: .1em; white-space: nowrap; }
+  /* the capsule rides the wordmark row, so the three text links keep one clean line */
+  .nav ul li:has(> a.lab) { position: absolute; top: 16px; right: var(--gutter); }
+  /* the peek bar: glass on phones too. It leaves on the way down and returns the moment you scroll up */
+  .nav--glass {
+    position: sticky; top: 0; z-index: var(--z-nav); background: var(--glass);
+    -webkit-backdrop-filter: var(--glass-fx); backdrop-filter: var(--glass-fx);
+    transition: translate var(--d-2) var(--ease-out);
+  }
+  .nav--glass.nav-away { translate: 0 -100%; transition: translate 240ms var(--ease-in); }
+  /* anchors and focus land below the returning bar */
+  html:has(.nav--glass) { scroll-padding-top: 134px; }
+  /* no blur in the living rooms, so the bar carries more paper there: no ghost text under the links */
+  :root:is([data-theme="sim"], [data-theme="abyss"], [data-theme="city"], [data-theme="swarm"], [data-theme="warp"],
+    [data-theme="play"], [data-theme="aurora"], [data-theme="rain"], [data-theme="ember"], [data-theme="void"]) .nav--glass {
+    background: color-mix(in srgb, var(--paper) 98%, transparent); }
+}
+@media (max-width: 390px) {
+  .nav ul a.lab { padding: 0 11px; }
+}
+/* with script: one row from the first paint, the mark left, then the dial and Menu right, the links in a sheet.
+   56px on phones, 48px on a phone held sideways (the same row, never the 88px desktop one). The row grows by the
+   top safe area where there is one. (scripting: enabled) is false where the feature is unknown, so old browsers keep
+   the two-row wrap. */
+@media (max-width: 640px) and (scripting: enabled), (max-height: 500px) and (pointer: coarse) and (scripting: enabled) {
+  .nav { flex-wrap: nowrap; align-items: center; gap: 0;
+    height: calc(var(--nav-h) + env(safe-area-inset-top, 0px)); padding: env(safe-area-inset-top, 0px) var(--gutter) 0; }
+  .nav .mark { width: auto; min-width: var(--tap); line-height: var(--nav-h); }
+  .nav > ul { display: none; }
+  /* the dial's slot: a 32px footprint (the dial itself is a 44px target that overhangs it by 6px a side) */
+  .nav .nav-dial-m { display: flex; align-items: center; justify-content: center; flex: none; width: 32px; height: 32px; margin: 0 14px 0 auto; }
+  .nav .nav-dial-m:empty { display: none; }
+  .nav .nav-menu { display: inline-flex; margin-left: auto; }
+  .nav .nav-dial-m:not(:empty) + .nav-menu { margin-left: 0; }
+  html:has(.nav--glass) { scroll-padding-top: calc(var(--nav-h) + 16px); }
+}
+
+/* glass nav: opt-in (index, about, essays). World and experiments never get it. */
+@media (min-width: 641px) {
+  .nav--glass {
+    position: sticky; top: 0; z-index: var(--z-nav); background: var(--glass);
+    -webkit-backdrop-filter: var(--glass-fx); backdrop-filter: var(--glass-fx);
+    view-transition-name: ps-nav;
+  }
+  @supports (animation-timeline: scroll()) {
+    .nav--glass { animation: psNavSeal linear both; animation-timeline: scroll(root); animation-range: 0 120px; }
+  }
+  /* the bar tightens once it seals: 30px of air at rest, 18px when stuck (the -12px top eats the difference) */
+  .nav--glass { padding: 30px var(--frame-pad) 18px; top: -12px; }
+  html:has(.nav--glass) { scroll-padding-top: 92px; }
+  @supports (animation-timeline: scroll()) {
+    .nav--glass .mark { transform-origin: 0 70%; animation: psMarkSeal linear both;
+      animation-timeline: scroll(root); animation-range: 0 120px; }
+  }
+}
+@keyframes psNavSeal { from { background-color: transparent; border-bottom-color: transparent; } }
+@keyframes psMarkSeal { to { scale: .86; } }
+/* a phone held sideways: the glass nav is the phone's peek bar, 48px, solid, and it leaves on the way down */
+@media (max-height: 500px) and (pointer: coarse) {
+  .nav.nav--glass { top: 0; animation: none; transition: translate var(--d-2) var(--ease-out); }
+  .nav.nav--glass .mark { animation: none; scale: none; }
+  .nav--glass.nav-away { translate: 0 -100%; transition: translate 240ms var(--ease-in); }
+  html:has(.nav--glass) { scroll-padding-top: calc(var(--nav-h) + 16px); }
+}
+@media (max-height: 500px) and (pointer: coarse) and (scripting: enabled) {
+  .nav.nav--glass { padding: env(safe-area-inset-top, 0px) var(--gutter) 0; }
+}
+/* the dial's slot after the last link (641px and up). From 1024px it is held open before the script arrives, so the
+   links never shift when the dial lands; under 1024px a page with a [data-dial-dock] leaves it empty and closed. */
+.nav li.nav-dial { display: flex; align-items: center; align-self: center; flex: none; width: 32px; height: 32px; }
+@media (max-width: 1023px) { .nav li.nav-dial:empty { display: none; } }
+@media (min-width: 1024px) and (scripting: enabled) {
+  .nav > ul::after { content: ""; flex: none; align-self: center; width: 32px; height: 32px; }
+  .nav > ul:has(> li.nav-dial)::after { content: none; }
+}
+/* a dock a page offers the dial (the Lab's Register, the World's locnav): a fixed 44px square, so nothing moves
+   whether the dial is in it or not. Hide it with your own media query where you do not want the dial. */
+[data-dial-dock] { display: inline-flex; flex: none; align-items: center; justify-content: center; width: 44px; height: 44px; }
+
+/* ---------- footer: one canonical sign-off, ending on the wordmark ---------- */
+.footer {
+  position: relative;
+  border-top: 0;
+  margin-top: clamp(60px, 10vw, 120px);
+  padding: 40px var(--frame-pad) 64px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  column-gap: clamp(28px, 5vw, 72px);
+  row-gap: 18px;
+  align-items: baseline;
+  font-variant-numeric: tabular-nums;
+  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+}
+/* one hairline inside the frame */
+.footer::before {
+  content: ""; position: absolute; left: var(--frame-pad); right: var(--frame-pad); top: 0; height: 0;
+  border-top: var(--hair-w) solid var(--hair); pointer-events: none;
+}
+.footer .cols { display: flex; flex-wrap: wrap; gap: 14px 34px; align-items: baseline; }
+.footer > nav.cols { justify-content: flex-end; }
+/* the light switch docks in a bar under 1024px and floats only near a page's end above it, so the last section
+   clears the home indicator and the floating dial. A page that ends on something other than the footer puts
+   .dial-clear on its last section. */
+.dial-clear { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+.footer span, .footer a {
+  font-family: var(--sans);
+  font-size: var(--lbl-s);
+  font-weight: var(--lbl-w);
+  letter-spacing: var(--trk-s);
+  text-transform: uppercase;
+  color: var(--ink-2);
+  text-decoration: none;
+}
+.footer a {
+  padding-bottom: 3px;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size var(--d-leave) var(--ease-in), color var(--d-1) var(--ease-out);
+}
+@media (hover: hover) {
+  .footer a:hover { color: var(--ink); background-size: 100% 1px;
+    transition: background-size var(--d-2) var(--ease-out), color var(--d-1) var(--ease-out); }
+}
+.footer a:focus-visible { color: var(--ink); background-size: 100% 1px; }
+.footer .f-mark {
+  font: 700 30px/1 var(--serif); letter-spacing: .01em; text-transform: none;
+  color: var(--ink); background: none; padding: 0; text-decoration: none;
+}
+.footer .f-mark i { font-style: normal; color: var(--accent); }
+.footer a[target="_blank"]::after { content: "\2197"; content: "\2197" / ""; margin-left: .35em; color: var(--ink-2); }
+/* over 700px the footer links keep their layout and gain a 44px target: 12px of padding, 12px of negative margin */
+@media (min-width: 701px) {
+  .footer .cols a { padding-block: 13px; margin-block: -13px -10px; background-position: 0 calc(100% - 10px); }
+  .footer .f-mark { padding-block: 7px; margin-block: -7px; }
+}
+@media (max-width: 700px) {
+  .footer { grid-template-columns: 1fr; row-gap: 0; }
+  .footer a { padding: 14px 0 13px; background-position: 0 calc(100% - 10px); } /* 44px hit box */
+  .footer .f-mark { padding: 8px 0 6px; justify-self: start; } /* 30 + 14: the 44px hit box */
+  .footer > nav.cols { justify-content: flex-start; }
+  /* one rhythm: every footer item shares the link hit box; the copyright takes its own line */
+  .footer .cols { column-gap: 28px; row-gap: 0; }
+  .footer .cols > span { padding: 14px 0 13px; }
+  .footer > div.cols > span:first-child { flex-basis: 100%; }
+}
+
+/* ---------- capsule controls (glass is round) ---------- */
+.ps-cap {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 0 26px;
+  border: 1px solid var(--hair-strong); border-radius: var(--r-pill);
+  background: transparent; color: var(--ink);
+  font: var(--lbl-w) var(--lbl-l)/1 var(--sans); letter-spacing: var(--trk-l); text-transform: uppercase;
+  text-decoration: none; cursor: pointer;
+  position: relative; overflow: hidden; isolation: isolate;
+  transition: background-color var(--d-leave) var(--ease-in), color var(--d-leave) var(--ease-in),
+    border-color var(--d-leave) var(--ease-in), box-shadow var(--d-leave) var(--ease-in), scale var(--d-1) var(--spring);
+}
+.ps-cap:active { scale: .98; }
+@media (hover: hover) {
+  .ps-cap:hover { border-color: var(--ink); box-shadow: var(--elev-1);
+    transition: background-color var(--d-2) var(--ease-out), color var(--d-1) var(--ease-out),
+      border-color var(--d-1) var(--ease-out), box-shadow var(--d-2) var(--ease-out), scale var(--d-1) var(--spring); }
+}
+/* the one primary action per view: glass with a 1px foil ring at rest, foil only under the hand */
+.ps-cap--foil {
+  background: var(--glass); -webkit-backdrop-filter: var(--glass-fx); backdrop-filter: var(--glass-fx);
+  border-color: var(--foil-line); color: var(--ink);
+}
+.ps-cap--foil:active, .ps-cap--foil[aria-pressed="true"] {
+  background: var(--accent); border-color: var(--accent); color: color-mix(in srgb, var(--dark) 70%, #000); }
+@media (hover: hover) {
+  .ps-cap--foil:hover { background: var(--accent); border-color: var(--accent);
+    color: color-mix(in srgb, var(--dark) 70%, #000); box-shadow: var(--elev-1); }
+}
+.ps-cap--ondark { color: var(--on-dark); border-color: var(--hair-on-dark); }
+@media (hover: hover) { .ps-cap--ondark:hover { border-color: var(--on-dark); box-shadow: none; } }
+
+/* ---------- reading progress (World, Lab): driven by the compositor where it can be ---------- */
+#progress { transform-origin: 0 50%; }
+@supports (animation-timeline: scroll()) {
+  #progress { transform: scaleX(0); animation: psRead linear both; animation-timeline: scroll(root); }
+}
+
+/* ---------- reveal (PS_REVEAL in theme.js) ----------
+   .rv content is visible by default. Only what starts below the fold is held (.rv-wait),
+   then sets: opacity plus an 8px rise over --d-3, 50ms apart by --i. Never a blur.
+   If script fails, nothing is ever hidden. */
+.rv-wait { opacity: 0; translate: 0 var(--rise); }
+.rv-wait.in {
+  opacity: 1; translate: 0 0;
+  transition: opacity var(--d-rv) var(--ease-out), translate var(--d-rv) var(--ease-out);
+  transition-delay: calc(min(var(--i, 0), 6) * var(--stagger));
+}
+/* the lab's ladder cells reuse the class name for their stake values: never hide those */
+:where(.rl-cell) > .rv { opacity: 1; translate: none; transition: none; }
+
+/* the World's Twombly scribble (#twMark) draws itself from world.html; nothing global hides or strokes it */
+
+/* shared entrances. psFadeUp is opacity only: run it over var(--d-set) (240ms). Nothing in the house blurs or masks
+   type at frame 0: psMaskRise stays for legacy callers below the fold and never goes on an h1. */
+@keyframes psMaskRise {
+  from { translate: 0 100%; clip-path: inset(0 0 100% 0); }
+  to   { translate: 0 0;    clip-path: inset(-20% -10% -30% -10%); }
+}
+@keyframes psFadeUp { from { opacity: 0; } }
+/* Set, for type a page staggers itself: <h2 class="mv-set" style="--i:1"> (the .rv system does this on scroll) */
+@media (prefers-reduced-motion: no-preference) {
+  .mv-set { animation: psSet var(--d-3) var(--ease-out) backwards; animation-delay: calc(min(var(--i, 0), 8) * var(--stagger)); }
+}
+@keyframes psSet { from { opacity: 0; translate: 0 8px; } }
+/* Land: PS.land(el) puts .ps-land on the target for one 600ms foil pulse */
+.ps-land { outline: 2px solid transparent; outline-offset: 6px; }
+@media (prefers-reduced-motion: no-preference) {
+  .ps-land { animation: psLand var(--d-land) var(--ease-out) both; }
+}
+@keyframes psLand { from { outline-color: var(--foil-line); } to { outline-color: transparent; } }
+
+
+/* ============================================================
+   BANDS AND ROOMS: chapters are separated by space and ground,
+   never by a hairline and a label row
+   ============================================================ */
+.band { background: var(--paper); padding-block: var(--section-y); }
+.band--card { background: var(--vellum); } /* vellum replaced card as the alternate band ground in v3.1 */
+/* a dark stage re-points the ink tokens, so every component inside reads light on dark without its own rules */
+.tone-dark, .band--dark, [data-ground="espresso"], [data-ground="forest"], [data-ground="slate"], .plate--mono,
+[data-ground="wall"][data-tone="dark"] {
+  --ink: var(--on-dark); --ink-2: var(--on-dark-2); --muted: var(--on-dark-3);
+  --paper: var(--dark); --card: var(--dark-2);
+  --line: color-mix(in srgb, var(--on-dark) 18%, var(--dark)); --line-2: color-mix(in srgb, var(--on-dark) 10%, var(--dark));
+  --glass: color-mix(in srgb, var(--dark-2) 86%, transparent);
+  --sh-a1: 30%; --sh-a2: 40%; --sh-a3: 55%; --rim-a: 7%;
+  color: var(--ink); color-scheme: dark;
+}
+.band--dark { background: var(--dark); }
+
+/* ---------- GROUNDS: <section data-ground="paper|vellum|espresso|forest|slate|wall"> ----------
+   Opaque, crisp-edged, never animated. paper and vellum are a background only. espresso, forest and slate
+   behave exactly like .tone-dark, under one light pool, 5% grain and bronze hairlines. wall takes --wall
+   from the element plus data-tone="dark|light". Pair grounds so no two neighbours match, one deep in every four. */
+[data-ground="paper"] { background-color: var(--paper); }
+[data-ground="vellum"] { background-color: var(--vellum); }
+[data-ground="espresso"] { --g-bg: var(--espresso); --g-pool: var(--espresso-2); }
+[data-ground="forest"] { --g-bg: var(--forest); --g-pool: var(--forest-2); }
+[data-ground="slate"] { --g-bg: var(--slate); --g-pool: var(--slate-2); }
+.plate--mono { --g-bg: var(--espresso); --g-pool: var(--espresso-2); }
+:is([data-ground="espresso"], [data-ground="forest"], [data-ground="slate"], .plate--mono) {
+  --paper: var(--g-bg); --card: var(--g-pool);
+  --hair: color-mix(in srgb, var(--bronze-hi) 14%, transparent);
+  --hair-strong: color-mix(in srgb, var(--bronze-hi) 28%, transparent);
+  --hair-on-dark: color-mix(in srgb, var(--bronze-hi) 14%, transparent);
+  background-color: var(--g-bg);
+  background-image: var(--grain-5),
+    radial-gradient(110% 80% at 50% 38%, var(--g-pool) 0%, var(--g-bg) 58%, color-mix(in srgb, var(--g-bg) 80%, #000) 100%);
+  background-size: 128px 128px, 100% 100%;
+  background-blend-mode: overlay, normal;
+}
+/* on a deep ground bronze lifts to the foil highlight so it still reads as text (>= 4.6:1 on every pool, every theme) */
+.tone-dark, .band--dark, [data-ground="espresso"], [data-ground="forest"], [data-ground="slate"], .plate--mono,
+[data-ground="wall"][data-tone="dark"] {
+  --bronze: color-mix(in srgb, var(--bronze-hi) 88%, var(--on-dark));
+}
+/* a wall: <section data-ground="wall" data-tone="light" style="--wall:#E4DCCB">. --wall defaults to vellum. */
+:where([data-ground="wall"]) { --wall: var(--vellum); }
+[data-ground="wall"] { --paper: var(--wall); background-color: var(--wall); }
+[data-ground="wall"][data-tone="dark"] { --paper: var(--wall); --card: color-mix(in srgb, var(--wall) 90%, var(--on-dark)); }
+/* a light wall is paint, so its labels print in black ink in every theme */
+[data-ground="wall"][data-tone="light"] {
+  --ink: var(--on-light); --ink-2: color-mix(in srgb, var(--on-light) 80%, var(--wall));
+  --muted: color-mix(in srgb, var(--on-light-2) 80%, var(--wall));
+  --bronze: color-mix(in srgb, #7E4E2E 66%, var(--on-light)); color: var(--ink); color-scheme: light; }
+/* a dark wall can be a mid-tone (terracotta, slate): its second ink and its bronze lift until they still clear 4.5:1.
+   Foil never goes on a wall. */
+[data-ground="wall"][data-tone="dark"] { --ink-2: color-mix(in srgb, var(--on-dark) 84%, var(--wall));
+  --bronze: color-mix(in srgb, var(--bronze-hi) 45%, var(--on-dark)); }
+:root[data-tone="dark"] [data-ground="wall"][data-tone="light"] {
+  --dark: #0E0D0C; --sh-a1: 6%; --sh-a2: 10%; --sh-a3: 18%; --rim-a: 55%;
+}
+/* the dark papers have no light page to stand against, so every deep section carries a 1px top edge as well as its pool */
+:root[data-tone="dark"] :is([data-ground="espresso"], [data-ground="forest"], [data-ground="slate"]) {
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--on-dark) 16%, transparent); }
+/* the living rooms keep their weather on the light grounds, as the bands do: 18% of the moving background through */
+:root:is([data-theme="sim"], [data-theme="abyss"], [data-theme="city"], [data-theme="swarm"], [data-theme="warp"],
+  [data-theme="aurora"], [data-theme="rain"], [data-theme="ember"], [data-theme="void"]) main [data-ground="paper"] {
+  background-color: color-mix(in srgb, var(--paper) 82%, transparent); }
+:root:is([data-theme="sim"], [data-theme="abyss"], [data-theme="city"], [data-theme="swarm"], [data-theme="warp"],
+  [data-theme="aurora"], [data-theme="rain"], [data-theme="ember"], [data-theme="void"]) main [data-ground="vellum"] {
+  background-color: color-mix(in srgb, var(--vellum) 82%, transparent); }
+
+/* ---------- THE TURN: html[data-stage] holds the ground at the viewport's centre (PS.stage in theme.js).
+   Only the chrome re-tints: the local nav, the progress rule and the dial ring. The page never animates. */
+html:root[data-stage] .locnav { background-color: color-mix(in srgb, var(--stage-c, var(--paper)) 96%, transparent); }
+html[data-stage-tone="dark"] .locnav {
+  --ink: var(--on-dark); --ink-2: var(--on-dark-2); --hair: var(--hair-on-dark);
+  --hair-strong: color-mix(in srgb, var(--on-dark) 28%, transparent); color: var(--ink); color-scheme: dark; }
+:root[data-tone="dark"][data-stage-tone="light"] .locnav {
+  --ink: var(--on-light); --ink-2: var(--on-light-2); --hair: color-mix(in srgb, var(--on-light) 16%, transparent);
+  --hair-strong: color-mix(in srgb, var(--on-light) 28%, transparent); color: var(--ink); color-scheme: light; }
+html[data-stage-tone="dark"] #progress { background-color: color-mix(in srgb, var(--accent) 72%, var(--on-dark)); }
+html[data-stage] #progress { transition: background-color var(--d-page) var(--ease-io); }
+html[data-stage-tone="dark"] #themeBtn:not(.is-docked) {
+  --dial-ring: color-mix(in srgb, var(--on-dark) 46%, transparent); }
+:root:is([data-theme="sim"], [data-theme="abyss"], [data-theme="city"], [data-theme="swarm"], [data-theme="warp"],
+  [data-theme="play"], [data-theme="aurora"], [data-theme="rain"], [data-theme="ember"], [data-theme="void"]) :is(.tone-dark, .band--dark) {
+  --glass: color-mix(in srgb, var(--dark-2) 96%, transparent); }
+/* the living themes keep their weather on long pages of rooms: each band lets 18% of the moving background through.
+   The dark Numbers band stays solid. Small labels hold 4.5:1 over the brightest shapes each background draws.
+   Play, the one light living theme, stays solid: its darker shapes would pull small foil labels under 4.5:1. */
+:root:is([data-theme="sim"], [data-theme="abyss"], [data-theme="city"], [data-theme="swarm"], [data-theme="warp"],
+  [data-theme="aurora"], [data-theme="rain"], [data-theme="ember"], [data-theme="void"]) main > .band:not(.band--dark):not([data-ground]) {
+  background: color-mix(in srgb, var(--paper) 82%, transparent); }
+:root:is([data-theme="sim"], [data-theme="abyss"], [data-theme="city"], [data-theme="swarm"], [data-theme="warp"],
+  [data-theme="aurora"], [data-theme="rain"], [data-theme="ember"], [data-theme="void"]) main > .band--card:not(.band--dark):not([data-ground]) {
+  background: color-mix(in srgb, var(--vellum) 82%, transparent); }
+
+/* the room header: index numeral, h2, lede. No tag row, no rule, no "No. NN" */
+.room-h {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: .4em; align-items: baseline;
+  font-size: var(--fs-h1); margin-bottom: clamp(36px, 5vw, 64px);
+}
+.room-h > .idx { grid-column: 1; font-size: 1em; }
+.room-h > h2 {
+  grid-column: 2; margin: 0; max-width: 24ch;
+  font: 400 1em/1.08 var(--serif); letter-spacing: -.012em; text-wrap: balance; color: var(--ink);
+}
+.room-h > .lede, .room-h > p {
+  grid-column: 2; margin-top: 22px; max-width: 60ch;
+  font-size: var(--fs-lede); line-height: 1.55; text-wrap: pretty;
+}
+.room-h > .room-h-x { grid-column: 2; margin-top: 18px; } /* optional slot for a control row */
+@media (max-width: 640px) {
+  .room-h > .lede, .room-h > p, .room-h > .room-h-x { grid-column: 1 / -1; }
+}
+
+/* ---------- the ledger: tabular rows, label | value ---------- */
+.ledger { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hair-strong); }
+.ledger > :where(div, li, .ledger-row) {
+  display: grid; grid-template-columns: minmax(96px, 32%) minmax(0, 1fr); gap: 4px 24px; align-items: baseline;
+  padding: 14px 0 15px; border-bottom: var(--hair-w) solid var(--hair);
+}
+.ledger :where(dt, .ledger-k) {
+  font: var(--lbl-w) var(--lbl-m)/1.5 var(--sans); letter-spacing: var(--trk-m); text-transform: uppercase; color: var(--ink-2);
+}
+.ledger :where(dd, .ledger-v) { margin: 0; font: 400 18px/1.45 var(--serif); color: var(--ink); text-wrap: pretty; }
+.ledger :where(.ledger-n, .num) { font-family: var(--num); font-variant-numeric: lining-nums tabular-nums; }
+@media (max-width: 480px) {
+  .ledger > :where(div, li, .ledger-row):not(:where(.ledger--data > *)) { grid-template-columns: 1fr; }
+}
+/* data typography: .ledger.ledger--data. Each row is a label, a dot leader and a right-aligned figure.
+   <ol class="ledger ledger--data">
+     <li><span class="ledger-k">Fees, ten years</span><span class="ledger-n">&minus;18.4<span class="u">&#8202;%</span></span></li>
+     <li class="rule-double"><span class="ledger-k">Left of your dollar</span><span class="ledger-n">0.62</span></li>
+   </ol>
+   Figures are lining and tabular, units sit at .7em in ink-2 after a hair space, negatives take a true minus
+   (U+2212, or PS.fmt in theme.js). Prose keeps Georgia's oldstyle figures. */
+.ledger--data { border-top: 0; }
+.ledger--data > * {
+  display: flex; align-items: baseline; gap: 0; padding: 11px 0 12px;
+  border-bottom: var(--hair-w) solid var(--hair);
+}
+.ledger--data > *::after {
+  content: ""; order: 1; flex: 1 1 24px; min-width: 24px; height: 1em; margin: 0 10px; align-self: baseline;
+  background: radial-gradient(circle, var(--hair-strong) 1px, transparent 1.2px) 0 85% / 6px 6px repeat-x;
+}
+.ledger--data .ledger-k {
+  flex: 0 1 auto; min-width: 0; font: 400 17px/1.4 var(--serif); letter-spacing: 0; text-transform: none; color: var(--ink);
+}
+.ledger--data .ledger-k small { display: block; font: var(--lbl-w) var(--lbl-s)/1.4 var(--sans); letter-spacing: var(--trk-s);
+  text-transform: uppercase; color: var(--ink-2); }
+.ledger--data .ledger-n {
+  order: 2; flex: none; text-align: right; white-space: nowrap;
+  font: 400 18px/1.3 var(--num); font-variant-numeric: lining-nums tabular-nums; letter-spacing: -.005em; color: var(--ink);
+}
+.ledger--data > :where(:not(.ledger-k):not(.ledger-n)) { order: 0; }
+.ledger .u, .stat .u { font-size: .7em; color: var(--ink-2); letter-spacing: 0; }
+/* a total: a 1px ink line, a 3px gap and a half-pixel ink-2 line above the row */
+.rule-double {
+  border-top: 0;
+  background: linear-gradient(var(--ink), var(--ink)) 0 0 / 100% 1px no-repeat,
+    linear-gradient(var(--ink-2), var(--ink-2)) 0 4px / 100% max(.5px, var(--hair-w)) no-repeat;
+  padding-top: 14px;
+}
+.ledger--data > .rule-double { border-bottom: 0; }
+.ledger--data > .rule-double .ledger-n { font-weight: 500; }
+
+
+/* ============================================================
+   GLASS CHROME: the local nav pill, the sheet
+   ============================================================ */
+/* the local nav (World; the Lab's .lab-dir matches it) */
+.locnav {
+  position: fixed; top: 12px; left: 50%; z-index: calc(var(--z-nav) + 5);
+  width: min(1024px, calc(100% - 32px)); height: 52px;
+  display: flex; align-items: center; gap: 20px; padding: 0 8px 0 20px;
+  border-radius: var(--r-glass); background: var(--glass);
+  -webkit-backdrop-filter: var(--glass-fx); backdrop-filter: var(--glass-fx);
+  box-shadow: 0 0 0 1px var(--hair), var(--elev-1);
+  opacity: 0; translate: -50% -8px; visibility: hidden; pointer-events: none;
+  transition: opacity var(--d-leave) var(--ease-in), translate var(--d-leave) var(--ease-in), visibility 0s linear var(--d-leave),
+    background-color var(--d-page) var(--ease-io), color var(--d-page) var(--ease-io);
+}
+.locnav.on {
+  opacity: 1; translate: -50% 0; visibility: visible; pointer-events: auto;
+  transition: opacity var(--d-2) var(--ease-out), translate var(--d-2) var(--ease-out), visibility 0s,
+    background-color var(--d-page) var(--ease-io), color var(--d-page) var(--ease-io);
+}
+.locnav-room {
+  flex: 1 1 auto; min-width: 0; font: 400 15px/1.2 var(--serif); color: var(--ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.locnav-links { display: flex; align-items: center; gap: clamp(14px, 1.8vw, 24px); list-style: none; margin: 0; padding: 0; }
+.locnav-links a, .locnav-plan {
+  display: inline-flex; align-items: center; min-height: var(--tap); white-space: nowrap;
+  font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase;
+  color: var(--ink-2); text-decoration: none; background: none; border: 0; cursor: pointer;
+}
+.locnav-links a {
+  background: linear-gradient(currentColor, currentColor) 0 calc(50% + 10px) / 0 1px no-repeat;
+  transition: background-size var(--d-leave) var(--ease-in), color var(--d-1) var(--ease-out);
+}
+@media (hover: hover) {
+  .locnav-links a:hover { color: var(--ink); background-size: 100% 1px;
+    transition: background-size var(--d-2) var(--ease-out), color var(--d-1) var(--ease-out); }
+}
+/* the room you are in: state, so its rule is foil */
+.locnav-links a[aria-current] { color: var(--ink); background-image: linear-gradient(var(--accent), var(--accent)); background-size: 100% 1px; }
+.locnav-plan {
+  flex: none; padding: 0 16px; margin-left: 4px; color: var(--ink);
+  border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--hair-strong);
+  transition: box-shadow var(--d-1) var(--ease-out), scale var(--d-1) var(--spring);
+}
+@media (hover: hover) { .locnav-plan:hover { box-shadow: inset 0 0 0 1px var(--ink); } }
+.locnav-plan:active { scale: .98; }
+@media (max-width: 999px) { .locnav-links { display: none; } }
+@media (max-width: 640px) { .locnav { top: 0; width: 100%; border-radius: 0; height: calc(52px + env(safe-area-inset-top, 0px));
+  padding-top: env(safe-area-inset-top, 0px); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(8px, env(safe-area-inset-right, 0px));
+  background-color: var(--stage-c, var(--paper)); box-shadow: 0 1px 0 var(--hair); } }
+/* a touch screen: the bar is a solid ground (no glass under a thumb) */
+@media (pointer: coarse) { .locnav { background-color: var(--stage-c, var(--paper)); } }
+/* living rooms repaint behind glass every frame: no blur there */
+:root:is([data-theme="sim"], [data-theme="abyss"], [data-theme="city"], [data-theme="swarm"], [data-theme="warp"],
+  [data-theme="play"], [data-theme="aurora"], [data-theme="rain"], [data-theme="ember"], [data-theme="void"]) .locnav {
+  background: color-mix(in srgb, var(--paper) 96%, transparent); }
+
+/* the top sheet: the phone menu and the World's floor plan (PS.sheet in theme.js runs it). On a phone it carries a
+   grab handle at its lower edge and closes with a swipe up, as well as Close, Escape and a tap on the scrim. */
+.sheet {
+  position: fixed; top: 0; left: 0; right: 0; z-index: var(--z-sheet);
+  max-height: 100vh; max-height: 100svh; overflow-y: auto; overscroll-behavior: contain;
+  padding: env(safe-area-inset-top, 0px) var(--gutter) 24px;
+  background: var(--glass); -webkit-backdrop-filter: var(--glass-fx); backdrop-filter: var(--glass-fx);
+  border-radius: 0 0 var(--r-glass) var(--r-glass);
+  box-shadow: 0 1px 0 var(--hair), var(--elev-3);
+  visibility: hidden; translate: 0 calc(-100% - 24px);
+  transition: translate var(--d-leave) var(--ease-in), visibility 0s linear var(--d-leave);
+}
+.sheet.is-open { visibility: visible; translate: 0 0; transition: translate var(--d-2) var(--ease-out), visibility 0s; }
+:root:is([data-theme="sim"], [data-theme="abyss"], [data-theme="city"], [data-theme="swarm"], [data-theme="warp"],
+  [data-theme="play"], [data-theme="aurora"], [data-theme="rain"], [data-theme="ember"], [data-theme="void"]) .sheet {
+  background: color-mix(in srgb, var(--paper) 97%, transparent); }
+.sheet-scrim {
+  position: fixed; inset: 0; z-index: var(--z-scrim); background: color-mix(in srgb, var(--dark) 26%, transparent);
+  opacity: 0; visibility: hidden;
+  transition: opacity var(--d-leave) var(--ease-in), visibility 0s linear var(--d-leave);
+}
+.sheet-scrim.is-open { opacity: 1; visibility: visible; transition: opacity var(--d-2) var(--ease-out), visibility 0s; }
+html.sheet-open { overflow: hidden; scrollbar-gutter: stable; }
+.sheet-head { display: flex; align-items: center; justify-content: space-between; min-height: 56px; }
+.sheet-mark { font: 700 22px/1 var(--serif); letter-spacing: .01em; color: var(--ink); }
+.sheet-mark i { font-style: normal; color: var(--accent); }
+.sheet-title { font: var(--lbl-w) var(--lbl-m)/1 var(--sans); letter-spacing: var(--trk-m); text-transform: uppercase; color: var(--ink-2); }
+.sheet-list { list-style: none; margin: 4px 0 0; padding: 0; }
+.sheet-list > li > :is(a, button) {
+  display: flex; align-items: center; gap: 14px; width: 100%; min-height: 56px; padding: 0;
+  border: 0; border-top: var(--hair-w) solid var(--hair); background: none; cursor: pointer; text-align: left;
+  font: 400 28px/1.1 var(--serif); letter-spacing: -.01em; color: var(--ink); text-decoration: none;
+}
+.sheet-list > li:first-child > :is(a, button) { border-top: 0; }
+.sheet-list .idx { font-size: .64em; min-width: 1.6em; }
+.sheet-list .n { margin-left: auto; font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs);
+  text-transform: uppercase; color: var(--ink-2); }
+/* the page you are on: a foil dot, the same mark the rail and the theme list use */
+.sheet-list > li > [aria-current]::after {
+  content: ""; width: 7px; height: 7px; margin-left: auto; border-radius: 50%; background: var(--foil-line); flex: none; }
+@media (min-width: 900px) {
+  .sheet-list--cols { columns: 2; column-gap: 48px; }
+  .sheet-list--cols > li { break-inside: avoid; }
+  .sheet-list--cols > li:first-child > :is(a, button) { border-top: var(--hair-w) solid var(--hair); }
+}
+/* the menu lives in the phone header only: at 641px and up it is gone, except on a phone held sideways */
+@media (min-width: 641px) and (min-height: 501px), (min-width: 641px) and (pointer: fine), (min-width: 641px) and (pointer: none) {
+  .sheet--menu { display: none; } }
+@media (max-height: 500px) and (pointer: coarse) {
+  .sheet--menu .sheet-head { min-height: 48px; }
+  .sheet--menu .sheet-list > li > :is(a, button) { min-height: 48px; font-size: 24px; }
+}
+.sheet.is-dragging, .ps-sheet.is-dragging { transition: none !important; }
+/* a touch screen: the top sheet is a solid ground, so no line of the page ghosts through it */
+@media (pointer: coarse) { .sheet { background: var(--paper); } }
+/* the grab handle: theme.js puts one in every sheet; it shows only where a swipe closes the sheet */
+.ps-sheet-grab { display: none; }
+@media (max-width: 640px), (max-height: 500px) and (pointer: coarse) {
+  .sheet { padding-bottom: 0; }
+  .sheet > .ps-sheet-grab { display: block; position: sticky; bottom: 0; height: 28px; margin-top: 4px; touch-action: none; }
+  .sheet > .ps-sheet-grab::before { content: ""; position: absolute; left: 50%; bottom: 10px; width: 36px; height: 4px; margin-left: -18px;
+    border-radius: 2px; background: var(--hair-strong); }
+}
+
+/* ---------- PS.sheet: the house's sheet (PS.sheet(el, {opener, onClose, side}) in theme.js) ----------
+   <div class="ps-sheet" aria-label="Index">
+     <div class="ps-sheet-head"><h2 class="ps-sheet-title">Index</h2><button class="ps-sheet-close" type="button">Close</button></div>
+     <ul class="ps-sheet-list"><li><a class="ps-row" href="#exp-2">..</a></li></ul>
+   </div>
+   640px and below: a bottom sheet, the full width, up to 88svh, 16px top corners, a 36 by 4 grab handle; a swipe down
+   (80px, or a flick) closes it, as do Escape and the scrim. The head stays pinned under the handle while the body
+   scrolls. 641px and up: a centred panel, or a right panel with {side:'right'}. The page under it is locked. */
+.ps-sheet {
+  position: fixed; z-index: var(--z-sheet); display: block; margin: 0;
+  overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+  background: var(--card); color: var(--ink);
+  box-shadow: 0 0 0 1px var(--hair), var(--elev-3);
+  visibility: hidden;
+}
+.ps-sheet-head {
+  position: sticky; top: var(--sheet-grab); z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  min-height: 52px; margin: 0 calc(-1 * var(--ps-sheet-px, 24px)); padding: 0 var(--ps-sheet-px, 24px);
+  background: var(--card); border-bottom: var(--hair-w) solid var(--hair);
+}
+.ps-sheet-title { margin: 0; font: var(--lbl-w) var(--lbl-m)/1.2 var(--sans); letter-spacing: var(--trk-m); text-transform: uppercase; color: var(--ink); }
+.ps-sheet-close {
+  display: inline-flex; align-items: center; justify-content: center; min-height: var(--tap); min-width: var(--tap);
+  margin-right: -8px; padding: 0 8px; border: 0; background: none; cursor: pointer; color: var(--ink);
+  font: var(--lbl-w) var(--lbl-m)/1 var(--sans); letter-spacing: var(--trk-m); text-transform: uppercase;
+}
+.ps-sheet-list { list-style: none; margin: 0; padding: 0; }
+/* a sheet row: 48px or taller, one hairline above, the label left and a quiet figure right */
+.ps-row {
+  display: flex; align-items: center; gap: 14px; width: 100%; min-height: var(--tap-l); padding: 6px 0;
+  border: 0; border-top: var(--hair-w) solid var(--hair); background: none; cursor: pointer; text-align: left;
+  font: 400 18px/1.3 var(--serif); color: var(--ink); text-decoration: none;
+}
+.ps-sheet-list > li:first-child > .ps-row { border-top: 0; }
+.ps-row .n { margin-left: auto; font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase;
+  color: var(--ink-2); font-variant-numeric: lining-nums tabular-nums; }
+.ps-row[aria-current]::after { content: ""; width: 7px; height: 7px; margin-left: auto; border-radius: 50%; background: var(--foil-line); flex: none; }
+@media (max-width: 640px) {
+  .ps-sheet {
+    --ps-sheet-px: max(20px, var(--safe-x));
+    left: 0; right: 0; bottom: 0; top: auto; width: auto;
+    max-height: 88vh; max-height: 88svh;
+    padding: 0 var(--ps-sheet-px) max(16px, env(safe-area-inset-bottom, 0px));
+    border-radius: 16px 16px 0 0;
+    translate: 0 calc(100% + 24px);
+    transition: translate var(--d-leave) var(--ease-in), visibility 0s linear var(--d-leave);
+  }
+  .ps-sheet.is-open { visibility: visible; translate: 0 0; transition: translate var(--d-2) var(--ease-out), visibility 0s; }
+  .ps-sheet > .ps-sheet-grab {
+    display: block; position: sticky; top: 0; z-index: 3; height: var(--sheet-grab);
+    margin: 0 calc(-1 * var(--ps-sheet-px)); background: var(--card); touch-action: none; }
+  .ps-sheet > .ps-sheet-grab::before { content: ""; position: absolute; left: 50%; top: 8px; width: 36px; height: 4px; margin-left: -18px;
+    border-radius: 2px; background: var(--hair-strong); }
+}
+@media (min-width: 641px) {
+  .ps-sheet {
+    left: 50%; top: 50%; width: min(560px, calc(100vw - 48px)); max-height: min(84vh, 760px); max-height: min(84svh, 760px);
+    padding: 0 24px 24px; border-radius: var(--r-glass);
+    opacity: 0; translate: -50% calc(-50% + 12px);
+    transition: opacity var(--d-leave) var(--ease-in), translate var(--d-leave) var(--ease-in), visibility 0s linear var(--d-leave);
+  }
+  .ps-sheet.is-open { opacity: 1; translate: -50% -50%; visibility: visible;
+    transition: opacity var(--d-2) var(--ease-out), translate var(--d-2) var(--ease-out), visibility 0s; }
+  .ps-sheet--right { left: auto; right: 0; top: 0; bottom: 0; width: min(420px, 100vw); max-height: none;
+    padding-right: max(24px, env(safe-area-inset-right, 0px)); border-radius: var(--r-glass) 0 0 var(--r-glass);
+    opacity: 1; translate: calc(100% + 24px) 0; }
+  .ps-sheet--right.is-open { translate: 0 0; }
+}
+
+
+/* ============================================================
+   SCROLL SCENES (PS_SCROLL in theme.js)
+   <section class="scene" style="--track:220svh"><div class="scene-stage">
+     ... <div class="scene-steps"><div class="scene-step">..</div>..</div></div></section>
+   The section writes --p (0..1). Steps crossfade only once script marks it .is-live.
+   ============================================================ */
+.scene { position: relative; height: var(--track, 220vh); }
+.scene-stage { position: sticky; top: 0; height: 100vh; height: 100svh; }
+@media (max-width: 640px) { .scene { height: min(var(--track, 220svh), 160svh); } }
+.scene.is-live .scene-steps { display: grid; }
+.scene.is-live .scene-step {
+  grid-area: 1 / 1; opacity: 0; translate: 0 var(--rise); pointer-events: none;
+  transition: opacity var(--d-leave) var(--ease-in), translate var(--d-leave) var(--ease-in);
+}
+.scene.is-live .scene-step.is-on, .scene.is-live .scene-step:focus-within {
+  opacity: 1; translate: 0 0; pointer-events: auto;
+  transition: opacity var(--d-2) var(--ease-io), translate var(--d-2) var(--ease-io);
+}
+/* no script, reduced motion, or no IntersectionObserver: every step stacked in its final state */
+.scene--static { height: auto; }
+.scene--static .scene-stage { position: static; height: auto; overflow: visible; }
+@media (scripting: none) {
+  .scene { height: auto; }
+  .scene-stage { position: static; height: auto; overflow: visible; }
+}
+
+
+/* ============================================================
+   DRAWINGS: inline 3D posters (and the SVG the engine exports)
+   ============================================================ */
+.ps3d-poster { display: block; width: 100%; height: 100%; overflow: visible; }
+.ps3d-poster :is(.p-ink, .p-ink2, .p-hid, .p-foil) {
+  fill: none; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-linejoin: round; }
+.ps3d-poster .p-ink { stroke: var(--ink); }
+.ps3d-poster .p-ink2 { stroke: var(--ink-2); }
+.ps3d-poster .p-hid { stroke: var(--ink); opacity: .16; stroke-dasharray: 4 4; }
+.ps3d-poster .p-foil { stroke: var(--foil-line); }
+.ps3d-poster .p-face { fill: var(--card); stroke: none; }
+/* v3.1 shaded posters (PS3D.debug.poster): filled faces from the --m-* tokens, silhouettes on top, a soft contact
+   shadow under. Faces sit inside <g data-part> groups (or an svg carrying data-poster="2"), which is how .p-foil
+   tells a foil face from the old foil line above. Every value re-resolves inside a deep ground or a dark theme. */
+.ps3d-poster :is(.p-top, .p-left, .p-right, .p-plaster, .p-metal, .p-glass, .p-liquid, .p-inkface, .p-shadow) { stroke: none; }
+.ps3d-poster .p-top { fill: var(--m-top); }
+.ps3d-poster .p-left { fill: var(--m-left); }
+.ps3d-poster .p-right { fill: var(--m-right); }
+.ps3d-poster .p-plaster { fill: var(--m-plaster); }
+.ps3d-poster .p-metal { fill: var(--m-metal-hi); }
+.ps3d-poster .p-metal.p-right, .ps3d-poster .p-metal-lo { fill: var(--m-metal-lo); }
+.ps3d-poster .p-glass { fill: var(--m-top); fill-opacity: .22; }
+.ps3d-poster .p-liquid { fill: var(--m-foil); fill-opacity: .55; }
+.ps3d-poster .p-inkface { fill: var(--ink); }
+.ps3d-poster .p-shadow { fill: var(--m-shadow); }
+.ps3d-poster .p-stop-hi { stop-color: var(--m-metal-hi); }
+.ps3d-poster .p-stop-lo { stop-color: var(--m-metal-lo); }
+.ps3d-poster :is([data-part], [data-poster="2"]) .p-foil, .ps3d-poster[data-poster="2"] .p-foil { fill: var(--m-foil); stroke: none; }
+.ps3d-poster :is(.p-sil, .p-line, .p-detail) {
+  fill: none; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-linejoin: round; stroke: var(--m-sil); }
+.ps3d-poster .p-sil { stroke-width: 1.75px; }
+/* riso's blue ink is the lightest ink of the light papers: a poster's far silhouettes (baked down to .55 for depth) would fall
+   under 3:1 on vellum, so in riso they print at .85 throughout */
+:root[data-theme="riso"] .ps3d-poster .p-sil { stroke-opacity: .85; }
+.ps3d-poster .p-line { stroke-width: .9px; stroke-opacity: .42; }   /* creases over 30 degrees (.38 of ink, from a .9 silhouette) */
+.ps3d-poster .p-detail { stroke-width: .75px; stroke-opacity: .28; }
+:root[data-tone="dark"] .ps3d-poster .p-sil,
+:is(.tone-dark, .band--dark, [data-ground="espresso"], [data-ground="forest"], [data-ground="slate"], [data-ground="wall"][data-tone="dark"]) .ps3d-poster .p-sil { stroke-width: 1.6px; }
+/* the studio sweep: every 3D stage on a light ground stands in a soft white sweep (no more spot of light) */
+:root:not([data-tone="dark"]) :is(.iso-stage, .hero3d) {
+  background-image: radial-gradient(60% 55% at 50% 58%, color-mix(in srgb, var(--paper) 70%, #fff) 0%, transparent 70%); }
+:is(.tone-dark, .band--dark, [data-ground="espresso"], [data-ground="forest"], [data-ground="slate"], [data-ground="wall"]) :is(.iso-stage, .hero3d) {
+  background-image: none; }
+/* the Stack's sheets (hero.js reads these for its textures; the poster prints them through .p-top and .p-txt). On a dark light
+   the sheets stay paper under a warm pool, so the Stack is the lit thing on the screen, never a wireframe on black. */
+:is(.hero3d, .nf-stack) { --leaf: var(--card); --leaf-ink: var(--ink); --leaf-ink2: var(--ink-2); }
+:root[data-tone="dark"] :is(.hero3d, .nf-stack) {
+  --leaf: color-mix(in srgb, var(--on-dark) 88%, var(--dark));
+  --leaf-ink: color-mix(in srgb, var(--dark) 94%, var(--on-dark));
+  --leaf-ink2: color-mix(in srgb, var(--dark) 64%, var(--on-dark));
+  background-image: radial-gradient(52% 46% at 50% 60%, color-mix(in srgb, var(--bronze-hi) 13%, transparent) 0%,
+    color-mix(in srgb, var(--on-dark) 4%, transparent) 55%, transparent 74%);
+}
+:root[data-tone="dark"] :is(.hero3d, .nf-stack) .ps3d-poster[data-v] .p-top { fill: var(--leaf); }
+:root[data-tone="dark"] :is(.hero3d, .nf-stack) .ps3d-poster[data-v] .p-txt { fill: var(--leaf-ink); }
+:root[data-tone="dark"] :is(.hero3d, .nf-stack) .ps3d-poster[data-v] .p-txt2 { fill: var(--leaf-ink2); }
+
+
+/* ============================================================
+   MATERIALS: deboss, foil, the gilt frame, the seal
+   ============================================================ */
+/* blind deboss: the paper pressed in. Light themes only, 96px and up only (the home P.S.); elsewhere it is plain ink.
+   It is a logotype treatment, so aa.js lists it as exempt rather than measuring it. */
+.deboss { color: var(--ink); }
+:root:not([data-tone="dark"]) .deboss {
+  color: color-mix(in srgb, var(--paper) 86%, var(--ink));
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .75), 0 -1px 0 rgba(0, 0, 0, .07);
+}
+:root:not([data-tone="dark"]) :is(.tone-dark, .band--dark, [data-ground="espresso"], [data-ground="forest"], [data-ground="slate"], [data-ground="wall"][data-tone="dark"]) .deboss {
+  color: var(--ink); text-shadow: none; }
+
+/* foil: bronze leaf, for type of 40px and up on a deep ground. On paper it is solid bronze.
+   PS.foil() adds .is-lit once when it is half in view, and the sheen passes once. Never loops. */
+.foil { color: var(--bronze); }
+:is(.tone-dark, .band--dark, [data-ground="espresso"], [data-ground="forest"], [data-ground="slate"], .plate--mono) .foil {
+  color: var(--foil-lo);
+  background-image: linear-gradient(100deg, var(--foil-lo) 0%, var(--foil-mid) 26%, var(--foil-hi) 44%, var(--foil-mid-2) 60%, var(--foil-lo) 100%);
+  background-size: 220% 100%; background-position: 100% 0; background-repeat: no-repeat;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+@media (prefers-reduced-motion: no-preference) {
+  :is(.tone-dark, .band--dark, [data-ground="espresso"], [data-ground="forest"], [data-ground="slate"], .plate--mono) .foil.is-lit {
+    animation: psSheen var(--d-5) var(--ease-io) both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(.tone-dark, .band--dark, [data-ground="espresso"], [data-ground="forest"], [data-ground="slate"], .plate--mono) .foil {
+    background-position: 0 0; }
+}
+@keyframes psSheen { from { background-position: 100% 0; } to { background-position: 0 0; } }
+
+/* the gilt frame: a 1px bronze rule, a 6px mat (vellum on light, espresso on deep), a 1px inner bronze rule.
+   <figure class="frame-gilt"><div class="plate plate--oil" ...>...</div></figure>. It owns its ::before. */
+.frame-gilt {
+  position: relative; display: block; padding: 7px; margin: 0;
+  border: 1px solid var(--bronze); border-radius: 1px;
+  background: var(--mat); box-shadow: var(--elev-2);
+}
+.frame-gilt::before {
+  content: ""; position: absolute; inset: 6px; z-index: 2; pointer-events: none; border: 1px solid var(--bronze);
+}
+.frame-gilt > .plate { border-radius: 0; }
+
+/* the seal: a 28px pressed disc in the wing's hue. Its numeral picks black or white, whichever clears 4.5:1 on the hue
+   (PS.inkFor(hue) gives the same answer in script). <span class="seal" style="--w-hue:#3A6B55">III</span> */
+.seal {
+  --seal-hue: var(--w-hue, var(--bronze));
+  display: inline-grid; place-items: center; flex: none;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--seal-hue) 82%, #fff) 0%, var(--seal-hue) 55%, color-mix(in srgb, var(--seal-hue) 84%, #000) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .32), inset 0 -1px 2px rgba(0, 0, 0, .28), 0 1px 2px rgba(0, 0, 0, .2);
+  color: #fff;
+  font: 400 12px/1 var(--serif); letter-spacing: .02em; font-variant-numeric: lining-nums;
+  --aa-bg: var(--seal-hue); /* aa.js measures the numeral against the hue, not the gradient */
+}
+@supports (color: oklch(from red l c h)) {
+  .seal { color: oklch(from var(--seal-hue) clamp(0, (.5636 - l) * 1000, 1) 0 0); }
+}
+.seal--lg { width: 44px; height: 44px; font-size: 16px; }
+
+/* cards: Lab cards and postcards round to 6px; paper sheets keep --r-paper */
+.card-6 { border-radius: var(--r-card); }
+
+
+/* ============================================================
+   THE PLATE: every picture on the site
+   <div class="plate" data-plate data-mono="AC" style="--ratio:4/5; --focal:50% 30%">
+     <img data-src="..330px.jpg" data-srcset="..330px.jpg 330w, ..500px.jpg 500w" data-sizes="(max-width:700px) 72vw, 280px"
+          width="330" height="412" alt="Andrew Carnegie, about 1913" decoding="async">
+   </div>
+   Light grounds print it warm mono on the paper (multiply); deep grounds print it darker with a vignette and a lip.
+   It develops to true colour on hover or focus (fine pointer), once at 60% in view (touch), or always with .is-dev.
+   .mv-develop adds the one-time reveal. A failed load becomes a vellum plate with the monogram or numero.
+   ============================================================ */
+.plate {
+  position: relative; display: block; overflow: hidden; isolation: isolate;
+  aspect-ratio: var(--ratio, auto); background-color: var(--paper); border-radius: 2px;
+}
+.plate > img, .plate > picture > img, .plate > picture {
+  display: block; width: 100%; height: 100%;
+}
+.plate > img, .plate > picture > img {
+  object-fit: cover; object-position: var(--focal, 50% 50%);
+  filter: var(--plate-f); mix-blend-mode: var(--plate-blend);
+  transition: filter var(--d-4) var(--ease-out), opacity var(--d-2) var(--ease-out),
+    clip-path var(--d-4) var(--ease-out), scale var(--d-4) var(--ease-out);
+}
+/* deep: a 22% inner vignette and a 1px top lip */
+.plate::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: var(--plate-deep, 0);
+  background: radial-gradient(120% 100% at 50% 45%, transparent 55%, rgba(0, 0, 0, .22) 100%);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--on-dark) 20%, transparent);
+}
+/* develop */
+.plate.is-dev > img, .plate.is-dev > picture > img { filter: none; }
+@media (hover: hover) and (pointer: fine) {
+  .plate:is(:hover, :focus-within) > img, .plate:is(:hover, :focus-within) > picture > img,
+  a:is(:hover, :focus-visible) .plate > img, a:is(:hover, :focus-visible) .plate > picture > img { filter: none; }
+}
+/* oils keep their own colour, always framed */
+.plate--oil > img, .plate--oil > picture > img { filter: saturate(.88); mix-blend-mode: normal; }
+.plate--oil.is-dev > img, .plate--oil.is-dev > picture > img { filter: none; }
+/* loading: the paper shows, then the picture fades up (script only; without it nothing is ever hidden) */
+.plate.is-loading > img, .plate.is-loading > picture > img { opacity: 0; }
+/* waiting: a plate whose picture has not landed (queued or still lazy) is a darker sheet of the paper with a slow breath,
+   so a jump or a fast scroll shows a plate being set, never an empty frame. The base .plate background stays the paper:
+   a landed picture multiplies against it. */
+.plate { transition: background-color var(--d-2) var(--ease-out); }
+.plate:is(.is-loading, :has(> img:is([data-src], [data-srcset])), :has(> picture > img:is([data-src], [data-srcset]))):not(.plate--fail) {
+  background-color: color-mix(in srgb, var(--paper) 88%, var(--ink)); }
+.plate:is(.is-loading, :has(> img:is([data-src], [data-srcset])), :has(> picture > img:is([data-src], [data-srcset]))):not(.plate--fail)::before {
+  content: attr(data-fail-text); position: absolute; inset: 0; z-index: 1; display: grid; place-items: center; pointer-events: none;
+  font: 400 var(--fail-fs, 40px)/1 var(--serif); letter-spacing: .02em; font-variant-numeric: lining-nums;
+  color: color-mix(in srgb, var(--bronze) 40%, transparent);
+  background: radial-gradient(70% 60% at 50% 45%, color-mix(in srgb, var(--paper) 55%, transparent), transparent 75%);
+  opacity: .8; }
+/* the breath runs only within a screen of the viewport (.is-near from PS.plates) or while the request is in flight */
+.plate:is(.is-near, .is-loading):is(.is-loading, :has(> img:is([data-src], [data-srcset])), :has(> picture > img:is([data-src], [data-srcset]))):not(.plate--fail)::before {
+  animation: plateWait 1.6s var(--ease-io) infinite alternate; }
+@keyframes plateWait { from { opacity: .5; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .plate:is(.is-near, .is-loading):is(.is-loading, :has(> img:is([data-src], [data-srcset])), :has(> picture > img:is([data-src], [data-srcset]))):not(.plate--fail)::before { animation: none; opacity: .8; } }
+/* reveal, once: only plates that start below the fold are held (PS.plates adds .mv-wait) */
+.plate.mv-develop.mv-wait:not(.is-in) > img, .plate.mv-develop.mv-wait:not(.is-in) > picture > img {
+  clip-path: inset(6% round 2px); scale: 1.035; }
+.plate.mv-develop.mv-wait.is-in > img, .plate.mv-develop.mv-wait.is-in > picture > img { clip-path: inset(0 round 0); scale: 1; }
+/* failure: a vellum plate with the subject's monogram or the numero in Georgia at 40% bronze. Never a broken icon. */
+.plate--fail { background-color: var(--vellum); }
+.plate--fail > img, .plate--fail > picture { visibility: hidden; }
+.plate--fail::before {
+  content: attr(data-fail-text); position: absolute; inset: 0; z-index: 1; display: grid; place-items: center;
+  font: 400 var(--fail-fs, 40px)/1 var(--serif); letter-spacing: .02em; font-variant-numeric: lining-nums;
+  color: color-mix(in srgb, var(--bronze) 40%, var(--vellum));
+}
+/* the monogram plate: initials pressed into espresso, inside a gilt frame. The plate is a deep ground of its own.
+   <figure class="frame-gilt"><div class="plate plate--mono" role="img" aria-label="Jeff Bezos" style="--ratio:3/4">
+     <span class="mono-i" aria-hidden="true">JB</span><span class="mono-fig">$1.6T</span></div></figure> */
+.plate--mono { display: grid; place-items: center; align-content: center; gap: 10px; }
+.plate--mono .mono-i {
+  font: 400 64px/1 var(--serif); letter-spacing: .04em;
+  color: color-mix(in srgb, var(--bronze-hi) 32%, var(--g-bg));
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .08), 0 -1px 0 rgba(0, 0, 0, .5);
+}
+.plate--mono .mono-fig {
+  font: 200 22px/1 var(--stat); letter-spacing: -.02em; font-variant-numeric: lining-nums tabular-nums; color: var(--bronze); }
+
+/* the credit: author on line one in ink-2, the license on line two in bronze, linked to the Commons file page.
+   <p class="credit2"><span>Joseph Keppler, Puck, 1889.</span> <a href="https://commons.wikimedia.org/wiki/File:...">Public domain</a></p> */
+.credit2 {
+  display: flex; flex-direction: column; gap: 2px; margin: 10px 0 0;
+  font: var(--lbl-w) var(--lbl-s)/1.45 var(--sans); letter-spacing: .06em; text-transform: uppercase;
+}
+.credit2 > :first-child { color: var(--ink-2); }
+.credit2 > :nth-child(2) { color: var(--bronze); text-decoration: none; width: max-content; max-width: 100%;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; padding-bottom: 1px;
+  transition: background-size var(--d-leave) var(--ease-in); }
+@media (hover: hover) { .credit2 > a:nth-child(2):hover { background-size: 100% 1px; transition: background-size var(--d-2) var(--ease-out); } }
+.credit2 > a:nth-child(2):focus-visible { background-size: 100% 1px; }
+
+
+/* ============================================================
+   TYPE: the colossal moment, stat figures, numerals, labels
+   ============================================================ */
+/* one per page */
+.colossal { font: 400 var(--fs-d0)/.86 var(--serif); letter-spacing: var(--trk-d0); color: var(--ink); }
+/* stat figures: Helvetica Neue 200, lining and tabular (Georgia's oldstyle figures wobble at 200px) */
+.stat { font-family: var(--stat); font-weight: 200; font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -.04em; line-height: .9; }
+.stat--s { font-size: clamp(28px, 3.4vw, 40px); letter-spacing: -.02em; }
+/* the numeral: Georgia in bronze, paired with 52 to 72px headings. Add .foil on a deep ground. */
+.numeral { font: 400 72px/.9 var(--serif); letter-spacing: -.01em; font-variant-numeric: lining-nums; color: var(--bronze); }
+.numeral--s { font-size: 32px; }
+.numeral--xs { font-size: 20px; letter-spacing: 0; }
+/* the house label: Helvetica caps, 11px floor, .12em, 500 */
+.lbl { font: var(--lbl-w) var(--lbl-m)/1.35 var(--sans); letter-spacing: var(--trk-m); text-transform: uppercase; color: var(--ink-2); }
+.lbl--ink { color: var(--ink); }
+.lbl--bronze { color: var(--bronze); }
+
+
+/* ============================================================
+   THE LIGHT SWITCH: sixteen themes on one set of tokens
+   ============================================================ */
+:root[data-theme="gallery"] {
+  --paper: #FFFFFF; --card: #FAFAF8; --ink: #0C0C0C; --ink-2: #4A4A4A;
+  --muted: #9A9A9A; --line: #E4E4E0; --line-2: #F0F0EC;
+  --accent: #E8380D; --dark: #0C0C0C; --dark-2: #191918;
+}
+:root[data-theme="night"] {
+  --paper: #141312; --card: #1C1A18; --ink: #F1EDE2; --ink-2: #C9C4B6;
+  --muted: #8F8A7D; --line: #33302B; --line-2: #262421;
+  --accent: #FF4D00; --dark: #060505; --dark-2: #0E0D0C;
+  --espresso: color-mix(in srgb, var(--dark) 82%, #7A4A2A); --forest: color-mix(in srgb, var(--dark) 70%, #1E5A48);
+}
+:root[data-theme="board"] {
+  --paper: #232A27; --card: #2A322E; --ink: #EDE7D8; --ink-2: #C6BFAE;
+  --muted: #8D9187; --line: #3D4641; --line-2: #313A35;
+  --accent: #FF6E4F; --dark: #121614; --dark-2: #1A1F1C;
+}
+:root[data-theme="blueprint"] {
+  --paper: #0F2C4E; --card: #14365D; --ink: #E8F1FD; --ink-2: #BCCFE8;
+  --muted: #7E97B5; --line: #2C4E77; --line-2: #1E3D63;
+  --accent: #FFC94B; --dark: #071A32; --dark-2: #0C2440;
+}
+:root[data-theme="riso"] {
+  --paper: #F6F1E5; --card: #EFE9D9; --ink: #20359F; --ink-2: #44519F;
+  --muted: #8890C4; --line: #C9CBE2; --line-2: #DEDFEC;
+  --accent: #FF4438; --dark: #16246E; --dark-2: #1D2D85;
+}
+:root[data-theme="terminal"] {
+  --paper: #0A0D0A; --card: #101710; --ink: #B7FFC9; --ink-2: #8FDCA6;
+  --muted: #4E7A5C; --line: #1F3826; --line-2: #16281B;
+  --accent: #4AFF7F; --dark: #030503; --dark-2: #0A100A;
+}
+
+/* ============ living themes ============ */
+:root[data-theme="sim"] {
+  --paper: #06080F; --card: #0C1120; --ink: #D7E4FF; --ink-2: #A9BBDD;
+  --muted: #5F6E8F; --line: #1B2740; --line-2: #121B30;
+  --accent: #00E5FF; --dark: #02030A; --dark-2: #080D1A;
+}
+:root[data-theme="aurora"] {
+  --paper: #0B1024; --card: #121736; --ink: #EDEFFC; --ink-2: #C3C8E8;
+  --muted: #7A81AC; --line: #252B52; --line-2: #191E3E;
+  --accent: #7DF5C6; --dark: #05081A; --dark-2: #0C1130;
+}
+:root[data-theme="rain"] {
+  --paper: #171C23; --card: #1E242D; --ink: #E6EBF2; --ink-2: #BDC7D4;
+  --muted: #77828F; --line: #2A323D; --line-2: #222932;
+  --accent: #6FB7FF; --dark: #0C0F14; --dark-2: #12161C;
+}
+
+/* ============ playroom + swarm ============ */
+:root[data-theme="play"] {
+  --paper: #F2EDE2; --card: #FAF6EC; --ink: #26221B; --ink-2: #57503F;
+  --muted: #97907E; --line: #DFD8C8; --line-2: #EAE4D6;
+  --accent: #FF5C39; --dark: #1B1812; --dark-2: #26221B;
+}
+:root[data-theme="swarm"] {
+  --paper: #050505; --card: #111111; --ink: #EDEDED; --ink-2: #B9B9B9;
+  --muted: #6E6E6E; --line: #262626; --line-2: #1A1A1A;
+  --accent: #FF2E63; --dark: #000000; --dark-2: #0D0D0D;
+}
+
+/* ============ deep-end themes ============ */
+:root { --on-dark: #F4F1E8; --on-dark-2: #CBC7BA; }
+:root[data-theme="abyss"] {
+  --paper: #06222B; --card: #0A2E3A; --ink: #D8F0F2; --ink-2: #A9CFD4;
+  --muted: #5E8B92; --line: #14404D; --line-2: #0D3340;
+  --accent: #3EE6C1; --dark: #031318; --dark-2: #07242E;
+}
+:root[data-theme="city"] {
+  --paper: #0B0E1A; --card: #12162B; --ink: #EAE6F8; --ink-2: #C0BBDD;
+  --muted: #6F6C92; --line: #232849; --line-2: #171B36;
+  --accent: #FF6EC7; --dark: #05060F; --dark-2: #0B0E1E;
+}
+:root[data-theme="ember"] {
+  --paper: #191210; --card: #221915; --ink: #F4E8DC; --ink-2: #D2C2B2;
+  --muted: #8F7E6F; --line: #35281F; --line-2: #281E17;
+  --accent: #FF7A45; --dark: #0D0907; --dark-2: #151009;
+}
+:root[data-theme="warp"] {
+  --paper: #030308; --card: #0B0B18; --ink: #EDEBFF; --ink-2: #C2BFE2;
+  --muted: #6C6A8E; --line: #1D1D33; --line-2: #121224;
+  --accent: #8A7BFF; --dark: #000004; --dark-2: #080812;
+}
+:root[data-theme="void"] {
+  --paper: #000000; --card: #0A0A0A; --ink: #FFFFFF; --ink-2: #C8C8C8;
+  --muted: #6A6A6A; --line: #1E1E1E; --line-2: #141414;
+  --accent: #FFFFFF; --dark: #000000; --dark-2: #050505;
+}
+
+/* the thirteen dark papers: dark UI chrome + the dark elevation ladder */
+:root[data-theme="night"], :root[data-theme="board"], :root[data-theme="blueprint"],
+:root[data-theme="terminal"], :root[data-theme="sim"], :root[data-theme="abyss"],
+:root[data-theme="city"], :root[data-theme="swarm"], :root[data-theme="warp"],
+:root[data-theme="aurora"], :root[data-theme="rain"], :root[data-theme="ember"],
+:root[data-theme="void"] { color-scheme: dark; --sh-a1: 30%; --sh-a2: 40%; --sh-a3: 55%; --rim-a: 7%; }
+
+/* solid glass in the living themes: #themeBg repaints every frame, so no blur there */
+:root[data-theme="sim"], :root[data-theme="abyss"], :root[data-theme="city"],
+:root[data-theme="swarm"], :root[data-theme="warp"], :root[data-theme="play"],
+:root[data-theme="aurora"], :root[data-theme="rain"], :root[data-theme="ember"],
+:root[data-theme="void"] {
+  --glass: color-mix(in srgb, var(--paper) 94%, transparent);
+  --glass-fx: none;
+}
+
+/* ============ the light switch: the dial and the picker ============
+   The dial is a 44px target everywhere (theme.js places it). 1023px and below, and any phone held sideways: it sits in
+   the page's [data-dial-dock] (the Lab's Register, the World's locnav) or, without one, in the nav (before Menu on a
+   phone). It never floats there. 1024px and up: in the nav's last slot while the nav is on screen, then in the dock;
+   on a page with neither it floats bottom-left, shown on the first screen and near the end only. Docked, it shows a
+   32px ring and overhangs its slot by 6px a side, so the slot's layout never changes. */
+#themeBtn {
+  --dial-ring: var(--hair-strong);
+  position: fixed; z-index: var(--z-picker);
+  left: max(16px, env(safe-area-inset-left, 0px)); bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%;
+  background: var(--card); cursor: pointer; -webkit-tap-highlight-color: transparent;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 1px var(--dial-ring), var(--elev-1), var(--rim); transform: none;
+  transition: translate var(--d-2) var(--ease-out), scale var(--d-1) var(--spring), rotate var(--d-3) var(--spring),
+    box-shadow var(--d-page) var(--ease-io), opacity var(--d-1) var(--ease-out);
+}
+@media (hover: hover) { #themeBtn:not(.is-docked):hover { translate: 0 -1px; scale: 1.04; box-shadow: 0 0 0 1px var(--dial-ring), var(--elev-2), var(--rim); } }
+#themeBtn:active { scale: .94; }
+#themeBtn.open { rotate: 120deg; }
+#themeBtn .tb-disc {
+  width: 26px; height: 26px; border-radius: 50%; display: block; border: 0; position: relative; pointer-events: none;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 20%, transparent);
+  transition: background var(--d-2) var(--ease-out);
+}
+#themeBtn .tb-disc::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, color-mix(in srgb, #fff 45%, transparent), transparent 55%);
+}
+/* docked: a 32px ring on the bar's own ground, a 44px target */
+#themeBtn.is-docked {
+  position: relative; left: auto; bottom: auto; flex: none; margin: -6px;
+  background: transparent; box-shadow: none;
+  transition: scale var(--d-1) var(--spring), rotate var(--d-3) var(--spring);
+}
+#themeBtn.is-docked::before {
+  content: ""; position: absolute; inset: 6px; border-radius: 50%; pointer-events: none;
+  box-shadow: inset 0 0 0 1px var(--hair-strong); transition: box-shadow var(--d-1) var(--ease-out); }
+#themeBtn.is-docked .tb-disc { width: 22px; height: 22px; }
+#themeBtn.is-docked:focus-visible { outline-offset: -2px; }
+@media (hover: hover) { #themeBtn.is-docked:hover::before { box-shadow: inset 0 0 0 1px var(--ink); } }
+/* the floating dial (1024px and up only) rests away from the reading column mid-page */
+:root.tb-rest #themeBtn:not(.is-docked):not(:focus-visible):not(.open),
+:root.tb-rest #touchPill.has:not(.arrive):not(:focus-visible) {
+  opacity: 0; pointer-events: none; transition: opacity var(--d-1) var(--ease-in); }
+/* the menu's light row: the same disc as the dial, the light's name on the right */
+.sheet-list > li.sheet-light > button { border-top: var(--hair-w) solid var(--hair); }
+.sheet-light .sl-disc {
+  flex: none; width: 22px; height: 22px; border-radius: 50%; position: relative;
+  box-shadow: 0 0 0 1px var(--hair-strong), inset 0 0 0 1px color-mix(in srgb, var(--ink) 20%, transparent); }
+.sheet-light .sl-disc::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, color-mix(in srgb, #fff 45%, transparent), transparent 55%); }
+
+/* the picker: a 4 by 4 grid of the sixteen lights, each a live swatch of its own page. It stays open while you
+   choose; Esc, a click outside or Done closes it. theme.js places it above the floating dial or under the docked one. */
+#themePanel {
+  position: fixed; z-index: var(--z-picker); left: 16px; bottom: 68px;
+  width: min(392px, calc(100vw - 32px)); max-height: min(80vh, 680px); max-height: min(80svh, 680px);
+  overflow-y: auto; overscroll-behavior: contain;
+  background: color-mix(in srgb, var(--card) 84%, transparent);
+  -webkit-backdrop-filter: blur(24px) saturate(1.05); backdrop-filter: blur(24px) saturate(1.05);
+  border: 1px solid var(--hair); border-radius: var(--r-glass);
+  padding: 12px 16px 16px;
+  box-shadow: var(--elev-3), var(--rim);
+  opacity: 0; transform: translateY(8px) scale(.97); transform-origin: var(--tp-origin, 0 100%); pointer-events: none;
+  visibility: hidden; /* closed means gone: out of the tab order and the accessibility tree */
+  transition: opacity var(--d-leave) var(--ease-in), transform var(--d-leave) var(--ease-in), visibility 0s linear var(--d-leave);
+  scrollbar-width: thin; scrollbar-color: var(--hair-strong) transparent;
+}
+#themePanel.is-down { transform: translateY(-8px) scale(.97); }
+#themePanel.open { opacity: 1; transform: none; pointer-events: auto; visibility: visible;
+  transition: opacity var(--d-2) var(--ease-out), transform var(--d-2) var(--ease-out), visibility 0s; }
+:root:is([data-theme="sim"], [data-theme="abyss"], [data-theme="city"], [data-theme="swarm"], [data-theme="warp"],
+  [data-theme="play"], [data-theme="aurora"], [data-theme="rain"], [data-theme="ember"], [data-theme="void"]) #themePanel {
+  background: color-mix(in srgb, var(--card) 97%, var(--paper)); -webkit-backdrop-filter: none; backdrop-filter: none; }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { #themePanel { background: var(--card); } }
+/* a touch screen: no blur under a thumb, and Done is a 44px key */
+@media (pointer: coarse) {
+  #themePanel { background: var(--card); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  #themePanel .th-done { min-height: var(--tap); }
+}
+/* phones, and phones held sideways: a bottom sheet. A grab handle, Done pinned in its head, a swipe down closes it,
+   and the page above it changes as you choose (the light grows from the swatch you touched). */
+#themePanel .ps-sheet-grab { display: none; }
+#themePanel.is-sheet {
+  --tp-px: max(16px, var(--safe-x));
+  left: 0; right: 0; bottom: 0; top: auto; width: auto; max-height: min(78vh, 680px); max-height: min(78svh, 680px);
+  padding: 0 var(--tp-px) max(16px, env(safe-area-inset-bottom, 0px));
+  border-width: 1px 0 0; border-radius: 16px 16px 0 0;
+  background: var(--card); -webkit-backdrop-filter: none; backdrop-filter: none;
+  opacity: 1; transform: none; translate: 0 calc(100% + 16px);
+  transition: translate var(--d-leave) var(--ease-in), visibility 0s linear var(--d-leave);
+}
+#themePanel.is-sheet.open { translate: 0 0; transition: translate var(--d-2) var(--ease-out), visibility 0s; }
+#themePanel.is-sheet.is-dragging { transition: none; }
+#themePanel.is-sheet .ps-sheet-grab {
+  display: block; position: sticky; top: 0; z-index: 3; height: 20px; margin: 0 calc(-1 * var(--tp-px));
+  background: var(--card); touch-action: none; }
+#themePanel.is-sheet .ps-sheet-grab::before { content: ""; position: absolute; left: 50%; top: 8px; width: 36px; height: 4px; margin-left: -18px;
+  border-radius: 2px; background: var(--hair-strong); }
+#themePanel.is-sheet .th-head { position: sticky; top: 20px; z-index: 2; margin: 0 calc(-1 * var(--tp-px)) 10px; padding: 0 var(--tp-px); background: var(--card); }
+@media (max-width: 640px) {
+  #themePanel.is-sheet { max-height: min(66vh, 580px); max-height: min(66svh, 580px); }
+  #themePanel.is-sheet .th-grid { gap: 12px 8px; }
+  #themePanel.is-sheet .th-mini { max-width: 64px; }
+  #themePanel.is-sheet .th-mini .tl:nth-of-type(1) { top: 29px; }
+  #themePanel.is-sheet .th-mini .tl:nth-of-type(2) { top: 35px; }
+  #themePanel.is-sheet .th-mini .tl:nth-of-type(3) { display: none; }
+}
+@media (max-height: 500px) and (pointer: coarse) {
+  #themePanel.is-sheet { max-height: 88vh; max-height: 88svh; }
+  #themePanel.is-sheet .th-grid { grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); }
+}
+#themePanel::-webkit-scrollbar { width: 6px; }
+#themePanel::-webkit-scrollbar-track { margin: 14px 0; background: transparent; }
+#themePanel::-webkit-scrollbar-thumb { border: 0; border-radius: var(--r-pill); background: var(--hair-strong); }
+#themePanel .th-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; margin-bottom: 8px; }
+#themePanel .th-tag {
+  font: var(--lbl-w) var(--lbl-s)/1 var(--sans); letter-spacing: var(--trk-s); text-transform: uppercase; color: var(--ink); }
+#themePanel .th-done {
+  position: relative; display: inline-flex; align-items: center; min-height: 32px; padding: 0 14px; margin-right: -4px;
+  border: 0; border-radius: var(--r-pill); background: none; cursor: pointer; color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--hair-strong);
+  font: var(--lbl-w) var(--lbl-s)/1 var(--sans); letter-spacing: var(--trk-s); text-transform: uppercase;
+  transition: box-shadow var(--d-1) var(--ease-out), scale var(--d-1) var(--spring);
+}
+#themePanel .th-done::before { content: ""; position: absolute; inset: -6px -2px; }
+@media (hover: hover) { #themePanel .th-done:hover { box-shadow: inset 0 0 0 1px var(--ink); } }
+#themePanel .th-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px 10px; }
+/* the stagger index (--i) is written by theme.js; CSS turns it into a delay only while open */
+#themePanel .th-tile {
+  --d: 0ms;
+  display: flex; flex-direction: column; align-items: center; gap: 7px; min-width: 0;
+  padding: 0; border: 0; background: none; cursor: pointer; color: var(--ink); text-align: center;
+  opacity: 0; translate: 0 6px;
+  transition: opacity var(--d-2) var(--ease-out) var(--d), translate var(--d-2) var(--ease-out) var(--d), scale var(--d-1) var(--spring);
+}
+#themePanel.open .th-tile { --d: calc(min(var(--i, 0), 16) * 14ms); opacity: 1; translate: 0 0; }
+#themePanel .th-tile[hidden] { display: none; }
+/* the swatch: a little page in the theme's own paper, ink and accent, with its P.S. mark */
+#themePanel .th-mini {
+  position: relative; display: block; width: 100%; max-width: 72px; aspect-ratio: 1; overflow: hidden;
+  border-radius: var(--r-card); background: var(--tp);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ti) 14%, transparent), 0 1px 2px rgba(0, 0, 0, .1), 0 4px 10px -4px rgba(0, 0, 0, .18);
+  transition: translate var(--d-2) var(--ease-out), box-shadow var(--d-2) var(--ease-out);
+}
+#themePanel .th-mini b {
+  position: absolute; left: 9px; top: 9px; font: 700 15px/1 var(--serif); letter-spacing: .01em; color: var(--ti); }
+#themePanel .th-mini b i { font-style: normal; color: var(--ta); margin-left: -.06em; }
+#themePanel .th-mini b i:first-of-type { margin-right: -.02em; }
+#themePanel .th-mini .tl {
+  position: absolute; left: 9px; height: 2px; border-radius: 1px; background: var(--ti); opacity: .42; }
+#themePanel .th-mini .tl:nth-of-type(1) { top: 34px; width: 64%; opacity: .7; }
+#themePanel .th-mini .tl:nth-of-type(2) { top: 41px; width: 48%; }
+#themePanel .th-mini .tl:nth-of-type(3) { top: 48px; width: 56%; }
+#themePanel .th-mini em {
+  position: absolute; left: 6px; bottom: 6px; padding: 2px 5px 1px; border-radius: var(--r-pill);
+  font: var(--lbl-w) 11px/1.1 var(--sans); font-style: normal; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--tp); background: var(--ti);
+}
+#themePanel .th-name { display: block; max-width: 100%; font: 400 13px/1.2 var(--serif); letter-spacing: -.005em; color: var(--ink); text-wrap: balance; }
+#themePanel .th-name i { display: block; margin-top: 2px; font-size: 12px; font-style: italic; color: var(--ink-2); }
+@media (hover: hover) { #themePanel .th-tile:hover .th-mini { translate: 0 -2px; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ti) 14%, transparent), 0 2px 4px rgba(0, 0, 0, .12), 0 10px 18px -8px rgba(0, 0, 0, .3); } }
+#themePanel .th-tile.is-preview .th-mini { translate: 0 -2px; }
+/* the chosen light: a foil ring, the same mark the rail and the sheet use for "you are here" */
+#themePanel .th-tile[aria-selected="true"] .th-mini {
+  box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--foil-line), 0 4px 10px -4px rgba(0, 0, 0, .2); }
+/* the seventeenth light, once found: one full-width tile */
+#themePanel .th-tile.th-void { grid-column: 1 / -1; flex-direction: row; gap: 14px; text-align: left; }
+#themePanel .th-tile.th-void .th-mini { max-width: none; flex: 0 0 112px; aspect-ratio: 112 / 64; }
+#themePanel .th-tile.th-void .th-name { flex: 1; }
+/* the caption: the house's one paragraph about the lights, or the light under your hand */
+#themePanel .th-cap {
+  margin: 16px 0 0; padding-top: 12px; border-top: var(--hair-w) solid var(--hair); min-height: 4.6em;
+  font: 400 13.5px/1.5 var(--serif); color: var(--ink-2); text-wrap: pretty; }
+#themePanel .th-cap b { font-weight: 400; color: var(--ink); }
+@media (max-width: 420px) {
+  #themePanel { padding: 10px 12px 14px; }
+  #themePanel .th-grid { gap: 12px 8px; }
+  #themePanel .th-name { font-size: 12px; }
+}
+
+/* ============ theme flavor ============ */
+#themeFx { position: fixed; inset: 0; pointer-events: none; z-index: 300; display: none; }
+#themeBg { position: fixed; inset: 0; z-index: -1; pointer-events: none; display: none;
+  width: 100vw; height: 100vh; opacity: 0; transition: opacity var(--d-4) var(--ease-out); }
+#themeBg.on { opacity: 1; }
+/* a reading veil: on an essay the living room quiets behind the text column */
+:root:is([data-theme="sim"], [data-theme="abyss"], [data-theme="city"], [data-theme="swarm"], [data-theme="warp"],
+  [data-theme="play"], [data-theme="aurora"], [data-theme="rain"], [data-theme="ember"], [data-theme="void"]) body:has(.pxe-essay) #themeBg {
+  --col: calc(var(--measure) / 2 + 40px);
+  -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(50% - var(--col) - 140px), rgb(0 0 0 / .16) calc(50% - var(--col)),
+    rgb(0 0 0 / .16) calc(50% + var(--col)), #000 calc(50% + var(--col) + 140px));
+          mask-image: linear-gradient(90deg, #000 0, #000 calc(50% - var(--col) - 140px), rgb(0 0 0 / .16) calc(50% - var(--col)),
+    rgb(0 0 0 / .16) calc(50% + var(--col)), #000 calc(50% + var(--col) + 140px));
+}
+@media (max-width: 700px) {
+  :root:is([data-theme="sim"], [data-theme="abyss"], [data-theme="city"], [data-theme="swarm"], [data-theme="warp"],
+    [data-theme="play"], [data-theme="aurora"], [data-theme="rain"], [data-theme="ember"], [data-theme="void"]) body:has(.pxe-essay) #themeBg {
+    -webkit-mask-image: none; mask-image: none; }
+  :root:is([data-theme="sim"], [data-theme="abyss"], [data-theme="city"], [data-theme="swarm"], [data-theme="warp"],
+    [data-theme="play"], [data-theme="aurora"], [data-theme="rain"], [data-theme="ember"], [data-theme="void"]) body:has(.pxe-essay) #themeBg.on {
+    opacity: .16; }
+}
+/* film grain: one static tile (theme.js makes it once), never repainted per frame */
+:root:is([data-theme="abyss"], [data-theme="city"], [data-theme="aurora"], [data-theme="ember"]) #themeFx {
+  display: block; background-image: var(--grain); background-size: 128px; opacity: .05; mix-blend-mode: normal; }
+:root[data-theme="terminal"] #themeFx { display: block; mix-blend-mode: multiply;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,.24) 0 1px, transparent 1px 3px); }
+/* glows live on display type only, so reading prose stays sharp */
+:root[data-theme="terminal"] :where(h1, h2, h3, .mark) { text-shadow: 0 0 7px rgba(74,255,127,.16); }
+:root[data-theme="riso"] h1, :root[data-theme="riso"] h2, :root[data-theme="riso"] h3 {
+  text-shadow: 2px 0 0 color-mix(in srgb, var(--accent) 45%, transparent); }
+:root[data-theme="board"] :where(h1, h2, h3) { text-shadow: 0 0 1px color-mix(in srgb, var(--ink) 25%, transparent); }
+:root[data-theme="sim"] h1 {
+  text-shadow: 2px 0 0 color-mix(in srgb, var(--accent) 40%, transparent),
+    -2px 0 0 rgba(255,61,223,.30); }
+:root[data-theme="sim"] :where(h2, h3, .mark) { text-shadow: 0 0 8px rgba(0,229,255,.07); }
+:root[data-theme="sim"] .exp, :root[data-theme="aurora"] .exp, :root[data-theme="rain"] .exp {
+  background: color-mix(in srgb, var(--paper) 78%, transparent); }
+:root[data-theme="play"] .exp { background: color-mix(in srgb, var(--paper) 82%, transparent); }
+:root[data-theme="play"] .exp { border-radius: 10px; }
+:root[data-theme="play"] .exp .etag { border-radius: 999px; }
+:root[data-theme="swarm"] .exp { background: color-mix(in srgb, var(--paper) 72%, transparent); }
+:root[data-theme="swarm"] h1 { text-shadow: 0 0 22px rgba(255,46,99,.25); }
+:root[data-theme="swarm"] :where(h2, h3, .mark) { text-shadow: 0 0 6px rgba(237,237,237,.06); }
+:root[data-theme="abyss"] .exp, :root[data-theme="city"] .exp, :root[data-theme="ember"] .exp,
+:root[data-theme="warp"] .exp, :root[data-theme="void"] .exp {
+  background: color-mix(in srgb, var(--paper) 76%, transparent); }
+:root[data-theme="city"] h1 { text-shadow: 0 0 24px rgba(255,110,199,.22); }
+:root[data-theme="warp"] h1 { text-shadow: 0 0 24px rgba(138,123,255,.25); }
+:root[data-theme="void"] h1 { text-shadow: 0 0 30px rgba(255,255,255,.28); }
+
+
+/* ============================================================
+   ELITE PASS: typography, scrollbars, instruments
+   ============================================================ */
+h1, h2, h3, h4 { text-wrap: balance; }
+p, .edesc, .eline, .wsub { text-wrap: pretty; }
+
+html { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--ink) 28%, transparent) transparent; }
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { border: 3px solid transparent; background-clip: padding-box;
+  background-color: color-mix(in srgb, var(--ink) 24%, transparent); border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background-color: color-mix(in srgb, var(--ink) 42%, transparent); }
+
+/* slider progress fill: webkit reads --sfill in the lab's own sheet; firefox is native */
+.exp input[type=range]::-moz-range-progress { background: var(--accent); height: 2px; border-radius: 1px; }
+
+
+/* ============================================================
+   MOBILE SYSTEM (v3.2): targets, rails, inputs
+   ============================================================ */
+/* .hit: a 44px target around a small control without moving it (8px a side; set --hit for more) */
+.hit { position: relative; }
+.hit::after { content: ""; position: absolute; inset: calc(-1 * var(--hit, 8px)); }
+/* credit links (the second line of every .credit2, in a figcaption or not) reach 44px tall without moving a line:
+   padding grows the target, a matching negative margin keeps the layout. Inline prose links are exempt. A page's own
+   figcaption links (the essays' e-pic-l, a bare credit link) take the same pair in that page's sheet. */
+.credit2 a, .credit2 > a:nth-child(2) {
+  padding-block: 14px; padding-block: max(0px, calc((var(--tap) - 1lh) / 2));
+  margin-block: -14px; margin-block: min(0px, calc((1lh - var(--tap)) / 2));
+}
+.credit2 > a:nth-child(2) {
+  background-position: 0 calc(100% - 13px); background-position: 0 calc(100% - max(0px, calc((var(--tap) - 1lh) / 2)) + 1px); }
+@media (pointer: coarse) { .credit2 a { min-width: var(--tap); } }
+/* a touch screen never zooms into a field: every text input is 16px or larger there */
+@media (pointer: coarse) {
+  :is(input:not([type=range], [type=checkbox], [type=radio], [type=button], [type=submit], [type=reset], [type=color], [type=file], [type=image]), select, textarea) {
+    font-size: max(16px, 1em) !important; }
+}
+/* .ps-rail: a horizontal rail. Snaps each child to its start, fades at an edge that has more, never scrolls the page.
+   PS.rail(el, {label}) adds the 44px "01 / 10" control row above it. */
+.ps-rail {
+  --fl: var(--rail-fade, 28px); --fr: var(--rail-fade, 28px);
+  position: relative; display: flex; gap: var(--rail-gap, 16px);
+  overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--fl), #000 calc(100% - var(--fr)), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 var(--fl), #000 calc(100% - var(--fr)), transparent 100%);
+}
+.ps-rail::-webkit-scrollbar { display: none; }
+.ps-rail > * { flex: none; scroll-snap-align: start; }
+.ps-rail.is-start { --fl: 0px; }
+.ps-rail.is-end { --fr: 0px; }
+.ps-rail-ctl { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: var(--tap); margin-bottom: 8px; }
+.ps-rail-n { font: var(--lbl-w) var(--lbl-s)/1 var(--sans); letter-spacing: var(--trk-s); color: var(--ink-2); font-variant-numeric: lining-nums tabular-nums; }
+.ps-rail-n b { font-weight: inherit; color: var(--ink); }
+.ps-rail-keys { display: inline-flex; gap: 4px; }
+.ps-rail-b {
+  display: inline-grid; place-items: center; width: var(--tap); height: var(--tap); padding: 0; border: 0; border-radius: 50%;
+  background: none; color: var(--ink); cursor: pointer; box-shadow: inset 0 0 0 1px var(--hair-strong);
+  font: 400 18px/1 var(--sans); transition: box-shadow var(--d-1) var(--ease-out), opacity var(--d-1) var(--ease-out);
+}
+@media (hover: hover) { .ps-rail-b:not([aria-disabled="true"]):hover { box-shadow: inset 0 0 0 1px var(--ink); } }
+.ps-rail-b[aria-disabled="true"] { opacity: .35; cursor: default; }
+
+
+/* ============================================================
+   THE PAGE TURN: cross-document view transitions
+   Forward, the new page is laid down from the right edge like a leaf
+   while the old one slips 3% under it. Back mirrors it. The glass nav
+   holds still. Theme switches opt out via :root.vt-theme (set by
+   theme.js) and keep their circular iris. In-page anchors get nothing.
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }
+::view-transition-old(root) { animation: psLeafUnder 520ms var(--ease-io) both; }
+::view-transition-new(root) { animation: psLeafIn var(--d-page) var(--ease-curtain) 40ms both; }
+@keyframes psLeafIn { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0); } }
+@keyframes psLeafUnder { to { translate: -3% 0; filter: brightness(.95); } }
+@keyframes psLeafInBack { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+@keyframes psLeafUnderBack { to { translate: 3% 0; filter: brightness(.95); } }
+html:active-view-transition-type(back)::view-transition-new(root) { animation-name: psLeafInBack; }
+html:active-view-transition-type(back)::view-transition-old(root) { animation-name: psLeafUnderBack; }
+/* the nav holds still: only a changed label crossfades */
+::view-transition-group(ps-nav) { animation-duration: var(--d-2); animation-timing-function: var(--ease-io); }
+::view-transition-old(ps-nav), ::view-transition-new(ps-nav) { animation-duration: var(--d-2); }
+/* a page without the glass nav: the nav travels with its page */
+::view-transition-new(ps-nav):only-child { animation: psLeafIn var(--d-page) var(--ease-curtain) 40ms both; }
+::view-transition-old(ps-nav):only-child { animation: psLeafUnder 520ms var(--ease-io) both; }
+html:active-view-transition-type(back)::view-transition-new(ps-nav):only-child { animation-name: psLeafInBack; }
+html:active-view-transition-type(back)::view-transition-old(ps-nav):only-child { animation-name: psLeafUnderBack; }
+:root.vt-theme::view-transition-old(root), :root.vt-theme::view-transition-new(root) { animation: none; }
+:root.vt-theme :is(.nav--glass, .pxe-essay h1, .essay h2) { view-transition-name: none !important; }
+/* a picker preview: the page crossfades to the light under your hand in 200ms */
+:root.vt-preview::view-transition-old(root) { animation: psVtOut 200ms var(--ease-out) both; }
+:root.vt-preview::view-transition-new(root) { animation: psVtIn 200ms var(--ease-out) both; }
+:root.vt-preview :is(.nav--glass, .pxe-essay h1, .essay h2) { view-transition-name: none !important; }
+@keyframes psVtOut { to { opacity: 0; } }
+@keyframes psVtIn { from { opacity: 0; } }
+/* phones (and phones held sideways): every page turn finishes inside 320ms; the theme iris is 320ms there too */
+@media (max-width: 640px), (max-height: 500px) and (pointer: coarse) {
+  ::view-transition-old(root) { animation-duration: 240ms; }
+  ::view-transition-new(root) { animation-duration: 320ms; animation-delay: 0ms; }
+  ::view-transition-group(ps-nav), ::view-transition-old(ps-nav), ::view-transition-new(ps-nav) { animation-duration: 240ms; }
+  ::view-transition-new(ps-nav):only-child { animation-duration: 320ms; animation-delay: 0ms; }
+}
+/* legacy names still referenced by essay.css (essay-title): kept until that sheet moves to psLeafIn */
+@keyframes psPageOut { to { opacity: 0; scale: .985; } }
+@keyframes psCurtainUp { from { clip-path: inset(100% 0 0 0); translate: 0 24px; } to { clip-path: inset(0); translate: 0 0; } }
+
+
+/* ============================================================
+   PRINT: white paper, black ink, the drawings as posters
+   ============================================================ */
+@media print {
+  :root, :root[data-theme], .tone-dark, .band--dark, [data-ground], .plate--mono {
+    --paper: #fff; --vellum: #fff; --wall: #fff; --g-bg: #fff; --g-pool: #fff; --bronze: #333; --bronze-hi: #333; --card: #fff; --ink: #000; --ink-2: #333; --muted: #555; --dim: #444;
+    --line: #ccc; --line-2: #e5e5e5; --dark: #fff; --dark-2: #fff; --on-dark: #000; --on-dark-2: #333;
+    --accent: #000; --hair: #bbb; --hair-strong: #888; --glass: #fff; --glass-fx: none;
+    color-scheme: light;
+  }
+  @page { margin: 16mm 16mm 18mm; }
+  html, body { background: #fff !important; color: #000 !important; }
+  *, *::before, *::after { box-shadow: none !important; text-shadow: none !important; }
+  .nav, .skip-link, #themeBtn, #themePanel, #themeBg, #themeFx, .locnav, #progress, #trail,
+  .sheet, .sheet-scrim, .nav-menu, canvas, .iso-ctl, .iso-pins, .iso-leaders, .ps-sheet, .ps-rail-ctl { display: none !important; }
+  .ps-rail { -webkit-mask-image: none !important; mask-image: none !important; flex-wrap: wrap; overflow: visible !important; }
+  .band, .band--card, .band--dark, .tone-dark, [data-ground] { background: #fff !important; color: #000 !important; }
+  body::before { display: none !important; }
+  .plate > img, .plate > picture > img { filter: grayscale(1) !important; mix-blend-mode: normal !important;
+    opacity: 1 !important; clip-path: none !important; scale: none !important; }
+  .foil { -webkit-text-fill-color: currentColor !important; background: none !important; color: #000 !important; }
+  .rv-wait { opacity: 1 !important; translate: none !important; }
+  .scene { height: auto !important; }
+  .scene-stage { position: static !important; height: auto !important; overflow: visible !important; }
+  .scene-step { opacity: 1 !important; translate: none !important; }
+  .ps3d-poster, .iso-poster { display: block !important; opacity: 1 !important; visibility: visible !important; }
+  .iso-parts { display: block !important; }
+  figure, .iso, .ledger > *, .room-h { break-inside: avoid; }
+  h1, h2, h3 { break-after: avoid; }
+  .pxe-essay a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; color: #333; word-break: break-all; }
+  .pxe-essay a[href^="/"]::after { content: " (pedrumshokouhi.com" attr(href) ")"; font-size: .8em; color: #333; word-break: break-all; }
+}
+
+
+/* ============================================================
+   REDUCED MOTION: one block, last in the file.
+   No transform animation; opacity 160ms at most; the 3D rests;
+   scenes stack; direct manipulation still works, without inertia.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  :root { --d-2: 160ms; --d-3: 160ms; --d-4: 1ms; --d-5: 1ms; --d-page: 1ms; --d-rv: 1ms; --d-leave: 120ms;
+    --stagger: 0ms; --rise: 0px; }
+  .rv-wait { opacity: 1; translate: none; transition: none; }
+  .scene { height: auto; }
+  .scene-stage { position: static; height: auto; overflow: visible; }
+  .scene .scene-step, .scene.is-live .scene-step { opacity: 1; translate: none; pointer-events: auto; transition: none; }
+  .scene.is-live .scene-steps { display: block; }
+  #themePanel, #themePanel.is-down { transform: none; }
+  #themePanel .th-tile, #themePanel.open .th-tile { translate: none; transition: opacity var(--d-1) linear; }
+  #themePanel .th-mini, #themePanel .th-tile:hover .th-mini, #themePanel .th-tile.is-preview .th-mini { translate: none; transition: none; }
+  :where(button, .ps-cap, [role="button"], summary):where(:active) { scale: none; }
+  .plate > img, .plate > picture > img { transition: none; }
+  .plate.mv-develop.mv-wait > img, .plate.mv-develop.mv-wait > picture > img { clip-path: none; scale: none; }
+  .plate.is-loading > img, .plate.is-loading > picture > img { opacity: 1; }
+  .foil.is-lit { animation: none; }
+  .ps-land { animation: none; outline-color: transparent; }
+  .mv-set { animation: none; }
+  html[data-stage] .locnav, html[data-stage] #progress, #themeBtn { transition-duration: 1ms; }
+  #themeBtn, #themeBtn:hover, #themeBtn:active, #themeBtn.open { translate: none; scale: none; rotate: none; }
+  .nav ul a.lab, .nav ul a.lab:hover, .nav ul a.lab:active, .ps-cap:active, .press:active, .locnav-plan:active { translate: none; scale: none; }
+  .arr { transition: none; translate: none !important; }
+  #progress { display: none; }
+  #themeBg { transition: none; }
+  .skip-link, .skip-link:focus-visible { transition: none; }
+  .nav--glass, .nav--glass.nav-away { transition: none; }
+  .nav--glass .mark { animation: none; }
+  .nav .mark i { transition: none; }
+  .locnav, .locnav.on { translate: -50% 0; }
+  .sheet, .sheet.is-open { translate: none; transition: opacity var(--d-1) linear, visibility 0s linear var(--d-1); opacity: 0; }
+  .sheet.is-open { opacity: 1; transition: opacity var(--d-1) linear, visibility 0s; }
+  .cf-l, .cf-l.is-in { transition: none; }
+  /* sheets and the picker sheet fade in place instead of sliding */
+  .ps-sheet { opacity: 0; transition: opacity var(--d-1) linear, visibility 0s linear var(--d-1); }
+  .ps-sheet.is-open { opacity: 1; transition: opacity var(--d-1) linear, visibility 0s; }
+  @media (max-width: 640px) { .ps-sheet, .ps-sheet.is-open { translate: none; } }
+  @media (min-width: 641px) {
+    .ps-sheet, .ps-sheet.is-open { translate: -50% -50%; }
+    .ps-sheet--right, .ps-sheet--right.is-open { translate: none; }
+  }
+  #themePanel.is-sheet, #themePanel.is-sheet.open { translate: none; }
+  #themePanel.is-sheet { opacity: 0; transition: opacity var(--d-1) linear, visibility 0s linear var(--d-1); }
+  #themePanel.is-sheet.open { opacity: 1; transition: opacity var(--d-1) linear, visibility 0s; }
+  .ps-rail-b { transition: none; }
+}

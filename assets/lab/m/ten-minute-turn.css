@@ -1,0 +1,20 @@
+/* P.S. Lab, No. 10: The ten minute turn. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+#ttC { margin-top: 18px; }
+.tt-bar { position: relative; height: 40px; margin-top: 10px; background: var(--card); border: 1px solid var(--hair); border-radius: var(--r-paper); }
+.tt-fill { position: absolute; inset: 0; transform-origin: left; transform: scaleX(var(--p, .75));
+  background: color-mix(in srgb, var(--ink) 22%, transparent);
+  transition: transform .45s var(--ease-out), background-color var(--d-2) var(--ease-out); }
+.tt-fill.ok { background: var(--accent); }
+.tt-lbl { position: relative; z-index: 1; display: flex; align-items: center; height: 100%; padding-left: 14px; white-space: nowrap;
+  font: 600 var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink);
+  transition: color var(--d-2) var(--ease-out); }
+.tt-lbl b { margin-left: 6px; font-weight: 600; font-variant-numeric: lining-nums tabular-nums; }
+.tt-bar.ok .tt-lbl { color: color-mix(in srgb, var(--dark) 70%, #000); }
+.tt-goal { position: absolute; right: -1px; top: -5px; bottom: -5px; width: 2px; background: var(--ink); pointer-events: none; }
+.tt-stamp { display: inline-block; margin-top: 18px; padding: 10px 16px 9px; transform: rotate(-4deg);
+  border: 1.5px solid var(--accent); outline: 1px solid var(--accent); outline-offset: 3px;
+  font: 600 var(--lbl-m)/1 var(--sans); letter-spacing: .22em; color: var(--foil-text); }
+@media (prefers-reduced-motion: no-preference) {
+  .tt-stamp { animation: ttStamp var(--d-3) var(--spring); }
+}
+.exp .lx-board #ttC { margin-top: 0; }

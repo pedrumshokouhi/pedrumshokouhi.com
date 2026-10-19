@@ -1,0 +1,393 @@
+/* The living drug: a CAR-T program from the antigen to the access readout.
+   Two materials. The hall (.lv-hall, an espresso ground from site.css, with its pool, grain and bronze hairlines) holds the
+   act under one lamp: the rail of five acts, a foil numeral, the title, the act's drawing standing on a lit floor, and the
+   program's vitals as stat figures. The bench below it is paper: sheets with elevation, data typography for every readout.
+   Tokens only, so all sixteen lights resolve. Container queries on .lk-root, never the viewport. Hues sit on edges, dots
+   and surfaces; type stays ink. */
+.lv { --lv-pad: clamp(16px, 3.6cqi, 44px); --lv-r: var(--r-card, 6px);
+  --lv-good: var(--gain); --lv-bad: var(--loss); --lv-warn: var(--lk-warn); }
+
+/* ---------- the hall ---------- */
+.lv .lv-hall { position: relative; margin: 0 0 clamp(22px, 3.4cqi, 36px); padding: var(--lv-pad) var(--lv-pad) calc(var(--lv-pad) * .8);
+  border-radius: var(--lv-r); box-shadow: inset 0 1px 0 color-mix(in srgb, var(--bronze-hi) 18%, transparent), var(--elev-2);
+  /* edges on the hall: bright enough to read as state against the pool (3:1), never on the type */
+  --lv-good: color-mix(in srgb, #5CC08B 82%, var(--ink)); --lv-bad: color-mix(in srgb, #EE7B62 86%, var(--ink));
+  --lv-warn: color-mix(in srgb, #E2B04A 86%, var(--ink)); }
+.lv .lv-hall .lk-kicker { color: var(--ink-2); }
+
+/* the standing disclaimer: the first thing on the hall, a plaque under its own hairline */
+.lv .lv-disc { margin: 0 0 clamp(18px, 3cqi, 28px); padding: 0 0 clamp(14px, 2.2cqi, 18px); border-bottom: 1px solid var(--hair);
+  font-size: 13.5px; line-height: 1.6; color: var(--ink-2); max-width: 92ch; }
+.lv .lv-disc .lk-tag { margin: 0 10px 4px 0; vertical-align: 1px; color: var(--ink); }
+
+/* the rail: five acts as one rule, the past in bronze, the act in hand lit, the rest waiting */
+.lv .lv-rail { display: flex; gap: 6px; margin: 0 0 clamp(20px, 4cqi, 44px); padding: 0; list-style: none; }
+.lv .lv-rail li { position: relative; flex: 1 1 0; min-width: 0; display: flex; align-items: baseline; gap: 9px; padding: 12px 0 0;
+  border-top: 1px solid var(--hair-strong); color: var(--dim); }
+.lv .lv-rail li.is-past { border-top-color: color-mix(in srgb, var(--bronze-hi) 62%, transparent); color: var(--ink-2); }
+.lv .lv-rail li.is-now { padding-top: 11px; border-top: 2px solid var(--ink); color: var(--ink); }
+.lv .lv-rail li.is-now::before { content: ""; position: absolute; left: 0; top: -5px; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+.lv .lv-rn { flex: none; font: 400 16px/1 var(--serif); font-variant-numeric: lining-nums; }
+.lv .lv-rail li.is-past .lv-rn { color: var(--bronze); }
+.lv .lv-rt { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font: var(--lbl-w, 500) 11px/1.3 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+@container (max-width: 640px) {
+  .lv .lv-rail li { flex: 0 0 auto; padding-right: 10px; }
+  .lv .lv-rail li.is-now { flex: 1 1 auto; }
+  .lv .lv-rail li:not(.is-now) .lv-rt { display: none; }
+}
+
+/* the act and its drawing */
+.lv .lv-hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(18px, 3cqi, 28px) clamp(28px, 4.4cqi, 56px); align-items: start; }
+@container (min-width: 660px) {
+  .lv .lv-hero.has-show { grid-template-columns: minmax(0, 4fr) minmax(0, 5fr); align-items: center; }
+}
+@container (min-width: 960px) {
+  .lv .lv-hero.has-show { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .lv .lv-hero.has-show .lv-act { padding-top: clamp(4px, 2cqi, 28px); }
+}
+.lv .lv-act { position: relative; min-width: 0; }
+.lv .lv-numeral { margin: 0 0 clamp(10px, 1.6cqi, 18px); font: 400 clamp(64px, 12.5cqi, 132px)/.8 var(--serif); letter-spacing: -.03em;
+  font-variant-numeric: lining-nums; }
+.lv .lv-act .lk-kicker { margin: 0 0 10px; }
+.lv .lv-act .lk-title { margin: 0 0 14px; font-size: clamp(34px, 6.2cqi, 58px); line-height: .98; letter-spacing: -.03em; }
+.lv .lv-act .lk-lede { max-width: 46ch; margin: 0; font-size: 15.5px; line-height: 1.62; color: var(--ink-2); }
+/* the trial shows two drawings: the act sits above them and they take the hall's full width */
+.lv .lv-hero.is-wide.has-show { grid-template-columns: minmax(0, 1fr); }
+@container (min-width: 960px) {
+  .lv .lv-hero.is-wide .lv-act { display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr); column-gap: 28px; align-items: end; }
+  .lv .lv-hero.is-wide .lv-actx { display: contents; }
+  .lv .lv-hero.is-wide .lv-numeral { grid-column: 1; grid-row: 1 / span 2; margin: 0 0 4px; font-size: clamp(72px, 9cqi, 112px); }
+  .lv .lv-hero.is-wide .lv-act .lk-kicker { grid-column: 2; grid-row: 1; }
+  .lv .lv-hero.is-wide .lv-act .lk-title { grid-column: 2; grid-row: 2; margin-bottom: 4px; }
+  .lv .lv-hero.is-wide .lv-act .lk-lede { grid-column: 3; grid-row: 1 / span 2; align-self: end; }
+}
+@container (max-width: 959px) {
+  /* the numeral stands beside the kicker and the title; the lede and the chips run the full width under them */
+  .lv .lv-act { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: clamp(14px, 2.4cqi, 22px); align-items: end; }
+  .lv .lv-actx { display: contents; }
+  .lv .lv-numeral { grid-column: 1; grid-row: 1 / span 2; margin: 0 0 4px; font-size: clamp(60px, 11cqi, 92px); }
+  .lv .lv-act .lk-kicker { grid-column: 2; grid-row: 1; }
+  .lv .lv-act .lk-title { grid-column: 2; grid-row: 2; margin-bottom: 4px; }
+  .lv .lv-act :is(.lk-lede, .lv-pks) { grid-column: 1 / -1; }
+  .lv .lv-act .lk-lede { margin-top: 16px; }
+  .lv .lv-act .lk-title { font-size: clamp(32px, 5.6cqi, 46px); }
+  .lv .lv-act .lk-lede { font-size: 15px; }
+}
+
+/* phones: the drawing comes straight after the title, then the lede and the chips, so the first screen holds the lit object */
+@container (max-width: 659px) {
+  .lv .lv-hero.has-show { grid-template-columns: auto minmax(0, 1fr); column-gap: 16px; row-gap: 0;
+    grid-template-areas: "num kick" "num title" "show show" "lede lede" "pks pks"; }
+  .lv .lv-hero.has-show :is(.lv-act, .lv-actx) { display: contents; }
+  .lv .lv-hero.has-show .lv-numeral { grid-area: num; align-self: end; }
+  .lv .lv-hero.has-show .lv-act .lk-kicker { grid-area: kick; align-self: end; }
+  .lv .lv-hero.has-show .lv-act .lk-title { grid-area: title; }
+  .lv .lv-hero.has-show .lv-show { grid-area: show; margin: 18px 0 4px; }
+  .lv .lv-hero.has-show .lv-act .lk-lede { grid-area: lede; margin-top: 18px; }
+  .lv .lv-hero.has-show .lv-pks { grid-area: pks; }
+  .lv .lv-disc { font-size: 13px; line-height: 1.55; }
+}
+
+/* Act I on the hall: the runnable targets as chips, the start control in the first frame */
+.lv .lv-pks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; max-width: 400px; margin: clamp(18px, 3cqi, 26px) 0 0; }
+.lv .lv-pk { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-height: var(--tap);
+  min-width: 0; padding: 10px 14px 10px 14px; border: 1px solid var(--hair-strong); border-radius: var(--lv-r);
+  background: color-mix(in srgb, var(--ink) 3%, transparent); color: var(--ink); cursor: pointer; font: inherit; text-align: left;
+  transition: border-color var(--d-1) var(--ease-out), background-color var(--d-1) var(--ease-out), box-shadow var(--d-2) var(--ease-out); }
+.lv .lv-pk-n { font: 400 19px/1.05 var(--serif); letter-spacing: -.01em; }
+.lv .lv-pk-d { font: var(--lbl-w, 500) 11px/1.2 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
+@media (hover: hover) { .lv .lv-pk:hover { border-color: var(--ink); background: color-mix(in srgb, var(--ink) 7%, transparent); } }
+.lv .lv-pk:active { scale: .98; }
+.lv .lv-pk[aria-pressed="true"] { border-color: var(--ink); background: color-mix(in srgb, var(--ink) 9%, transparent);
+  box-shadow: inset 0 2px 0 var(--accent); }
+
+/* the drawing: one live figure on a lit floor; the canvas registers over its poster in the same frame */
+.lv .lv-show { position: relative; min-width: 0; }
+.lv .lv-scene.iso { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin: 0; }
+.lv .lv-scene .iso-stage { height: auto; min-height: 0; aspect-ratio: 16 / 10; background: none; border-radius: var(--lv-r); }
+.lv .lv-scene--rec .iso-stage { aspect-ratio: 5 / 4; }
+.lv .lv-scene:not(.is-shown) :is(.iso-pins, .iso-leaders, .iso-card) { visibility: hidden; }
+.lv .lv-scene .iso-card { box-shadow: 0 0 0 1px var(--hair), 0 10px 24px -10px rgba(0, 0, 0, .6); }
+.lv .lv-scene b.iso-fig { padding: 0; background: none; }
+.lv .lv-scene .iso-stage::before { content: ""; position: absolute; left: 8%; right: 8%; bottom: 4%; height: 34%; pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(50% 50% at 50% 48%, color-mix(in srgb, var(--bronze-hi) 17%, transparent) 0%, color-mix(in srgb, var(--bronze-hi) 6%, transparent) 46%, transparent 72%); }
+.lv .lv-scene .iso-stage:focus-visible { outline-offset: 4px; }
+/* the models are paper under the lamp: one warm stock, lit from the hall's own light. The antigen and the drawn lines are a
+   pencil grey that holds 3:1 against the paper and against the espresso, so a spike standing off a cell still reads; the
+   silhouette is a lighter pencil that edges the paper against the hall at 3:1 in every light. The engine reads these tokens
+   from the stage; the pins and tags inside it print in true ink on that paper. */
+.lv .lv-hall .lv-scene .iso-stage {
+  --lv-stock: color-mix(in srgb, var(--on-dark) 88%, var(--bronze-hi));
+  --lv-type: color-mix(in srgb, var(--dark) 86%, #000);
+  --paper: var(--lv-stock); --card: color-mix(in srgb, var(--lv-stock) 55%, #fff);
+  --ink: color-mix(in srgb, var(--lv-stock) 48%, var(--lv-type)); --ink-2: color-mix(in srgb, var(--lv-stock) 56%, var(--lv-type));
+  --muted: color-mix(in srgb, var(--lv-stock) 68%, var(--lv-type));
+  --m-top: color-mix(in srgb, var(--lv-stock) 46%, #fff); --m-left: color-mix(in srgb, var(--lv-stock) 92%, var(--lv-type));
+  --m-right: color-mix(in srgb, var(--lv-stock) 78%, var(--lv-type)); --m-plaster: color-mix(in srgb, var(--lv-stock) 86%, var(--lv-type));
+  --m-shadow: var(--espresso); --m-sil: color-mix(in srgb, var(--lv-stock) 72%, var(--lv-type)); --m-foil: var(--accent);
+  --m-metal-hi: color-mix(in srgb, var(--lv-stock) 70%, #fff); --m-metal-lo: color-mix(in srgb, var(--lv-stock) 62%, var(--lv-type)); }
+.lv .lv-hall .lv-scene .iso-stage :is(.iso-pin, .iso-card, .iso-label) {
+  --ink: var(--lv-type); --ink-2: color-mix(in srgb, var(--lv-type) 74%, var(--lv-stock)); --card: var(--lv-stock); --paper: var(--lv-stock);
+  --glass: color-mix(in srgb, var(--lv-stock) 94%, transparent); color-scheme: light;
+  --hair: color-mix(in srgb, var(--lv-type) 16%, transparent); --hair-strong: color-mix(in srgb, var(--lv-type) 30%, transparent); }
+.lv .lv-hall .lv-scene .iso-stage .iso-label { padding: 4px 8px; border-radius: var(--r-pill); text-shadow: none; color: var(--ink);
+  background: var(--lv-stock); box-shadow: 0 0 0 1px var(--hair), 0 4px 10px -4px rgba(0, 0, 0, .5); }
+.exp .lv .lv-scene canvas { border: 0; border-radius: 0; background: none; }
+.lv .lv-scene p { margin: 0; }
+.lv .lv-scene figcaption { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; }
+.lv .lv-scene .lv-3now { order: -2; flex: 1 0 100%; padding-top: 12px; border-top: 1px solid var(--hair);
+  font: var(--lbl-w, 500) 11px/1.4 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); font-variant-numeric: tabular-nums; }
+.lv .lv-scene .lv-3d { order: -1; flex: 1 0 100%; max-width: 62ch; font-size: 13.5px; line-height: 1.55; color: var(--ink-2); }
+.lv .lv-scene.iso .iso-parts { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; max-height: none; overflow: visible; }
+.lv .lv-scene.iso .iso-parts button { display: inline-flex; align-items: center; width: auto; min-height: 34px; padding: 6px 12px; border: 1px solid var(--hair);
+  border-radius: var(--r-pill); color: var(--ink-2); }
+.lv .lv-scene.iso .iso-parts li:first-child button { border-top: 1px solid var(--hair); }
+.lv .lv-scene.iso .iso-parts button[aria-pressed="true"] { border-color: var(--foil-line); color: var(--ink); }
+.lv .lv-scene .iso-ctl { margin-left: auto; }
+.lv .lv-scene .iso-ctl .ps-cap { min-height: 34px; padding: 0 14px; }
+@media (pointer: coarse) {
+  .lv .lv-scene.iso .iso-parts button, .lv .lv-scene .iso-ctl .ps-cap { min-height: var(--tap); }
+}
+/* the trial: your cell at the tumor beside the loop every patient rides */
+.lv .lv-pair { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; }
+@container (min-width: 520px) { .lv .lv-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; } }
+/* the 2D drawings, when the engine is away, print on the hall in its own inks */
+.exp .lv .lv-hall canvas.lv-cv { margin: 0; border: 0; background: none; }
+
+/* the vitals: five stat figures, the state on an edge above each */
+.lv .lv-vitals { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: clamp(22px, 3.6cqi, 40px) 0 0;
+  border-top: 1px solid var(--hair-strong); }
+.lv .lv-vit { position: relative; display: flex; flex-direction: column; min-width: 0; padding: 14px 14px 2px 0; }
+.lv .lv-vit + .lv-vit { padding-left: clamp(12px, 2cqi, 20px); border-left: 1px solid var(--hair); }
+.lv .lv-vit::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: transparent;
+  transition: background-color var(--d-3) var(--ease-out); }
+.lv .lv-vit.is-good::before { background: var(--lv-good); }
+.lv .lv-vit.is-bad::before { background: var(--lv-bad); }
+.lv .lv-vit.is-warn::before { background: var(--lv-warn); }
+.lv .lv-vit .lk-k { color: var(--ink-2); }
+.lv .lv-fig { display: block; margin-top: auto; padding-top: 12px; font-size: clamp(30px, 5.2cqi, 54px); line-height: .9; color: var(--ink); white-space: nowrap; }
+@container (max-width: 560px) {
+  .lv .lv-vitals { grid-template-columns: repeat(12, minmax(0, 1fr)); border-top: 0; }
+  .lv .lv-vit { grid-column: span 2; padding: 12px 8px 14px 0; border-top: 1px solid var(--hair-strong); }
+  .lv .lv-vit:nth-child(-n+2) { grid-column: span 6; }
+  .lv .lv-vit:nth-child(3) { grid-column: span 3; }
+  .lv .lv-vit:nth-child(4) { grid-column: span 5; }
+  .lv .lv-vit:nth-child(5) { grid-column: span 4; }
+  .lv .lv-vit + .lv-vit { padding-left: 0; border-left: 0; }
+  .lv .lv-vit:nth-child(2), .lv .lv-vit:nth-child(n+4) { padding-left: 12px; border-left: 1px solid var(--hair); }
+  .lv .lv-fig { padding-top: 10px; font-size: clamp(28px, 9.6cqi, 40px); }
+}
+
+/* ---------- the bench: paper ---------- */
+.lv .lv-cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: start; }
+.lv .lv-main { min-width: 0; }
+.lv .lv-side { min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+@container (min-width: 900px) { .lv .lv-cols { grid-template-columns: minmax(0, 1fr) 272px; gap: 36px; } }
+.lv .lv-sidebox { padding: 16px 18px 16px; background: var(--card); border-radius: var(--lv-r); box-shadow: 0 0 0 1px var(--hair), var(--elev-1); }
+.lv .lv-sidebox .lk-kicker { margin-bottom: 10px; }
+.lv .lv-sidebox .lk-scroll { margin-bottom: 0; }
+.lv .lv-note { margin: 8px 0 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2); }
+.lv .lv-note:first-child { margin-top: 0; }
+.lv .lv-side .lk-mini { align-self: flex-start; }
+
+/* type stays ink: the kit's foil kicker, foil chip and tone colours become marks */
+.lv .lk-kicker--foil { color: var(--ink-2); }
+.lv .lk-kicker--foil::before { content: ""; display: inline-block; width: 6px; height: 6px; margin: 0 8px 0 0; border-radius: 50%;
+  vertical-align: 1px; background: var(--accent); }
+.lv .lk-chip--foil { color: var(--ink); background: color-mix(in srgb, var(--accent) 6%, transparent); box-shadow: inset 0 0 0 1px var(--foil-line); }
+.lv .lk-chip--safety { color: var(--ink); background: color-mix(in srgb, var(--lv-warn) 8%, transparent); box-shadow: inset 0 0 0 1px var(--lv-warn); }
+.lv :is(.lk-gain, .lk-loss, .lk-warn) { color: var(--ink); }
+.lv :is(.lk-gain, .lk-loss, .lk-warn)::before { content: ""; display: inline-block; width: 7px; height: 7px; margin: 0 7px 0 0; border-radius: 50%;
+  vertical-align: .08em; background: var(--lv-good); }
+.lv .lk-loss::before { background: var(--lv-bad); }
+.lv .lk-warn::before { background: var(--lv-warn); }
+
+/* the readouts: data typography, a label, a dot leader and a tabular figure; two columns once there is room */
+.lv .lv-led { display: grid; grid-template-columns: minmax(0, 1fr); column-gap: 36px; margin: 0 0 22px; padding: 0; list-style: none;
+  border: 0; border-top: 1px solid var(--hair-strong); }
+@container (min-width: 560px) { .lv .lv-led { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.lv .lv-led > li { padding: 11px 0 12px; }
+.lv .lv-led .ledger-k { font-size: 15.5px; }
+.lv .lv-led .ledger-n { position: relative; font-size: 18px; }
+.lv .lv-row:is(.is-good, .is-bad, .is-warn) .ledger-n::before { content: ""; display: inline-block; width: 7px; height: 7px; margin: 0 8px 0 0;
+  border-radius: 50%; vertical-align: .1em; background: var(--lv-good); }
+.lv .lv-row.is-bad .ledger-n::before { background: var(--lv-bad); }
+.lv .lv-row.is-warn .ledger-n::before { background: var(--lv-warn); }
+
+/* ---------- the feed: a lab notebook, the newest line in ink ---------- */
+.lv .lv-feed { --lk-feed-h: 216px; margin: 6px 0 4px; padding: 20px 20px 16px; background: var(--vellum); border: 0; border-radius: var(--lv-r);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--ink) 6%, transparent); font-size: 14.5px; }
+.lv .lv-feed .lk-line { padding-left: 0; }
+.lv .lv-feed .lk-line:last-child { color: var(--ink); }
+.lv .lv-read { margin: 0 0 0 2px; padding: 0; border: 0; background: none; color: var(--ink); cursor: pointer;
+  font: var(--lbl-w, 500) 11px/1.2 var(--sans); letter-spacing: .12em; text-transform: uppercase;
+  text-decoration: underline; text-decoration-color: var(--foil-line); text-decoration-thickness: 1px; text-underline-offset: 4px; }
+@media (hover: hover) { .lv .lv-read:hover { text-decoration-thickness: 2px; } }
+.lv .lv-btns { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: 14px; }
+.lv .lv-hint { font: italic 400 14.5px/1.5 var(--serif); color: var(--ink-2); }
+
+/* ---------- Act I: the specimens ---------- */
+.lv .lv-targets { grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr)); gap: 14px; margin: 0 0 18px; }
+.lv .lv-tcard { position: relative; display: flex; flex-direction: column; align-items: stretch; width: 100%; padding: 0 18px 16px;
+  overflow: hidden; text-align: left; font: inherit; color: var(--ink); cursor: pointer; background: var(--card); border: 0; border-radius: var(--lv-r);
+  box-shadow: 0 0 0 1px var(--hair), var(--elev-1);
+  transition: box-shadow var(--d-2) var(--ease-out), translate var(--d-2) var(--ease-out); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .lv button.lv-tcard:hover { translate: 0 -2px; } }
+@media (hover: hover) { .lv button.lv-tcard:hover { box-shadow: 0 0 0 1px var(--hair-strong), var(--elev-2); } }
+.lv button.lv-tcard:active { scale: .995; }
+.lv .lv-tcard[aria-pressed="true"] { box-shadow: 0 0 0 1px var(--ink), var(--elev-2); }
+.lv .lv-tcard[aria-pressed="true"]::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--accent); z-index: 1; }
+.lv div.lv-tcard { padding-top: 18px; cursor: default; }
+.lv .lv-tcard.is-locked { background: transparent; box-shadow: inset 0 0 0 1px var(--hair-strong); }
+.lv .lv-tcard.is-locked h5 { color: var(--ink-2); }
+.lv .lv-tcard.lk-card--event { box-shadow: 0 0 0 1px var(--foil-line), var(--elev-1); }
+/* the specimen plate: the tumor and the healthy tissue that shares its antigen, drawn from the card's own numbers (see glyph) */
+.lv .lv-spec { display: block; margin: 0 -18px 16px; padding: 18px 0 10px; background: var(--vellum);
+  box-shadow: inset 0 -1px 0 var(--hair); }
+.lv .lv-gl, .lv .lv-spec-k { display: block; width: min(264px, 88%); margin: 0 auto; }
+.lv .lv-gl { height: auto; overflow: visible; }
+.lv .lv-gl-c { fill: var(--m-top); stroke: var(--ink); stroke-width: 1.1; }
+.lv .lv-gl-c.is-h { fill: var(--m-left); stroke: var(--ink-2); }
+.lv .lv-gl-n { fill: var(--m-left); stroke: var(--ink-2); stroke-width: .8; stroke-opacity: .7; }
+.lv .lv-gl-n.is-h { fill: var(--m-right); }
+.lv .lv-gl-s { fill: none; stroke: var(--ink); stroke-width: 1; stroke-linecap: round; }
+.lv .lv-gl-s.is-h { stroke: var(--ink-2); }
+.lv .lv-gl-sh { fill: var(--m-shadow); opacity: .55; }
+/* the solid tumor's bed: stroma as a soft ground and its fibers; the wall a brain tumor hides behind */
+.lv .lv-gl-bed { fill: var(--m-right); fill-opacity: .34; }
+.lv .lv-gl-f { fill: none; stroke: var(--ink-2); stroke-width: .75; stroke-linecap: round; stroke-opacity: .7; }
+.lv .lv-gl-w { fill: none; stroke: var(--ink-2); stroke-width: .9; stroke-linecap: square; }
+.lv .lv-gl-bm { fill: none; stroke: var(--ink-2); stroke-width: 1; }
+.lv .lv-gl-air { fill: var(--vellum); stroke: var(--ink-2); stroke-width: .8; }
+.lv .lv-gl-dn { fill: none; stroke: var(--ink-2); stroke-width: 1.5; stroke-linecap: round; }
+.lv .lv-gl-ax { fill: none; stroke: var(--ink-2); stroke-width: 4.6; stroke-linecap: round; }
+.lv .lv-gl-ax2 { fill: none; stroke: var(--m-left); stroke-width: 2.6; stroke-linecap: round; }
+/* the plate's two names, each under its own drawing (the tumor's column is the first 114 of the plate's 200 units) */
+.lv .lv-spec-k { display: grid; grid-template-columns: minmax(0, 114fr) minmax(0, 86fr); margin-top: 8px;
+  font: var(--lbl-w, 500) 10.5px/1.2 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
+.lv .lv-spec-k > span { min-width: 0; text-align: center; white-space: nowrap; }
+.lv .lv-tag { display: block; font: var(--lbl-w, 500) 11px/1.3 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); }
+.lv .lv-tnm { display: block; margin: 6px 0 2px; font: 400 26px/1.08 var(--serif); letter-spacing: -.015em; color: var(--ink); }
+.lv .lv-tcard h5 { margin: 6px 0 2px; font: 400 24px/1.1 var(--serif); letter-spacing: -.01em; }
+.lv .lv-tdis { display: block; font: italic 400 15px/1.45 var(--serif); color: var(--ink-2); }
+.lv .lv-why { display: block; margin: 10px 0 0; font-size: 14px; line-height: 1.55; color: var(--ink-2); }
+.lv .lv-dials { display: block; margin: auto 0 0; padding-top: 14px; }
+.lv .lv-dial { display: grid; grid-template-columns: minmax(0, 1fr) 76px; align-items: center; gap: 4px 12px; margin: 0 0 7px; }
+.lv .lv-dial .lk-k { letter-spacing: .1em; color: var(--ink-2); }
+.lv .lv-dial .lk-bar { height: 4px; border-radius: 2px; }
+/* what the target gives you prints in ink; what it costs you, in bronze: a risk is not a loss yet, and red stays for losses */
+.lv .lv-dial .lk-bar > i { background: var(--ink); }
+.lv .lv-dial .lk-bar--loss > i { background: var(--bronze); }
+.lv .lv-tpop { display: block; margin: 10px 0 0; padding-top: 10px; border-top: 1px solid var(--hair);
+  font: var(--lbl-w, 500) 11px/1.4 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); font-variant-numeric: lining-nums tabular-nums; }
+
+/* ---------- Acts II to V: groups, sheets, choices ---------- */
+.lv .lv-grps { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 32px; }
+.lv .lv-grp { margin: 0 0 20px; padding: 18px 0 2px; border-top: 1px solid var(--hair); }
+.lv .lv-grp:first-child { border-top: 0; padding-top: 0; }
+@container (min-width: 760px) {
+  .lv .lv-grps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lv .lv-grps > .lv-grp:nth-child(2) { border-top: 0; padding-top: 0; }
+}
+.lv .lv-grp > .lk-kicker { margin: 0 0 6px; font: 400 22px/1.15 var(--serif); letter-spacing: -.01em; text-transform: none; color: var(--ink); }
+.lv .lv-grp > .lv-note { margin: 0 0 14px; }
+.lv .lk-opt { position: relative; margin: 0 0 8px; padding: 13px 16px 14px 44px; background: var(--card); border: 1px solid var(--hair);
+  border-radius: var(--lv-r); box-shadow: var(--elev-1); }
+.lv .lk-opt::before { content: ""; position: absolute; left: 16px; top: 16px; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--paper); box-shadow: inset 0 0 0 1px var(--hair-strong);
+  transition: box-shadow var(--d-2) var(--ease-out), background-color var(--d-2) var(--ease-out); }
+@media (hover: hover) { .lv .lk-opt:not(:disabled):hover { border-color: var(--hair-strong); background: var(--card); box-shadow: var(--elev-2); }
+  .lv .lk-opt:not(:disabled):hover::before { box-shadow: inset 0 0 0 1px var(--ink); } }
+.lv .lk-opt[aria-pressed="true"] { border-color: var(--ink); box-shadow: var(--elev-1); }
+.lv .lk-opt[aria-pressed="true"]::before { background: var(--accent); box-shadow: inset 0 0 0 3px var(--paper), 0 0 0 1px var(--ink); }
+.lv .lv-toggle::before { border-radius: 3px; }
+.lv .lv-toggle[aria-pressed="true"]::before { border-radius: 3px; }
+.lv .lk-opt:disabled { background: transparent; box-shadow: none; border-style: dashed; }
+.lv .lk-opt:disabled::before { opacity: .5; }
+.lv .lk-opt-l { font-size: 17.5px; }
+.lv .lv-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 14px; margin: 0 0 20px; }
+.lv .lv-cards .lk-card { display: flex; flex-direction: column; padding: 18px 18px 16px; background: var(--card); border: 0; border-radius: var(--lv-r);
+  box-shadow: 0 0 0 1px var(--hair), var(--elev-1); }
+.lv .lv-cards .lk-card > .lk-kicker { margin-bottom: 12px; color: var(--ink); }
+.lv .lv-cards .lk-seg { align-self: flex-start; margin: 0 0 10px; }
+.lv .lv-cards .lk-seg { border-radius: 16px; }
+.lv .lv-cards .lk-seg > button { flex: 1 1 auto; padding: 0 13px; }
+.lv .lv-cards .lk-step { margin: 0 0 4px; align-self: flex-start; }
+.lv .lv-cards .lv-note { margin-top: 0; padding-top: 6px; }
+.lv .lv-cards .lv-note + .lv-note { margin-top: 0; }
+.lv .lv-cards .btnrow { margin-top: 12px; }
+.lv .lv-deaths { margin: -8px 0 16px; }
+.lv .lv-toggle { margin: 14px 0 0; box-shadow: none; }
+@container (min-width: 520px) { .lv .lv-pol > .lk-card:nth-child(3) { grid-column: 1 / -1; } }
+
+/* ---------- event and interrupt cards: the one live sheet, lit at its top edge ---------- */
+.lv .lv-evcard { position: relative; margin: 0 0 22px; padding: 22px 22px 16px; overflow: hidden; background: var(--card); border: 0;
+  border-radius: var(--lv-r); box-shadow: 0 0 0 1px var(--hair-strong), var(--elev-2); }
+.lv .lv-evcard::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--accent); }
+.lv .lv-evcard h5 { margin: 0 0 10px; font: 400 clamp(22px, 3.6cqi, 28px)/1.15 var(--serif); letter-spacing: -.015em; }
+.lv .lv-evcard .lk-lede { margin-bottom: 14px; }
+.lv .lv-evcard .lk-opt:last-child { margin-bottom: 0; }
+.lv .lv-stage > .lk-card--event { position: relative; margin: 0 0 18px; padding: 22px 22px 16px; overflow: hidden; border: 0; border-radius: var(--lv-r);
+  background: var(--card); box-shadow: 0 0 0 1px var(--hair-strong), var(--elev-2); }
+.lv .lv-stage > .lk-card--event::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--accent); }
+.lv .lv-stage > .lk-card--event h5 { margin: 0 0 10px; font: 400 clamp(22px, 3.6cqi, 28px)/1.15 var(--serif); letter-spacing: -.015em; }
+
+/* ---------- the patient ledger ---------- */
+.lv .lv-ledger th { white-space: nowrap; }
+.lv .lv-ledger td:first-child { padding-left: 0; }
+.lv .lv-pick { padding: 2px 0; border: 0; background: none; color: var(--ink); cursor: pointer; font: 400 15px/1.4 var(--serif);
+  text-align: left; white-space: nowrap; text-decoration: underline; text-decoration-color: var(--hair-strong); text-underline-offset: 3px; }
+@media (hover: hover) { .lv .lv-pick:hover { text-decoration-color: var(--ink); } }
+.lv .lv-ledger tr.is-sel .lv-pick { text-decoration-color: var(--foil-line); text-decoration-thickness: 2px; }
+.lv .lv-ledger .lk-dim { color: var(--ink-2); }
+@media (prefers-reduced-motion: no-preference) {
+  .lv .lv-ledger tr.lv-new { animation: lvRow var(--d-2) var(--ease-out) both; animation-delay: calc(var(--i, 0) * 120ms); }
+}
+@keyframes lvRow { from { opacity: 0; } }
+.lv .lv-stage > .lk-kicker { margin-top: 6px; }
+
+/* ---------- canvases on paper ---------- */
+.lv canvas.lv-cv { margin: 2px 0 14px; border-radius: var(--lv-r); }
+
+/* ---------- the ending: the debrief on paper, its figures in stat type ---------- */
+.lv .lv-end .lk-debrief { margin-top: 34px; padding-top: 30px; border-top: 1px solid var(--hair-strong); }
+.lv .lv-end .lk-debrief > .lk-title { font-size: clamp(32px, 6cqi, 54px); line-height: 1; letter-spacing: -.03em; margin-bottom: 14px; }
+.lv .lv-end .lk-debrief > .lk-title .lk-sub { margin-top: 10px; font-size: clamp(17px, 2.6cqi, 22px); letter-spacing: -.005em; }
+.lv .lv-end .lk-stats { gap: 0; margin: 20px 0 8px; border-top: 1px solid var(--hair-strong); }
+.lv .lv-end .lk-stat { padding: 12px 14px 14px 0; border-bottom: 1px solid var(--hair); }
+.lv .lv-end .lk-stat .lk-v { margin-top: 10px; font: 200 clamp(28px, 4.2cqi, 40px)/.95 var(--stat); letter-spacing: -.035em; }
+.lv .lv-end .lk-table td:first-child { font-family: var(--serif); }
+.lv .lv-end .lk-lesson { border: 0; border-radius: var(--lv-r); box-shadow: 0 0 0 1px var(--hair), var(--elev-1); }
+
+/* ---------- narrow: the dials and the cards stay readable at 375px ---------- */
+@container (max-width: 420px) {
+  .lv .lv-dial { grid-template-columns: minmax(0, 1fr) 58px; }
+  .lv .lv-tnm, .lv .lv-tcard h5 { font-size: 23px; }
+  .lv .lv-feed { --lk-feed-h: 200px; padding: 16px 14px 12px; }
+  .lv .lv-pk { min-width: 0; flex: 1 1 40%; }
+  .lv .lk-opt { padding-left: 40px; }
+  .lv .lk-opt::before { left: 14px; }
+  .lv .lv-evcard, .lv .lv-stage > .lk-card--event { padding: 20px 16px 14px; }
+}
+/* motion: Set only. A vital that moved and a new act's type arrive with opacity and an 8px rise, never blur;
+   the numeral keeps its one foil sheen (site.css) */
+@media (prefers-reduced-motion: no-preference) {
+  .lv .lv-vit.lv-chg .lv-fig { animation: lvSet var(--d-3) var(--ease-out) both; }
+  .lv .lv-act.lv-turn :is(.lk-kicker, .lk-title, .lk-lede, .lv-pks) { animation: lvSet var(--d-3) var(--ease-out) both; }
+  .lv .lv-act.lv-turn .lk-kicker { animation-delay: 50ms; }
+  .lv .lv-act.lv-turn .lk-title { animation-delay: 100ms; }
+  .lv .lv-act.lv-turn :is(.lk-lede, .lv-pks) { animation-delay: 150ms; }
+}
+@keyframes lvSet { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) {
+  .lv .lv-pk, .lv .lv-tcard, .lv .lk-opt, .lv .lk-opt::before, .lv .lv-vit::before { transition: none; }
+}
+@media print { .lv .lv-scene .iso-stage canvas { display: none; } .lv .lv-hall { box-shadow: none; } }
+/* Act I's badges in the hall: off the cells on the label layer, each on a hairline to its membrane (see badges) */
+.lv .lv-scene .lv-badge.is-l { margin: -36px 0 0 -36px; }
+.lv .lv-scene .lv-badge.is-r { margin: -36px 0 0 20px; }
+.lv .lv-scene .ps3d-leaders .lv-lead { stroke: var(--m-sil, currentColor); stroke-width: 1; opacity: .9; vector-effect: non-scaling-stroke; }
+.lv .lv-scene .ps3d-leaders .lv-lead-dot { fill: var(--m-sil, currentColor); stroke: none; }

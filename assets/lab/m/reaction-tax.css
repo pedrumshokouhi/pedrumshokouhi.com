@@ -1,0 +1,51 @@
+/* P.S. Lab, No. 27: The reaction tax. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+@media (hover: hover) {
+  .rx-box:hover { border-color: var(--hair-strong); color: var(--ink); }
+}
+.rx-box:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.rx-box[data-state="armed"] { border-color: var(--ink); color: var(--ink); }
+.rx-box[data-state="go"] { background: var(--accent); border-color: var(--accent); color: color-mix(in srgb, var(--dark) 70%, #000);
+  font: 400 clamp(56px, 9vw, 88px)/1 var(--serif); letter-spacing: -.02em; transition: none; }
+.rx-hist { position: relative; display: grid; grid-template-columns: repeat(20, minmax(0, 1fr)); gap: 2px; height: 84px; margin-top: 16px; }
+.rx-bin { display: flex; flex-direction: column-reverse; gap: 2px; min-width: 0; overflow: hidden; }
+.rx-bin i { flex: 0 1 8px; min-height: 1px; margin: 0 3px; border-radius: 1px; background: var(--ink); opacity: .5; }
+.rx-bin i.new { background: var(--accent); opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .rx-bin i.new { animation: rxDrop 560ms var(--ease-out); }
+}
+.rx-lens { position: absolute; left: 0; top: 0; z-index: 1; width: 84px; height: 84px; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 4px; text-align: center; background: var(--paper); border: 1px solid var(--hair-strong); border-radius: 50%;
+  box-shadow: var(--elev-1); }
+.rx-lens::after { content: ""; position: absolute; left: -1px; top: 50%; width: 2px; height: calc(50% + 10px); background: var(--accent); }
+.rx-lens b { font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); }
+.rx-lens span { font: italic 400 12px/1 var(--serif); color: var(--ink-2); }
+.rx-scale { position: relative; height: 26px; margin-top: 4px; overflow: hidden; border-bottom: 1px solid var(--hair-strong);
+  background-image: linear-gradient(90deg, var(--hair-strong) 1px, transparent 1px); background-size: 20% 7px;
+  background-position: 0 100%; background-repeat: repeat-x; }
+.rx-scale::after { content: ""; position: absolute; right: 0; bottom: 0; width: 1px; height: 7px; background: var(--hair-strong); }
+.rx-band { position: absolute; left: 40%; width: 16%; top: 4px; bottom: 0; background: color-mix(in srgb, var(--ink) 7%, transparent); }
+.rx-scale i { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; pointer-events: none;
+  transform: translateX(calc(var(--p, 0) * 100%)); transition: opacity var(--d-3) var(--ease-out); }
+.rx-scale i::before { content: ""; position: absolute; left: -1px; top: 2px; bottom: 0; width: 2px; background: var(--accent); }
+.rx-scale i.old { opacity: .35; }
+.rx-axis { position: relative; height: 10px; margin-top: 6px; font: var(--lbl-w) 10px/1 var(--sans); letter-spacing: .06em; color: var(--ink-2);
+  font-variant-numeric: lining-nums tabular-nums; }
+.rx-axis span { position: absolute; top: 0; translate: -50% 0; white-space: nowrap; }
+.rx-axis span:nth-child(1) { left: 0; translate: 0 0; }
+.rx-axis span:nth-child(2) { left: 20%; }
+.rx-axis span:nth-child(3) { left: 40%; }
+.rx-axis span:nth-child(4) { left: 60%; }
+.rx-axis span:nth-child(5) { left: 80%; }
+.rx-axis span:nth-child(6) { left: auto; right: 0; translate: 0 0; }
+.exp .rx-box[data-ground] { height: 220px; border: 0; border-radius: 0; color: var(--ink-2);
+  background-color: var(--g-bg);
+  background-image: var(--grain-5), radial-gradient(60% 90% at 50% 50%, var(--g-pool) 0%, var(--g-bg) 72%, color-mix(in srgb, var(--g-bg) 70%, #000) 100%);
+  background-size: 128px 128px, 100% 100%; background-blend-mode: overlay, normal; }
+@media (hover: hover) {
+  .exp .rx-box[data-ground]:hover { color: var(--ink); }
+}
+.exp .rx-box[data-ground][data-state="armed"] { color: var(--ink); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--on-dark) 26%, transparent); }
+.exp .rx-box[data-ground][data-state="go"] { color: color-mix(in srgb, var(--dark) 70%, #000);
+  background: radial-gradient(70% 100% at 50% 50%, color-mix(in srgb, var(--accent) 80%, #fff) 0%, var(--accent) 60%); }
+.exp .rx-box[data-ground]:focus-visible { outline-offset: -4px; }
+.exp[data-m="reaction-tax"] .rx-hist { margin-top: 22px; }

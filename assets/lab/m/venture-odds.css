@@ -1,0 +1,19 @@
+/* P.S. Lab, No. 19: Venture odds. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+#expBets { transition: opacity var(--d-2) var(--ease-out); }
+#expBets.stale { opacity: .4; }
+.exp #betRun.ready { box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 24%, transparent); }
+#expBets { height: 250px; }
+.lx-walnut { position: relative; padding-block: 20px 14px;
+  background-color: var(--wall);
+  background-image: var(--grain-5),
+  repeating-linear-gradient(92deg, color-mix(in srgb, #000 7%, transparent) 0 2px, transparent 2px 9px, color-mix(in srgb, #fff 3%, transparent) 9px 11px, transparent 11px 23px),
+  radial-gradient(70% 100% at 50% 20%, color-mix(in srgb, var(--wall) 70%, #C08A52) 0%, var(--wall) 60%, color-mix(in srgb, var(--wall) 70%, #000) 100%);
+  background-size: 128px 128px, 100% 100%, 100% 100%; background-blend-mode: overlay, normal, normal;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 10%, transparent), inset 0 -2px 0 color-mix(in srgb, #000 30%, transparent); }
+.lx-walnut > canvas#expBets { height: 250px; }
+.lx-walnut { background-image: var(--grain-5),
+  repeating-linear-gradient(91deg, color-mix(in srgb, #000 6%, transparent) 0 1px, transparent 1px 7px),
+  repeating-linear-gradient(88.5deg, color-mix(in srgb, #fff 3%, transparent) 0 2px, transparent 2px 13px),
+  repeating-linear-gradient(90deg, color-mix(in srgb, #000 5%, transparent) 0 31px, transparent 31px 73px),
+  radial-gradient(70% 100% at 50% 20%, color-mix(in srgb, var(--wall) 70%, #C08A52) 0%, var(--wall) 60%, color-mix(in srgb, var(--wall) 70%, #000) 100%);
+  background-size: 128px 128px, 100% 100%, 100% 100%, 100% 100%, 100% 100%; background-blend-mode: overlay, normal, normal, normal, normal; }

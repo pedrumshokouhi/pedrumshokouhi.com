@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>About · Pedrum Shokouhi</title>
+<meta name="description" content="Pedrum Shokouhi: builder by instinct, endlessly curious about technology and obsessed with how companies get built, funded, and run.">
+<link rel="canonical" href="https://pedrumshokouhi.com/about">
+<meta name="author" content="Pedrum Shokouhi">
+<meta name="format-detection" content="telephone=no">
+<meta property="og:site_name" content="P.S.">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pedrumshokouhi.com/about">
+<meta property="og:title" content="About · Pedrum Shokouhi">
+<meta property="og:description" content="Pedrum Shokouhi: builder by instinct, endlessly curious about technology and obsessed with how companies get built, funded, and run.">
+<meta property="og:image" content="https://pedrumshokouhi.com/assets/og/about.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="About Pedrum Shokouhi">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="me" href="https://www.linkedin.com/in/pedrumshokouhi/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&text=Pedrum%20Shokouhi.&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#F6F4ED">
+<script>(function(r){var t;try{t=localStorage.getItem("psTheme")}catch(e){}if(t){r.setAttribute("data-theme",t);if(" night board blueprint terminal sim abyss city swarm warp aurora rain ember void ".indexOf(" "+t+" ")>-1)r.setAttribute("data-tone","dark");var p={night:"#141312",board:"#232A27",blueprint:"#0F2C4E",riso:"#F6F1E5",terminal:"#0A0D0A",sim:"#06080F",aurora:"#0B1024",rain:"#171C23",play:"#F2EDE2",swarm:"#050505",abyss:"#06222B",city:"#0B0E1A",ember:"#191210",warp:"#030308",void:"#000000",gallery:"#FFFFFF"}[t],m=document.querySelector("meta[name=theme-color]");if(p&&m)m.content=p}function b(a){return a&&a.navigationType==="traverse"&&a.from&&a.entry&&a.entry.index<a.from.index}addEventListener("pagereveal",function(e){r.classList.remove("vt-out");if(!e.viewTransition)return;r.classList.add("vt-in");try{if(b(navigation.activation))e.viewTransition.types.add("back")}catch(x){}});addEventListener("pageswap",function(e){r.classList.add("vt-out");try{if(e.viewTransition&&b(e.activation))e.viewTransition.types.add("back")}catch(x){}})})(document.documentElement);</script>
+<script type="speculationrules">{"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/finaltable-privacy*"}}]},"eagerness":"moderate"}]}</script>
+<link rel="stylesheet" href="/assets/site.css?v=eb4517df">
+<style>
+  /* =========================================================
+     THE STATEMENT: the sentence is the page's h1, set at its full size from the first frame
+     ========================================================= */
+  .about-hero {
+    position: relative;
+    padding: clamp(48px, 6vw, 88px) var(--frame-pad) clamp(64px, 8vw, 112px);
+    display: grid; grid-template-columns: minmax(0, 1fr); row-gap: clamp(40px, 5vw, 64px);
+  }
+  .ab-main { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+  .ab-main .tag { color: var(--bronze); }
+  .about-hero h1 {
+    margin-top: 24px; max-width: 23ch;
+    font: 400 clamp(34px, 4.6vw, 56px)/1.12 var(--serif); letter-spacing: var(--trk-ladder);
+    color: var(--ink); text-wrap: pretty;
+  }
+  /* the three verbs stay in the markup and read as plain ink: no bars, no italics */
+  .about-hero h1 em { font-style: normal; color: inherit; background: none; }
+
+  .signature { margin-top: clamp(26px, 3vw, 38px); display: inline-block; position: relative; }
+  .signature .name {
+    font-family: 'Great Vibes', 'Snell Roundhand', 'Apple Chancery', cursive;
+    font-size: clamp(44px, 6vw, 68px); line-height: 1.1; color: var(--ink); white-space: nowrap;
+  }
+  .signature .name i { display: inline-block; font-style: normal; color: var(--accent); }
+  @media (prefers-reduced-motion: no-preference) {
+    .signature .name { clip-path: inset(0 100% 0 0); animation: psWrite 900ms cubic-bezier(.5,0,.4,1) 360ms forwards; }
+  }
+  @keyframes psWrite { to { clip-path: inset(0 -8% 0 0); } }
+  /* the pen waits for its ink: nothing writes until Great Vibes has arrived (or 800ms pass) */
+  @media (scripting: enabled) { :root:not(.sig-ready) .signature .name { animation-play-state: paused; } }
+  .ab-act { margin-top: clamp(28px, 3.4vw, 44px); display: flex; flex-wrap: wrap; gap: 14px; }
+
+  /* the record: three facts already public on this site, set as a ledger */
+  .ab-side { display: grid; gap: clamp(32px, 3.4vw, 48px); align-content: start; min-width: 0; }
+  .ab-side .ledger dd a {
+    padding-block: 14px; /* an inline link: the padding grows the target to 44px and moves no line */
+    color: inherit; text-decoration: underline 1px var(--hair-strong); text-underline-offset: 4px; text-decoration-skip-ink: auto;
+    transition: text-decoration-color var(--d-1) var(--ease-out);
+  }
+  @media (hover: hover) { .ab-side .ledger dd a:hover { text-decoration-color: currentColor; } }
+  .ab-side .ledger dd a:focus-visible { text-decoration-color: currentColor; }
+  .ab-side .ledger dd a[target="_blank"]::after { content: "\2197"; content: "\2197" / ""; margin-left: .25em; font: 400 .8em/1 var(--sans); color: var(--ink-2); }
+  .ab-side .ledger .sep { margin: 0 .5em; color: var(--ink-2); }
+  .ab-side .ledger .num { font-size: .94em; }
+  /* the proof sheet: twelve plates in warm monochrome; the one under the hand develops */
+  .ab-sheet { padding: 16px 16px 18px; background: var(--vellum); border-radius: var(--r-paper); box-shadow: var(--elev-1); }
+  .ab-sheet .lbl { margin-bottom: 12px; }
+  .ab-proof { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px 8px; }
+  .ab-proof a { display: block; text-decoration: none; color: var(--ink-2); }
+  .ab-proof .plate { --ratio: 1 / 1; border-radius: 1px; box-shadow: 0 1px 2px color-mix(in srgb, var(--ink) 18%, transparent); }
+  .ab-proof .plate--ty { display: grid; place-items: center; background: var(--paper); }
+  .ab-proof .plate--ty b { font: 400 17px/1 var(--serif); color: var(--bronze); font-variant-numeric: lining-nums; }
+  .ab-proof span.n { display: block; margin-top: 5px; font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: .06em; font-variant-numeric: lining-nums tabular-nums; }
+  @media (hover: hover) { .ab-proof a:hover span.n { color: var(--ink); } }
+  @media (max-width: 480px) { .ab-proof { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  /* the sheet's credit line: every plate under a CC licence named with its author, linked to its Commons page */
+  .ab-cr { margin-top: 14px; font: 400 12px/1.6 var(--sans); letter-spacing: .01em; color: var(--ink-2); text-wrap: pretty; font-variant-numeric: lining-nums tabular-nums; }
+  .ab-cr a { color: var(--bronze); text-decoration: underline 1px color-mix(in srgb, currentColor 45%, transparent); text-underline-offset: 2px;
+    transition: text-decoration-color var(--d-1) var(--ease-out); }
+  @media (hover: hover) { .ab-cr a:hover { text-decoration-color: currentColor; } }
+  .ab-cr a:focus-visible { text-decoration-color: currentColor; }
+  /* two rooms behind the essays: one sentence, two links */
+  .ab-rooms {
+    padding-top: 22px; border-top: 1px solid var(--ink);
+    font: 400 clamp(20px, 1.8vw, 24px)/1.45 var(--serif); color: var(--ink); text-wrap: pretty;
+  }
+  .ab-rooms a {
+    color: inherit; text-decoration: underline 1px var(--bronze); text-underline-offset: .18em; text-decoration-skip-ink: auto;
+    transition: text-decoration-color var(--d-1) var(--ease-out);
+  }
+  @media (hover: hover) { .ab-rooms a:hover { text-decoration-color: currentColor; } }
+  .ab-rooms a:focus-visible { text-decoration-color: currentColor; }
+
+  /* staged entrance: the h1 never moves; the rest sets in with it, inside the first 600ms */
+  @media (prefers-reduced-motion: no-preference) {
+    .ab-act, .ab-side { animation: psSet var(--d-3) var(--ease-out) backwards; }
+    .ab-act { animation-delay: 80ms; }
+    .ab-side { animation-delay: 120ms; }
+  }
+  @media (min-width: 1100px) {
+    .about-hero { grid-template-columns: minmax(0, 7fr) minmax(320px, 4fr); column-gap: clamp(56px, 7vw, 120px); align-items: start; }
+    .ab-side { padding-top: 44px; }
+  }
+  /* phones held sideways: the statement is set wider and smaller, so all of it shows under the nav on the first screen */
+  @media (max-height: 500px) and (pointer: coarse) {
+    .about-hero { padding-top: 20px; row-gap: 40px; }
+    .about-hero h1 { margin-top: 14px; max-width: 36ch; font-size: clamp(24px, 7.4svh, 32px); line-height: 1.16; }
+    .signature { margin-top: 18px; }
+    .signature .name { font-size: clamp(36px, 11svh, 48px); }
+    .ab-act { margin-top: 20px; }
+  }
+
+</style>
+<script src="/assets/theme.js?v=1f909336" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Pedrum Shokouhi","url":"https://pedrumshokouhi.com/","sameAs":["https://www.linkedin.com/in/pedrumshokouhi/"]}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div id="top"></div>
+
+<nav class="nav nav--glass" aria-label="Primary">
+  <a class="mark" href="/">P<i>.</i>S<i>.</i></a>
+  <ul>
+    <li><a href="/#writing">Writing</a></li>
+    <li><a href="/about" class="active" aria-current="page">About</a></li>
+    <li><a href="/world" class="door">The World</a></li>
+    <li><a href="/experiments" class="lab">Experiments</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+<section class="about-hero" data-ground="paper">
+  <div class="ab-main">
+    <span class="tag">About</span>
+    <h1>I&rsquo;m Pedrum Shokouhi. Builder by instinct, endlessly curious about technology and obsessed with how companies get <em>built</em>, <em>funded</em>, and <em>run</em>. This is where I share what I&rsquo;m learning.</h1>
+    <div class="signature" aria-label="Signature of Pedrum Shokouhi">
+      <div class="name" aria-hidden="true">Pedrum Shokouhi<i>.</i></div>
+    </div>
+    <div class="ab-act">
+      <a class="ps-cap ps-cap--foil" href="/#writing">Read the essays<span class="arr" aria-hidden="true">&#8594;</span></a>
+    </div>
+  </div>
+  <div class="ab-side">
+    <dl class="ledger">
+      <div><dt>Background</dt><dd>Built companies, then finished an MBA.</dd></div>
+      <div><dt>Writing</dt><dd><a href="/#writing"><span class="num" data-count="essays">12</span> essays since September 2025</a></dd></div>
+      <div><dt>Contact</dt><dd><a href="mailto:pedrumshokouhi@gmail.com">Write to me</a><span class="sep" aria-hidden="true">&middot;</span><a href="https://www.linkedin.com/in/pedrumshokouhi/" target="_blank" rel="noopener">LinkedIn<span class="vh"> (opens in a new tab)</span></a></dd></div>
+    </dl>
+    <div class="ab-sheet">
+      <p class="lbl">The essays, as plates</p>
+      <ol class="ab-proof">
+        <li><a href="/writing/the-referee-wears-the-home-teams-jersey" aria-label="No. 012, The Referee Wears the Home Team&rsquo;s Jersey"><span class="plate" data-plate data-no="012" style="--focal:50% 30%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg/250px-The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg/250px-The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg/500px-The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg 500w" data-sizes="64px" width="64" height="64" alt="" decoding="async"></span><span class="n" aria-hidden="true">012</span></a></li>
+        <li><a href="/writing/the-intention-economy" aria-label="No. 011, The Intention Economy"><span class="plate" data-plate data-no="011" style="--focal:50% 40%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Long-distance_operators_at_the_Sunset_Telephone_Company%2C_Seattle%2C_ca_1905_%28MOHAI_1833%29.jpg/250px-Long-distance_operators_at_the_Sunset_Telephone_Company%2C_Seattle%2C_ca_1905_%28MOHAI_1833%29.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Long-distance_operators_at_the_Sunset_Telephone_Company%2C_Seattle%2C_ca_1905_%28MOHAI_1833%29.jpg/250px-Long-distance_operators_at_the_Sunset_Telephone_Company%2C_Seattle%2C_ca_1905_%28MOHAI_1833%29.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Long-distance_operators_at_the_Sunset_Telephone_Company%2C_Seattle%2C_ca_1905_%28MOHAI_1833%29.jpg/500px-Long-distance_operators_at_the_Sunset_Telephone_Company%2C_Seattle%2C_ca_1905_%28MOHAI_1833%29.jpg 500w" data-sizes="64px" width="64" height="64" alt="" decoding="async"></span><span class="n" aria-hidden="true">011</span></a></li>
+        <li><a href="/writing/we-built-machines-to-save-time" aria-label="No. 010, We Built Machines to Save Time, and Taught Them to Occupy It"><span class="plate" data-plate data-no="010" style="--focal:50% 50%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Pony_Express_Map_William_Henry_Jackson.jpg/250px-Pony_Express_Map_William_Henry_Jackson.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Pony_Express_Map_William_Henry_Jackson.jpg/250px-Pony_Express_Map_William_Henry_Jackson.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Pony_Express_Map_William_Henry_Jackson.jpg/500px-Pony_Express_Map_William_Henry_Jackson.jpg 500w" data-sizes="64px" width="64" height="64" alt="" decoding="async"></span><span class="n" aria-hidden="true">010</span></a></li>
+        <li><a href="/writing/the-last-interface" aria-label="No. 009, The Last Interface"><span class="plate" data-plate data-no="009" style="--focal:50% 40%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg/250px-Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg/250px-Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg/500px-Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg 500w" data-sizes="64px" width="64" height="64" alt="" decoding="async"></span><span class="n" aria-hidden="true">009</span></a></li>
+        <li><a href="/writing/twenty-slots" aria-label="No. 008, Twenty Slots"><span class="plate" data-plate data-no="008" style="--focal:50% 50%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Punch_card_80_columns_%281%29.jpg/250px-Punch_card_80_columns_%281%29.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Punch_card_80_columns_%281%29.jpg/250px-Punch_card_80_columns_%281%29.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Punch_card_80_columns_%281%29.jpg/500px-Punch_card_80_columns_%281%29.jpg 500w" data-sizes="64px" width="64" height="64" alt="" decoding="async"></span><span class="n" aria-hidden="true">008</span></a></li>
+        <li><a href="/writing/the-herd-has-no-head" aria-label="No. 007, The Herd Has No Head"><span class="plate" data-plate data-no="007" style="--focal:50% 45%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Flora%27s_Wagon_of_Fools_%28Flora%27s_Mallewagen%29_tulipomania%2C_Hendrik_Gerritsz_Pot_c1637.jpg/250px-Flora%27s_Wagon_of_Fools_%28Flora%27s_Mallewagen%29_tulipomania%2C_Hendrik_Gerritsz_Pot_c1637.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Flora%27s_Wagon_of_Fools_%28Flora%27s_Mallewagen%29_tulipomania%2C_Hendrik_Gerritsz_Pot_c1637.jpg/250px-Flora%27s_Wagon_of_Fools_%28Flora%27s_Mallewagen%29_tulipomania%2C_Hendrik_Gerritsz_Pot_c1637.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Flora%27s_Wagon_of_Fools_%28Flora%27s_Mallewagen%29_tulipomania%2C_Hendrik_Gerritsz_Pot_c1637.jpg/500px-Flora%27s_Wagon_of_Fools_%28Flora%27s_Mallewagen%29_tulipomania%2C_Hendrik_Gerritsz_Pot_c1637.jpg 500w" data-sizes="64px" width="64" height="64" alt="" decoding="async"></span><span class="n" aria-hidden="true">007</span></a></li>
+        <li><a href="/writing/rent-is-the-punchline" aria-label="No. 006, Rent Is the Punchline"><span class="plate" data-plate data-no="006" style="--focal:50% 45%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/McDonald%27s_-1_Store_Museum%2C_Des_Plaines%2C_Ill._%288268402450%29.jpg/250px-McDonald%27s_-1_Store_Museum%2C_Des_Plaines%2C_Ill._%288268402450%29.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/McDonald%27s_-1_Store_Museum%2C_Des_Plaines%2C_Ill._%288268402450%29.jpg/250px-McDonald%27s_-1_Store_Museum%2C_Des_Plaines%2C_Ill._%288268402450%29.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/McDonald%27s_-1_Store_Museum%2C_Des_Plaines%2C_Ill._%288268402450%29.jpg/500px-McDonald%27s_-1_Store_Museum%2C_Des_Plaines%2C_Ill._%288268402450%29.jpg 500w" data-sizes="64px" width="64" height="64" alt="" decoding="async"></span><span class="n" aria-hidden="true">006</span></a></li>
+        <li><a href="/writing/the-two-thirds-door" aria-label="No. 005, The Two-Thirds Door"><span class="plate plate--ty"><b>2/3</b></span><span class="n" aria-hidden="true">005</span></a></li>
+        <li><a href="/writing/the-ten-minute-turn" aria-label="No. 004, The Ten-Minute Turn"><span class="plate" data-plate data-no="004" style="--focal:50% 55%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg/250px-Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg/250px-Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg/500px-Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg 500w" data-sizes="64px" width="64" height="64" alt="" decoding="async"></span><span class="n" aria-hidden="true">004</span></a></li>
+        <li><a href="/writing/a-sip-is-not-a-can" aria-label="No. 003, A Sip Is Not a Can"><span class="plate" data-plate data-no="003" style="--focal:50% 50%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Coca-Cola_1915_Contour_bottle.jpg/250px-Coca-Cola_1915_Contour_bottle.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Coca-Cola_1915_Contour_bottle.jpg/250px-Coca-Cola_1915_Contour_bottle.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Coca-Cola_1915_Contour_bottle.jpg/500px-Coca-Cola_1915_Contour_bottle.jpg 500w" data-sizes="64px" width="64" height="64" alt="" decoding="async"></span><span class="n" aria-hidden="true">003</span></a></li>
+        <li><a href="/writing/the-planes-that-came-home" aria-label="No. 002, The Planes That Came Home"><span class="plate" data-plate data-no="002" style="--focal:50% 50%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/B-17F_formation_over_Schweinfurt%2C_Germany%2C_August_17%2C_1943.jpg/250px-B-17F_formation_over_Schweinfurt%2C_Germany%2C_August_17%2C_1943.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/B-17F_formation_over_Schweinfurt%2C_Germany%2C_August_17%2C_1943.jpg/250px-B-17F_formation_over_Schweinfurt%2C_Germany%2C_August_17%2C_1943.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/B-17F_formation_over_Schweinfurt%2C_Germany%2C_August_17%2C_1943.jpg/500px-B-17F_formation_over_Schweinfurt%2C_Germany%2C_August_17%2C_1943.jpg 500w" data-sizes="64px" width="64" height="64" alt="" decoding="async"></span><span class="n" aria-hidden="true">002</span></a></li>
+        <li><a href="/writing/the-laugh-in-the-boardroom" aria-label="No. 001, The Laugh in the Boardroom"><span class="plate" data-plate data-no="001" style="--focal:50% 50%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Exterior_of_last_Blockbuster_Video.jpg/250px-Exterior_of_last_Blockbuster_Video.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Exterior_of_last_Blockbuster_Video.jpg/250px-Exterior_of_last_Blockbuster_Video.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Exterior_of_last_Blockbuster_Video.jpg/500px-Exterior_of_last_Blockbuster_Video.jpg 500w" data-sizes="64px" width="64" height="64" alt="" decoding="async"></span><span class="n" aria-hidden="true">001</span></a></li>
+      </ol>
+      <p class="ab-cr">Plates from Wikimedia Commons, public domain except &#8470;&#8239;008 Harke, <a href="https://commons.wikimedia.org/wiki/File:Punch_card_80_columns_(1).jpg">CC BY-SA 3.0<span class="vh">, on Wikimedia Commons</span></a>; &#8470;&#8239;006 Jerry Huddleston, <a href="https://commons.wikimedia.org/wiki/File:McDonald%27s_-1_Store_Museum,_Des_Plaines,_Ill._(8268402450).jpg">CC BY 2.0<span class="vh">, on Wikimedia Commons</span></a>; &#8470;&#8239;004 Tequask, <a href="https://commons.wikimedia.org/wiki/File:Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg">CC BY-SA 4.0<span class="vh">, on Wikimedia Commons</span></a>; &#8470;&#8239;003 nagualdesign, <a href="https://commons.wikimedia.org/wiki/File:Coca-Cola_1915_Contour_bottle.jpg">CC0<span class="vh">, on Wikimedia Commons</span></a>; &#8470;&#8239;001 Coasterlover1994, <a href="https://commons.wikimedia.org/wiki/File:Exterior_of_last_Blockbuster_Video.jpg">CC BY-SA 4.0<span class="vh">, on Wikimedia Commons</span></a>.</p>
+    </div>
+    <p class="ab-rooms">Two rooms sit behind the essays. <a href="/world">The World</a> holds what I study when I am not writing. <a href="/experiments">The Lab</a> holds <span data-count="machines" data-count-word="">forty-seven</span> machines you can run.</p>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <a class="f-mark" href="/" aria-label="P.S., home">P<i>.</i>S<i>.</i></a>
+  <div class="cols">
+    <span>&copy; 2026 Pedrum Shokouhi</span>
+    <a href="mailto:pedrumshokouhi@gmail.com">Write to me</a>
+    <a href="https://www.linkedin.com/in/pedrumshokouhi/" target="_blank" rel="noopener">LinkedIn<span class="vh"> (opens in a new tab)</span></a>
+  </div>
+  <nav class="cols" aria-label="Footer">
+    <a href="/#writing">All essays</a>
+    <a href="/world">The World</a>
+    <a href="/experiments">Experiments</a>
+    <a href="#top" class="f-top">Back to top<span class="arr arr--up" aria-hidden="true">&#8593;</span></a>
+  </nav>
+</footer>
+
+<script>
+/* the pen waits for its ink: the signature writes once Great Vibes has arrived, or after 800ms regardless */
+(function (r) {
+  var done = false;
+  function ready() { if (done) return; done = true; r.classList.add('sig-ready'); }
+  try {
+    if (!document.fonts || !document.fonts.load) { ready(); return; }
+    setTimeout(ready, 800);
+    document.fonts.load('48px "Great Vibes"', 'Pedrum Shokouhi.').then(ready, ready);
+  } catch (e) { ready(); }
+})(document.documentElement);
+</script>
+</body>
+</html>

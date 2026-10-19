@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>P.S. · Pedrum Shokouhi</title>
+<meta name="description" content="Essays by Pedrum Shokouhi on how companies get built, funded, and run. Twelve essays, 25 founder case files, and 47 machines you can play.">
+<link rel="canonical" href="https://pedrumshokouhi.com/">
+<meta name="author" content="Pedrum Shokouhi">
+<meta name="format-detection" content="telephone=no">
+<meta property="og:site_name" content="P.S.">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pedrumshokouhi.com/">
+<meta property="og:title" content="P.S. · Pedrum Shokouhi">
+<meta property="og:description" content="Twelve essays on business and technology. Read one tonight.">
+<meta property="og:image" content="https://pedrumshokouhi.com/assets/og/home.png?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="P.S., the personal study of Pedrum Shokouhi: twelve essays printed as a stack of plates">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="me" href="https://www.linkedin.com/in/pedrumshokouhi/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&text=Pedrum%20Shokouhi.&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#F6F4ED">
+<script>(function(r){var t;try{t=localStorage.getItem("psTheme")}catch(e){}if(t){r.setAttribute("data-theme",t);if(" night board blueprint terminal sim abyss city swarm warp aurora rain ember void ".indexOf(" "+t+" ")>-1)r.setAttribute("data-tone","dark");var p={night:"#141312",board:"#232A27",blueprint:"#0F2C4E",riso:"#F6F1E5",terminal:"#0A0D0A",sim:"#06080F",aurora:"#0B1024",rain:"#171C23",play:"#F2EDE2",swarm:"#050505",abyss:"#06222B",city:"#0B0E1A",ember:"#191210",warp:"#030308",void:"#000000",gallery:"#FFFFFF"}[t],m=document.querySelector("meta[name=theme-color]");if(p&&m)m.content=p}function b(a){return a&&a.navigationType==="traverse"&&a.from&&a.entry&&a.entry.index<a.from.index}addEventListener("pagereveal",function(e){r.classList.remove("vt-out");if(!e.viewTransition)return;r.classList.add("vt-in");try{if(b(navigation.activation))e.viewTransition.types.add("back")}catch(x){}});addEventListener("pageswap",function(e){r.classList.add("vt-out");try{if(e.viewTransition&&b(e.activation))e.viewTransition.types.add("back")}catch(x){}})})(document.documentElement);</script>
+<script>/* the index remembers it was opened: the seven older essays are shown before the first paint, so Back lands where it left */(function(r){try{if(sessionStorage.getItem("psMoreOpen")==="1")r.classList.add("ps-more")}catch(e){}try{if(sessionStorage.getItem("psStackSeen")==="1")r.classList.add("st-seen")}catch(e){}try{var c=navigator.connection;if(c&&c.saveData)r.classList.add("no-3d")}catch(e){}try{if("scrollRestoration" in history)history.scrollRestoration="manual"}catch(e){}})(document.documentElement);</script>
+<script type="speculationrules">{"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/finaltable-privacy*"}}]},"eagerness":"moderate"}]}</script>
+<link rel="stylesheet" href="/assets/site.css?v=eb4517df">
+<style>
+  #trail { position: fixed; inset: 0; z-index: 60; pointer-events: none; }
+  .ps-cap > .arr { margin-left: 0; }
+  /* the numero sign, set in the serif wherever an index number is printed */
+  .nm { font-family: var(--serif); font-weight: 400; font-size: 1.25em; letter-spacing: 0; margin-right: .08em; text-transform: none; }
+  /* one stamp per screen: while the masthead's own P.S. is in view, the nav mark keeps its periods in ink */
+  .nav .mark.is-quiet i { color: var(--ink); }
+  @media (prefers-reduced-motion: no-preference) {
+    .nav .mark i { transition: scale var(--d-1) var(--spring), color var(--d-3) var(--ease-out); }
+  }
+
+  /* =========================================================
+     1. THE MASTHEAD: the wordmark pressed into the paper, and the Stack standing on the rule beside it
+     ========================================================= */
+  .masthead {
+    /* the Stack's frame: wider than its column (the poster's left sixth and top fifth are air), and never so tall that
+       the caption leaves the first screen */
+    --hw: min(128cqw, calc((100svh - 236px) * 1.72));
+    position: relative; z-index: 2;
+    padding: clamp(28px, 4.6vh, 60px) var(--frame-pad) clamp(40px, 6vh, 72px);
+    overflow-x: clip;
+  }
+  /* the living lights keep their weather from the first screen: the masthead, the latest and the World's door let 18% of the
+     moving background through, as the grounds inside main do (site.css). Play stays solid there too. */
+  :root:is([data-theme="sim"], [data-theme="abyss"], [data-theme="city"], [data-theme="swarm"], [data-theme="warp"],
+    [data-theme="aurora"], [data-theme="rain"], [data-theme="ember"], [data-theme="void"]) .masthead[data-ground="paper"] {
+    background-color: color-mix(in srgb, var(--paper) 82%, transparent); }
+  :root:is([data-theme="sim"], [data-theme="abyss"], [data-theme="city"], [data-theme="swarm"], [data-theme="warp"],
+    [data-theme="aurora"], [data-theme="rain"], [data-theme="ember"], [data-theme="void"]) :is(.latest, .dd--world)[data-ground="vellum"] {
+    background-color: color-mix(in srgb, var(--vellum) 82%, transparent); }
+  .mh {
+    display: grid; grid-template-columns: minmax(0, 48fr) minmax(0, 52fr);
+    grid-template-areas: "copy stage" "rule rule" "plates cap";
+    column-gap: clamp(24px, 3vw, 56px);
+  }
+  .mh-copy { grid-area: copy; display: flex; flex-direction: column; padding-bottom: clamp(30px, 4.4vh, 48px); min-width: 0; }
+  /* the byline: two set labels on one engraved rule */
+  .masthead .meta-row {
+    display: flex; flex-wrap: wrap; gap: 8px 0; align-items: baseline;
+    padding-bottom: 14px; border-bottom: var(--hair-w) solid var(--hair);
+    max-width: min(100%, 520px);
+  }
+  .masthead .meta-row .tag { font-variant-numeric: lining-nums tabular-nums; }
+  .masthead .meta-row .tag + .tag { margin-left: 18px; padding-left: 18px; border-left: var(--hair-w) solid var(--hair); }
+
+  /* the wordmark: blind-debossed into the paper, periods in pure orange */
+  .masthead h1 {
+    margin: auto 0 0 -.045em; /* the P's stem sits on the text edge, not its sidebearing */
+    padding-top: clamp(28px, 4vh, 48px);
+    font: 700 var(--fs-d0)/.8 var(--serif);
+    letter-spacing: -.03em;
+    display: flex; position: relative; z-index: 1;
+  }
+  .masthead h1 .ch { display: inline-block; }
+  .masthead h1 .ch:nth-child(2), .masthead h1 .ch:nth-child(4) { margin-left: -.06em; }
+  .masthead h1 .ch:nth-child(3) { margin-left: -.02em; }
+  /* the press: the letters sit a shade under the paper, with a shadow inside their top edge and a lit lip under their
+     foot (one SVG filter, light themes only). The periods are inked on top, never pressed. */
+  /* the press is a shade of the paper itself (paper and black, no hue), dark enough to read at 3.3:1 on daylight, gallery,
+     riso and play; the filter's lit lip and inner shade do the rest */
+  :root:not([data-tone="dark"]) .masthead h1.deboss {
+    color: color-mix(in srgb, var(--paper) 55%, #000); text-shadow: none;
+  }
+  :root:not([data-tone="dark"]) .masthead h1.deboss .ch:is(:nth-child(1), :nth-child(3)) { filter: url(#psPress); }
+  /* the periods are type, not stickers: a shade under the letters' size, their foot on the letters' baseline
+     (Georgia's period overshoots the line by .015em; the lift takes it back) */
+  .masthead h1 i {
+    display: inline-block; position: relative; top: -.016em; font-size: .9em;
+    padding-inline: 10px; margin-inline: -10px; -webkit-tap-highlight-color: transparent;
+    font-style: normal; color: var(--accent); text-shadow: none; cursor: pointer;
+    transform-origin: 55% 83%; /* the stamp presses each dot about its own centre, so neither ever dips under the line */
+  }
+  /* the entrance: the letters settle 0.1em into the paper in 40ms steps (done by 600ms), then the periods are stamped.
+     The letters are legible from the first frame: nothing fades, nothing is clipped */
+  @media (prefers-reduced-motion: no-preference) {
+    .masthead h1 .ch { animation: psLetterIn 520ms var(--ease-out) backwards; }
+    .masthead h1 .ch:nth-child(2) { animation-delay: 40ms; }
+    .masthead h1 .ch:nth-child(3) { animation-delay: 80ms; }
+    .masthead h1 .ch:nth-child(4) { animation-delay: 120ms; }
+    .masthead h1 .ch:nth-child(2) i { animation: psStamp 480ms var(--ease-out) 650ms backwards; }
+    .masthead h1 .ch:nth-child(4) i { animation: psStamp 480ms var(--ease-out) 690ms backwards; }
+  }
+  @keyframes psLetterIn { from { translate: 0 -.1em; } }
+  /* the dropped period bounces on the masthead rule (--fall is measured by the script) */
+  .masthead h1 .ch i.drop { animation: fall 1.25s cubic-bezier(.3,0,.7,1) both; }
+  @keyframes fallRM { 50% { opacity: .15; } }
+  @keyframes fall {
+    0% { transform: translateY(0); }
+    45% { transform: translateY(var(--fall, 58vh)); }
+    60% { transform: translateY(calc(var(--fall, 58vh) * .69)); }
+    75% { transform: translateY(var(--fall, 58vh)); }
+    85% { transform: translateY(calc(var(--fall, 58vh) * .9)); }
+    92% { transform: translateY(var(--fall, 58vh)); }
+    100% { transform: translateY(0); }
+  }
+  .masthead .sub {
+    margin-top: clamp(22px, 3.2vh, 36px);
+    max-width: 34ch;
+    font-size: clamp(19px, 1.7vw, 23px);
+    line-height: 1.46;
+    letter-spacing: -.004em;
+    hanging-punctuation: first allow-end;
+  }
+
+  /* the Stack: the poster (an exact print of the GL frame at rest) plays the drop; the canvas takes over at rest */
+  .mh-stage { grid-area: stage; align-self: end; position: relative; z-index: 1; container-type: inline-size; min-width: 0; }
+  .hero3d {
+    position: relative; -webkit-tap-highlight-color: transparent;
+    width: var(--hw); aspect-ratio: 8 / 7;
+    /* the base of the bottom sheet sits on the rule (83.7% down the 8:7 frame); its shadow falls past it onto the paper */
+    margin: calc(var(--hw) * -.15) 0 calc(var(--hw) * -.1426) calc(100cqw - var(--hw) + 6cqw);
+  }
+  .hero3d > .ps3d-poster { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .hero3d > canvas { pointer-events: none; }
+  .hero3d.is-hit { cursor: pointer; }
+  /* the rule the Stack stands on: it runs under the drawing, so the sheets and their shadow print over it */
+  .mh-rule { grid-area: rule; position: relative; z-index: 0; height: 0; border-top: 1px solid var(--hair-strong); }
+
+  /* the entrance, on the poster only: the bottom sheet is already on the paper; eleven drop onto it, oldest first,
+     55ms apart (700 to 1500ms), and each lands with a 2.5, 1.2 and .5 degree settle. Then the foil edge lights. */
+  @media (prefers-reduced-motion: no-preference) {
+    .js .hero3d .ps3d-poster g[data-part]:not([data-part="leaf-0"]) {
+      transform-box: fill-box; transform-origin: 50% 70%;
+      animation: stDrop 560ms linear backwards;
+      animation-delay: calc(645ms + var(--i) * 55ms);
+    }
+    /* the shadows follow the paper: the cast shadow gathers as the sheets land, the shade between sheets settles last */
+    .js .hero3d .ps3d-poster > g[clip-path] { animation: stShade 800ms var(--ease-out) 700ms backwards; }
+    .js .hero3d .ps3d-poster g[data-part] g[clip-path] > path.p-shadow { animation: stShade 420ms var(--ease-out) 1260ms backwards; }
+    .js .hero3d .ps3d-poster g[data-part="leaf-11"] :is(.p-foil, .p-fl) { animation: stFoil 300ms var(--ease-out) 1500ms backwards; }
+    .js .mh-cap > * { animation: psSet var(--d-3) var(--ease-out) backwards; animation-delay: calc(1500ms + var(--i, 0) * 60ms); }
+  }
+  /* a 252ms fall (it lands by 1.5s for the last sheet), then the 2.5, 1.2 and .5 degree settle */
+  @keyframes stDrop {
+    0% { opacity: 0; transform: translateY(-40px); animation-timing-function: cubic-bezier(.55, 0, .85, .4); }
+    20% { opacity: 1; }
+    45% { transform: translateY(0) rotate(2.5deg); animation-timing-function: cubic-bezier(.3, 0, .5, 1); }
+    66% { transform: rotate(-1.2deg); animation-timing-function: cubic-bezier(.3, 0, .5, 1); }
+    84% { transform: rotate(.5deg); animation-timing-function: cubic-bezier(.3, 0, .5, 1); }
+    100% { transform: none; }
+  }
+  @keyframes stShade { from { opacity: 0; } }
+  @keyframes stFoil { from { opacity: .22; } }
+
+  /* the caption under the drawing: the latest essay at rest, the sheet under the hand while the stack is fanned */
+  .mh-cap { grid-area: cap; padding-top: 18px; min-height: 96px; }
+  .hero3d-cap {
+    max-width: 380px;
+    font: 400 19px/1.3 var(--serif); letter-spacing: -.004em; color: var(--ink);
+    text-wrap: balance; font-variant-numeric: lining-nums;
+  }
+  .hero3d-cap a { display: inline-block; text-decoration: none; color: inherit; }
+  .hero3d-cap .k {
+    display: block; margin-bottom: 8px;
+    font: var(--lbl-w) var(--lbl-m)/1.2 var(--sans); letter-spacing: var(--trk-m); text-transform: uppercase;
+    font-variant-numeric: lining-nums tabular-nums; color: var(--ink-2);
+  }
+  .hero3d-cap .k:first-child { color: var(--bronze); }
+  .hero3d-cap .k + .t + .vh + .k { margin: 8px 0 0; }
+  .hero3d-cap .t {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    padding-bottom: 2px; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    transition: background-size var(--d-leave) var(--ease-in);
+  }
+  @media (hover: hover) {
+    .hero3d-cap a:hover .t { background-size: 100% 1px; transition: background-size var(--d-2) var(--ease-out); }
+  }
+  .hero3d-cap a:focus-visible .t { background-size: 100% 1px; }
+  /* the fine print, under the rule on the reading side */
+  .mh-plates {
+    grid-area: plates; align-self: start; padding-top: 20px; max-width: 380px;
+    font: var(--lbl-w) var(--lbl-xs)/1.5 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2);
+  }
+  /* the one primary action on the first screen: an orange pill to the latest essay */
+  .mh-act { margin: clamp(26px, 3.4vh, 40px) 0 0; }
+  .ps-go {
+    background: var(--accent); border-color: var(--accent); color: color-mix(in srgb, var(--dark) 70%, #000);
+    padding: 0 22px 0 26px; box-shadow: none;
+  }
+  .ps-go .arr { margin-left: 0; transition: translate var(--d-1) var(--ease-out); }
+  @media (hover: hover) {
+    .ps-go:hover { background: var(--accent); border-color: var(--accent); color: color-mix(in srgb, var(--dark) 70%, #000); box-shadow: var(--elev-1); }
+    .ps-go:hover .arr { translate: 3px 0; }
+  }
+  .ps-go:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+  /* the Stack is a button: a real one for keys and readers, laid over the drawing (taps and clicks are picked from the paper
+     itself, so it takes no pointer events), with the focus ring drawn round the sheets */
+  .hero3d-btn {
+    position: absolute; left: 14%; top: 15%; width: 58%; height: 69%; z-index: 2;
+    margin: 0; padding: 0; border: 0; border-radius: var(--r-card); background: none; pointer-events: none;
+  }
+  .hero3d-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+  /* the hint: one line of bronze caps under the Stack, gone after the first fan (and for the rest of the visit) */
+  .st-hint {
+    grid-area: cap; justify-self: end; align-self: start; position: relative; z-index: 2;
+    margin: 0; padding: 22px 0 0; text-align: right; cursor: pointer; -webkit-tap-highlight-color: transparent;
+    font: var(--lbl-w) 12px/1.4 var(--sans); letter-spacing: var(--trk-m); text-transform: uppercase; color: var(--bronze);
+    transition: opacity var(--d-3) var(--ease-out), visibility 0s linear var(--d-3);
+  }
+  .st-hint .arr { display: inline-block; margin-left: .45em; font-family: var(--sans); }
+  .st-hint .k-f { display: none; }
+  @media (hover: hover) and (pointer: fine) { .st-hint .k-c { display: none; } .st-hint .k-f { display: inline; } }
+  .st-hint.is-gone { opacity: 0; visibility: hidden; pointer-events: none; }
+  :root:is(.st-seen, .no-3d) .st-hint { display: none; }
+  .no-3d .hero3d-btn { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .js .st-hint:not(.is-gone) { animation: psSet var(--d-3) var(--ease-out) 1620ms backwards; }
+  }
+  /* desktop: the caption block holds its height while titles change under the hand, so the Stack never moves */
+  @media (min-width: 760px) { .hero3d-cap { min-height: 4.6em; } }
+
+  /* tablets: the same sheet, the Stack a little larger than its column */
+  @media (min-width: 760px) and (max-width: 999px) {
+    .mh { grid-template-columns: minmax(0, 44fr) minmax(0, 56fr); column-gap: 20px; }
+    .mh-cap { padding-right: 9.5em; }
+    .hero3d-cap { font-size: 18px; }
+    .masthead h1 { font-size: clamp(84px, 16vw, 150px); }
+    .masthead .meta-row { flex-wrap: nowrap; }
+    .masthead .meta-row .nw { display: none; }
+  }
+  /* phones: byline, the Stack, then P.S. set under its base (10px of paper between, nothing crosses the letters), the latest,
+     the standfirst */
+  @media (max-width: 759px) {
+    .masthead { --hw: min(calc(100vw - 2 * var(--gutter) + 24px), 430px); padding-top: 14px; padding-bottom: 44px; }
+    .mh { grid-template-columns: minmax(0, 1fr); grid-template-areas: "by" "stage" "ps" "act" "sub"; }
+    .mh-copy { display: contents; }
+    .masthead .meta-row { grid-area: by; max-width: none; padding-bottom: 10px; }
+    .masthead .meta-row .tag { font-size: var(--lbl-xs); letter-spacing: var(--trk-xs); white-space: nowrap; }
+    .masthead .meta-row .tag + .tag { margin-left: 12px; padding-left: 12px; }
+    .masthead .meta-row .nw { display: none; }
+    .mh-stage { justify-self: center; width: 100%; }
+    /* the sheets are centred, not the frame: the drawing sits left in its frame and its shadow falls right */
+    .hero3d { margin: calc(var(--hw) * -.08) 0 0 calc((100cqw - var(--hw)) / 2 + var(--hw) * .07); }
+    /* the bottom sheet's lowest corner is .128 of the frame width above the frame's foot; the P's cap starts .057em into its box */
+    .masthead h1 { grid-area: ps; font-size: min(40vw, 176px); padding-top: 0; margin-top: calc(var(--hw) * -.128 + 10px - .057em); }
+    .mh-rule { display: none; }
+    /* the latest is the top sheet and the pill: no caption here (H6) */
+    .mh-cap { display: none; }
+    .mh-plates { display: none; }
+    .mh-act { grid-area: act; margin-top: 22px; }
+    /* the hint sits in the paper right of "S.", just under the Stack's shadow, and points up at it */
+    .st-hint { grid-area: ps; align-self: start; max-width: 6.6em; padding: 0; margin-top: calc(var(--hw) * -.128 + 34px); line-height: 1.5; }
+    .masthead .sub { grid-area: sub; margin-top: 20px; font-size: 18px; line-height: 1.48; }
+  }
+  /* short phones (SE class): the latest still lands on the first screen */
+  @media (max-width: 759px) and (max-height: 700px) {
+    .masthead { --hw: min(calc(100vw - 2 * var(--gutter) - 24px), 310px); padding-top: 8px; }
+    .masthead .meta-row { padding-bottom: 8px; }
+    .masthead h1 { font-size: min(32vw, 140px); }
+    .mh-act { margin-top: 16px; }
+    .masthead .sub { margin-top: 16px; font-size: 17px; line-height: 1.45; }
+  }
+  /* phones held sideways: the copy and the Stack side by side, the Stack sized to the height that shows, the pill on the
+     first screen (it comes before the standfirst here) */
+  @media (max-height: 500px) and (pointer: coarse) {
+    .masthead { --hw: min(112cqw, calc((100svh - var(--nav-h) - 34px) / .66)); padding-top: 10px; padding-bottom: 36px; }
+    .mh { grid-template-columns: minmax(0, 46fr) minmax(0, 54fr); grid-template-areas: "copy stage" "rule rule" "plates cap"; column-gap: 24px; }
+    .mh-copy { display: flex; padding-bottom: 20px; }
+    .masthead .meta-row { padding-bottom: 8px; max-width: none; }
+    .masthead h1 { grid-area: auto; margin: 0 0 0 -.045em; padding-top: 14px; font-size: clamp(64px, 24svh, 118px); }
+    .mh-act { order: 1; margin-top: 18px; }
+    .masthead .sub { order: 2; margin-top: 18px; font-size: 17px; line-height: 1.45; }
+    .mh-stage { grid-area: stage; align-self: start; justify-self: stretch; width: auto; }
+    .hero3d { margin: calc(var(--hw) * -.1) 0 0 calc(100cqw - var(--hw) + 5cqw); }
+    .st-hint { grid-area: stage; align-self: end; justify-self: end; max-width: none; margin: 0 0 max(0px, calc(var(--hw) * .115 - 17px)); padding: 0; }
+  }
+
+  /* =========================================================
+     2. THE LATEST: the plate in full colour, bleeding off the right edge, a paper card over its corner
+     ========================================================= */
+  .latest {
+    position: relative; overflow-x: clip;
+    display: grid; grid-template-columns: var(--frame-pad) minmax(0, 1fr) 58%;
+    grid-template-rows: auto auto; align-items: start;
+    padding: clamp(80px, 10vw, 136px) 0 clamp(80px, 9vw, 128px);
+  }
+  /* the picture's own label, hung under it like a museum caption, clear of the card */
+  .lt-cap { grid-column: 3; grid-row: 2; padding: 26px var(--frame-pad) 0 calc(96px + clamp(28px, 3vw, 48px)); }
+  .lt-pt {
+    max-width: 24ch;
+    font: italic 400 clamp(19px, 1.6vw, 22px)/1.35 var(--serif); color: var(--ink); text-wrap: balance;
+  }
+  .lt-cap .credit2 { margin-top: 12px; }
+  .lt-q { margin: clamp(40px, 5vw, 72px) 0 0; max-width: 13.5em; padding-top: 22px; position: relative; }
+  .lt-q::before { content: ""; position: absolute; left: 0; top: 0; width: 48px; height: 1px; background: var(--bronze); }
+  .lt-q { font-size: clamp(26px, 2.6vw, 38px); }
+  .lt-q p { font: italic 400 1em/1.2 var(--serif); letter-spacing: -.012em; color: var(--ink); text-wrap: balance; }
+  .lt-q cite { display: block; margin-top: 14px; font: var(--lbl-w) var(--lbl-xs)/1.4 var(--sans); font-style: normal; letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--bronze); }
+  @media (max-width: 759px) { .lt-q { margin-top: 36px; } }
+  .lt-plate-a { grid-column: 3; grid-row: 1; display: block; position: relative; text-decoration: none; }
+  .lt-plate { --ratio: 16 / 9; width: 100%; box-shadow: var(--elev-2); border-radius: 0; }
+  /* the latest prints in true colour on any ground */
+  .lt-plate.plate > img { mix-blend-mode: normal; }
+  /* the card hangs over the plate's left edge, a tenth of the screen under its top, so the air above the card and the air
+     under it (beside the caption and the quote) come out about even: no empty field on either side */
+  .lt-card {
+    grid-column: 2; grid-row: 1 / span 2; align-self: start; position: relative; z-index: 1;
+    margin: clamp(56px, 10vw, 160px) -96px 0 0; max-width: 720px;
+    padding: clamp(32px, 3.6vw, 52px) clamp(28px, 3.6vw, 56px) clamp(30px, 3.2vw, 46px);
+    background: var(--paper); border-radius: var(--r-paper); box-shadow: var(--elev-2);
+    text-decoration: none; color: var(--ink); display: block;
+  }
+  .lt-k { display: flex; align-items: baseline; justify-content: space-between; gap: 8px 20px; flex-wrap: wrap; }
+  .lt-k .lbl { font-variant-numeric: lining-nums tabular-nums; }
+  .lt-card .numeral .nm { font-size: .5em; vertical-align: .6em; margin-right: .12em; }
+  .lt-t {
+    margin-top: clamp(18px, 2vw, 26px);
+    font: 400 var(--fs-d2)/1.04 var(--serif); letter-spacing: var(--trk-ladder); color: var(--ink); text-wrap: balance;
+  }
+  .lt-t .tt {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    box-decoration-break: clone; -webkit-box-decoration-break: clone; transition: background-size var(--d-leave) var(--ease-in);
+  }
+  .lt-d { margin-top: 18px; max-width: 46ch; font: italic 400 clamp(17px, 1.4vw, 19px)/1.55 var(--serif); color: var(--ink-2); text-wrap: pretty; }
+  .lt-go {
+    display: flex; align-items: center; gap: 10px; margin-top: clamp(22px, 2.4vw, 32px);
+    font: var(--lbl-w) var(--lbl-l)/1 var(--sans); letter-spacing: var(--trk-l); text-transform: uppercase; color: var(--ink);
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .lt-go .arr { margin-left: 0; }
+  .lt-go .rt { color: var(--ink-2); }
+  @media (hover: hover) {
+    .lt-card:hover .lt-t .tt { background-size: 100% 1px; transition: background-size var(--d-2) var(--ease-out); }
+    .lt-card:hover .arr { translate: 4px 0; }
+  }
+  .lt-card:focus-visible .lt-t .tt { background-size: 100% 1px; }
+  @media (max-width: 759px) {
+    .lt-card { display: none; }
+    .latest { grid-template-columns: var(--gutter) minmax(0, 1fr) var(--gutter); padding-top: 56px; padding-bottom: 64px; }
+    .lt-plate-a { grid-column: 1 / -1; }
+    .lt-plate { box-shadow: none; }
+    .lt-card { grid-column: 2; margin: -48px 0 0; }
+    .lt-t { font-size: clamp(32px, 9vw, 38px); }
+    .lt-plate-a { grid-row: 2; }
+    .lt-card { grid-row: 3; }
+    .lt-cap { grid-column: 2; grid-row: 4; padding: 24px 0 0; }
+  }
+
+  /* =========================================================
+     3. THE CONTENTS: a printed table of contents, a plate under the hand
+     ========================================================= */
+  .index { position: relative; padding: clamp(84px, 10vw, 140px) var(--frame-pad) 0; }
+  .ix-head {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px;
+    padding-bottom: 16px; position: relative;
+    background: linear-gradient(var(--ink), var(--ink)) 0 100% / 100% 1px no-repeat;
+  }
+  .ix-head::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: max(.5px, var(--hair-w)); background: var(--ink-2); opacity: .7; }
+  .ix-h { font: 400 var(--fs-h1)/1 var(--serif); letter-spacing: var(--trk-ladder); color: var(--ink); }
+  .ix-head .lbl { font-variant-numeric: lining-nums tabular-nums; }
+  .ix-list { position: relative; }
+  .essay {
+    display: grid; grid-template-columns: 92px minmax(0, 660px) minmax(40px, 1fr) auto;
+    grid-template-areas: "no main lead side";
+    column-gap: clamp(20px, 2.6vw, 40px); align-items: baseline;
+    min-height: 164px; padding: 34px 0 36px;
+    border-bottom: var(--hair-w) solid var(--hair);
+    text-decoration: none; color: var(--ink); position: relative; isolation: isolate; max-width: 100%; min-width: 0;
+  }
+  .essay::before {
+    content: ""; position: absolute; inset: 0 calc(-1 * min(var(--gutter), 24px)); z-index: -1;
+    border-radius: var(--r-paper); pointer-events: none; box-shadow: inset 0 0 0 2px var(--focus); opacity: 0;
+  }
+  .essay .no {
+    grid-area: no; font: 400 32px/1 var(--serif); letter-spacing: -.01em; color: var(--bronze);
+    font-variant-numeric: lining-nums; white-space: nowrap;
+  }
+  .essay .no .nm { font-size: .5em; vertical-align: .62em; margin-right: .14em; }
+  /* read to the end once: a foil pip after the number (state) */
+  .essay.is-read .no::after {
+    content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); margin-left: 8px; vertical-align: .45em;
+  }
+  .e-main { grid-area: main; min-width: 0; }
+  .essay h2 {
+    font: 400 var(--fs-h2)/1.1 var(--serif); letter-spacing: var(--trk-ladder); color: var(--ink); text-wrap: balance;
+  }
+  .essay h2 .tt {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    padding-bottom: .04em; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    transition: background-size var(--d-leave) var(--ease-in);
+  }
+  .essay .kicker {
+    margin-top: 12px; max-width: 60ch;
+    color: var(--ink-2); font-size: 17px; line-height: 1.55; font-style: italic; text-wrap: pretty;
+  }
+  /* the dot leader runs from the title to the date, on the title's first baseline */
+  .e-lead {
+    grid-area: lead; align-self: baseline; display: block; height: 1em; font-size: var(--fs-h2); line-height: 1.1;
+    background: radial-gradient(circle, color-mix(in srgb, var(--ink) 34%, transparent) 1px, transparent 1.3px) 0 calc(100% - 1px) / 7px 7px repeat-x;
+  }
+  .e-lead::before { content: "\200B"; }
+  .essay .side {
+    grid-area: side; text-align: right; white-space: nowrap;
+    font: var(--lbl-w) var(--lbl-m)/1.6 var(--sans); letter-spacing: var(--trk-m); text-transform: uppercase;
+    font-variant-numeric: lining-nums tabular-nums; color: var(--ink-2);
+  }
+  .essay .side .d { color: var(--ink); }
+  .essay .side .d, .essay .side .rt { display: block; }
+  .e-pl { display: none; }
+  @media (hover: hover) {
+    .essay:hover h2 .tt { background-size: 100% 1px; transition: background-size var(--d-2) var(--ease-out); }
+  }
+  .essay:focus-visible { outline: none; }
+  .essay:focus-visible::before { opacity: 1; }
+  .essay:focus-visible h2 .tt { background-size: 100% 1px; }
+
+  /* the plate that follows the hand down the contents (fine pointers, 761px and up) */
+  .ix-fol { display: none; }
+  @media (hover: hover) and (pointer: fine) and (min-width: 760px) {
+    .ix-fol {
+      display: block; position: absolute; left: 0; top: 0; z-index: 3; width: 280px; pointer-events: none;
+      padding: 8px 8px 0; background: var(--card); border-radius: var(--r-paper); box-shadow: var(--elev-3);
+      opacity: 0; transition: opacity var(--d-2) var(--ease-out); will-change: transform, opacity;
+    }
+    .ix-fol.on { opacity: 1; }
+    .ix-fol .fl-w { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--vellum); }
+    .ix-fol .fl-l { position: absolute; inset: 0; opacity: 0; transition: opacity var(--d-2) var(--ease-out); }
+    .ix-fol .fl-l.on { opacity: 1; }
+    .ix-fol .fl-l img { display: block; width: 100%; height: 100%; object-fit: cover; filter: var(--plate-f); transition: filter var(--d-4) var(--ease-out); }
+    .ix-fol.dev .fl-l img { filter: none; }
+    .ix-fol .fl-ty { display: grid; place-items: center; align-content: center; gap: 10px; text-align: center; padding: 24px; }
+    .ix-fol .fl-ty b { font: 400 112px/.9 var(--serif); letter-spacing: -.03em; color: var(--bronze); font-variant-numeric: lining-nums; }
+    .ix-fol .fl-ty i { font: italic 400 19px/1.3 var(--serif); color: var(--ink); }
+    .ix-fol .fl-cr {
+      display: block; padding: 9px 2px 10px; min-height: 36px;
+      font: var(--lbl-w) var(--lbl-xs)/1.35 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) { .ix-fol, .ix-fol .fl-l { transition: none; } }
+
+  /* touch screens 761px and up: each row carries its own plate */
+  @media (min-width: 760px) and (hover: none) {
+    .essay { grid-template-columns: 96px 80px minmax(0, 620px) minmax(32px, 1fr) auto; grid-template-areas: "pl no main lead side"; }
+    .e-pl { display: block; grid-area: pl; align-self: start; width: 96px; }
+  }
+  /* phones: the plate at the row's left, the number and the date on one leadered line, the title under them */
+  @media (max-width: 759px) {
+    .ix-h { font-size: 30px; }
+    .essay {
+      grid-template-columns: 64px auto minmax(16px, 1fr) auto; grid-template-areas: "pl no lead side" "pl t t t" "k k k k";
+      grid-template-rows: auto 1fr auto;
+      column-gap: 0; row-gap: 8px; min-height: 0; padding: 24px 0 26px; align-items: center;
+    }
+    .e-pl { display: block; grid-area: pl; align-self: start; width: 64px; margin-right: 16px; }
+    .essay .no { font-size: 22px; padding-left: 16px; }
+    .essay .no .nm { font-size: .55em; }
+    .e-lead { font-size: 11px; height: 11px; margin: 0 10px; align-self: center; background-position: 0 50%; background-size: 6px 6px; }
+    .essay .side { font-size: var(--lbl-xs); line-height: 1; }
+    .essay .side .d, .essay .side .rt { display: inline; }
+    .essay .side .rt::before { content: "\00B7"; margin: 0 .6em; color: var(--ink-2); }
+    .e-main { display: contents; }
+    .essay h2 { grid-area: t; align-self: start; padding-left: 16px; font-size: clamp(23px, 6.4vw, 28px); line-height: 1.14; }
+    .essay .kicker { grid-area: k; font-size: 16px; margin-top: 8px; }
+  }
+  .e-pl .plate { --ratio: 1 / 1; border-radius: 1px; }
+  .e-pl .plate--ty { display: grid; place-items: center; background: var(--vellum); }
+  .e-pl .plate--ty b { font: 400 26px/1 var(--serif); letter-spacing: -.02em; color: var(--bronze); font-variant-numeric: lining-nums; }
+
+  /* rows that arrive together cascade (--i x --stagger, see .rv in site.css) */
+  .index .essay:nth-child(2 of .essay:not(.more)) { --i: 1; }
+  .index .essay:nth-child(3 of .essay:not(.more)) { --i: 2; }
+  .index .essay:nth-child(4 of .essay:not(.more)) { --i: 3; }
+  .index.open .essay.more:nth-child(1 of .more) { --i: 0; }
+  .index.open .essay.more:nth-child(2 of .more) { --i: 1; }
+  .index.open .essay.more:nth-child(3 of .more) { --i: 2; }
+  .index.open .essay.more:nth-child(4 of .more) { --i: 3; }
+  .index.open .essay.more:nth-child(5 of .more) { --i: 4; }
+  .index.open .essay.more:nth-child(6 of .more) { --i: 5; }
+  .index.open .essay.more:nth-child(7 of .more) { --i: 6; }
+
+  .essay.more { display: none; }
+  .index.open .essay.more, .ps-more .index .essay.more { display: grid; }
+  /* the fold: what remains, and the capsule that opens it */
+  .more-row {
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    padding: 28px 0; border-bottom: var(--hair-w) solid var(--hair);
+  }
+  .more-row .tag { font-variant-numeric: lining-nums tabular-nums; }
+  .more-btn { margin: 0; }
+  .index.open .more-row, .ps-more .index .more-row { display: none; }
+  @media (max-width: 480px) {
+    .more-row { flex-direction: column; align-items: stretch; }
+    .more-btn { width: 100%; }
+  }
+
+  /* the plates' credit line, under the last row: every CC plate named with its author and licence */
+  .ix-cr { margin-top: 22px; max-width: 760px; font: 400 12px/1.6 var(--sans); letter-spacing: .01em; color: var(--ink-2); text-wrap: pretty; font-variant-numeric: lining-nums tabular-nums; }
+  .ix-cr a { color: var(--bronze); text-decoration: underline 1px color-mix(in srgb, currentColor 45%, transparent); text-underline-offset: 2px;
+    transition: text-decoration-color var(--d-1) var(--ease-out); }
+  @media (hover: hover) { .ix-cr a:hover { text-decoration-color: currentColor; } }
+  .ix-cr a:focus-visible { text-decoration-color: currentColor; }
+
+  /* =========================================================
+     4. TWO DOORS: the World on vellum, the Lab on espresso
+     ========================================================= */
+  .doors { margin-top: clamp(96px, 12vw, 168px); display: grid; grid-template-columns: minmax(0, 1fr); }
+  .dd { position: relative; display: flex; flex-direction: column; gap: clamp(28px, 3vw, 44px); padding: clamp(56px, 7vw, 104px) var(--frame-pad); overflow: hidden; }
+  /* the copy is a column whose capsule sits on its foot, so the two doors' capsules share one line */
+  .dd-copy { position: relative; max-width: 560px; display: flex; flex-direction: column; align-items: flex-start; }
+  .dd-copy .lbl { display: block; }
+  .dd h2 {
+    margin-top: 18px;
+    font: 400 var(--fs-h1)/1.1 var(--serif); letter-spacing: var(--trk-ladder); color: var(--ink); text-wrap: balance; max-width: 18ch;
+  }
+  .dd-p { margin-top: 14px; max-width: 44ch; font-size: clamp(17px, 1.4vw, 19px); line-height: 1.55; color: var(--ink-2); text-wrap: pretty; }
+  .dd .ps-cap { margin-top: clamp(24px, 3vw, 36px); }
+  @media (min-width: 1024px) { .dd-p { margin-bottom: clamp(24px, 3vw, 36px); } .dd .dd-copy .ps-cap { margin-top: auto; } }
+  @media (min-width: 1024px) {
+    .doors { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .dd--world { padding-right: clamp(32px, 4vw, 64px); }
+    .dd--lab { padding-left: clamp(32px, 4vw, 64px); }
+  }
+
+  /* the World's floor plan */
+  .wp, .lab-fig { margin: 0; position: relative; display: grid; gap: 12px; }
+  .lab-fig figcaption { display: grid; gap: 6px; }
+  /* the two doors share their rows, so the art and the copy blocks start on one line */
+  @media (min-width: 1024px) {
+    @supports (grid-template-rows: subgrid) {
+      .doors { grid-template-rows: auto auto; }
+      .dd { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: clamp(28px, 3vw, 44px); align-content: start; }
+      .dd > figure { align-self: start; }
+      .dd > .dd-copy { align-self: stretch; }
+    }
+  }
+  .wp .iso-stage {
+    position: relative; aspect-ratio: 8 / 5; overflow: hidden; touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none;
+  }
+  .wp .iso-stage > .ps3d-poster { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .wp .iso-stage > canvas { pointer-events: none; }
+  /* the room numbers ride their tiles */
+  .wp-labs { position: absolute; inset: 0; pointer-events: none; }
+  .wp-labs .iso-label {
+    position: absolute; left: 0; top: 0; translate: -50% -50%; white-space: nowrap;
+    font: 500 12px/1 var(--sans); letter-spacing: .06em; font-variant-numeric: lining-nums tabular-nums; color: var(--ink-2);
+  }
+  /* the chapter names are cut out of the floor: a 2px rim of the room's paper keeps an edge from ever running through a letter */
+  .wp-labs .iso-label.is-ch { letter-spacing: .14em; text-transform: uppercase; color: var(--ink);
+    text-shadow: 0 0 1px var(--vellum), 0 0 2px var(--vellum), 0 0 2px var(--vellum), 0 0 3px var(--vellum); }
+  figure.wp .ps3d-poster .p-ch text { paint-order: stroke; stroke: var(--vellum); stroke-width: 4px; stroke-linejoin: round; }
+  .wp:has(.wp-links a:focus-visible) .iso-stage { outline: 2px solid var(--focus); outline-offset: 6px; border-radius: var(--r-paper); }
+  .wp figcaption { display: grid; gap: 6px; }
+  /* the caption bar: the room under the hand (or under the first tap), and on touch a Go */
+  .wp-bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; margin: 0;
+    padding: 0 0 0 2px; border-bottom: var(--hair-w) solid var(--hair);
+    font: var(--lbl-w) var(--lbl-m)/1.3 var(--sans); letter-spacing: var(--trk-m); text-transform: uppercase;
+    font-variant-numeric: lining-nums tabular-nums; color: var(--ink);
+  }
+  .wp-bar .wp-t:empty::before { content: attr(data-rest); color: var(--ink-2); }
+  .wp-go {
+    display: none; align-items: center; min-height: 44px; padding: 0 16px; margin-right: -4px;
+    border-radius: var(--r-pill); background: var(--ink); color: var(--paper); text-decoration: none;
+    font: var(--lbl-w) var(--lbl-l)/1 var(--sans); letter-spacing: var(--trk-l);
+  }
+  .wp-go.on { display: inline-flex; }
+  .wp-d { margin: 4px 0 0; font: italic 400 15px/1.5 var(--serif); color: var(--ink-2); text-wrap: pretty; }
+  .wp-links { list-style: none; margin: 8px 0 0; padding: 0; columns: 2; column-gap: 24px; }
+  .wp-links li { break-inside: avoid; }
+  .wp-links a {
+    display: flex; gap: 10px; align-items: baseline; min-height: 44px; padding: 12px 0;
+    border-top: var(--hair-w) solid var(--hair); text-decoration: none; color: var(--ink);
+    font: var(--lbl-w) var(--lbl-xs)/1.3 var(--sans); letter-spacing: .08em; text-transform: uppercase;
+  }
+  .wp-links a b { font: 400 15px/1 var(--serif); letter-spacing: 0; color: var(--bronze); min-width: 1.6em; font-variant-numeric: lining-nums tabular-nums; }
+  .wp-links a small { margin-left: auto; font: inherit; color: var(--ink-2); white-space: nowrap; }
+  @media (hover: hover) { .wp-links a:hover { color: var(--ink); background: linear-gradient(var(--ink), var(--ink)) 0 0 / 100% 1px no-repeat; } }
+  /* fine pointers point at the plan itself: the list stays for keyboards and screen readers */
+  @media (hover: hover) and (pointer: fine) {
+    .wp-links { position: absolute !important; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .wp-links:focus-within { position: static !important; width: auto; height: auto; margin: 8px 0 0; overflow: visible; clip: auto; white-space: normal; }
+  }
+  /* phones: the tiles are under 44px, so the plan is a picture and the list beside it is the way in (two columns) */
+  @media (max-width: 759px) { .wp-labs, figure.wp .ps3d-poster :is(.p-num, .p-ch) { display: none; } }
+  @media (max-width: 480px) {
+    .wp-links { column-gap: 16px; }
+    .wp-links a { gap: 8px; letter-spacing: .06em; }
+    .wp-links a small { display: none; }
+  }
+
+  /* the Lab's window: the first slide, printed */
+  .dd--lab .lab-art { position: relative; aspect-ratio: 8 / 5; }
+  .dd--lab .lab-art > .ps3d-poster { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .dd--lab .lab-art::after {
+    /* a lit floor under the object: a soft pool and a 1px lip */
+    content: ""; position: absolute; left: 12%; right: 12%; bottom: 4%; height: 22%; z-index: -1; pointer-events: none;
+    background: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, var(--bronze-hi) 16%, transparent), transparent 70%);
+  }
+  /* three doors in a wall, drawn in the room's own light: paper doors in bronze frames, yours keyed in orange (the one lit
+     thing), the host's open on a goat. The whole drawing is a way into No. 02 */
+  .dd--lab a.lab-art { display: block; color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+  .ld-doors { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; }
+  .ld-doors .d-panel { fill: color-mix(in srgb, var(--on-dark) 86%, var(--g-bg)); }
+  .ld-doors .d-leaf { fill: color-mix(in srgb, var(--on-dark) 58%, var(--g-bg)); }
+  .ld-doors .d-void { fill: color-mix(in srgb, var(--g-bg) 52%, #000); }
+  .ld-doors :is(.d-case, .d-inset, .d-floor, .d-room, .d-pick) { fill: none; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+  .ld-doors .d-case { stroke: var(--bronze); stroke-width: 1.5px; }
+  .ld-doors .d-inset { stroke: color-mix(in srgb, var(--g-bg) 34%, transparent); stroke-width: 1px; }
+  .ld-doors .d-room { stroke: color-mix(in srgb, var(--on-dark) 20%, transparent); stroke-width: 1px; }
+  .ld-doors .d-floor { stroke: var(--hair-strong); stroke-width: 1px; }
+  .ld-doors .d-pick { stroke: var(--accent); stroke-width: 2px; }
+  .ld-doors .d-knob { fill: color-mix(in srgb, var(--g-bg) 62%, var(--bronze-hi)); }
+  .ld-doors .d-no { fill: var(--bronze); font-family: var(--serif); font-size: 34px; font-variant-numeric: lining-nums; }
+  /* the two notes ride the drawing, set in the house label on a pill of the room's own dark */
+  .dd--lab .lab-tag {
+    position: absolute; translate: -50% 0; pointer-events: none;
+    font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; white-space: nowrap;
+    color: var(--bronze);
+  }
+  .dd--lab .lab-tag > span {
+    display: block; padding: 5px 9px 4px; border-radius: var(--r-pill);
+    background: color-mix(in srgb, var(--g-bg) 94%, transparent); box-shadow: 0 0 0 1px var(--hair-strong);
+  }
+  .dd--lab .lt-pick { left: 19.25%; top: 66%; }
+  .dd--lab .lt-goat { left: 84.4%; top: 66%; color: var(--ink); }
+  @media (prefers-reduced-motion: no-preference) {
+    .ld-doors .d-swing { transform-box: fill-box; transform-origin: 0 50%; transition: scale var(--d-3) var(--ease-out); }
+    @media (hover: hover) { .dd--lab a.lab-art:hover .d-swing { scale: 1.22 1; } }
+  }
+  /* the kicker is the way in: one line at 375, the arrow on its end */
+  .dd--lab .ld-go { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: inherit; text-decoration: none; }
+  .dd--lab .ld-go .arr { transition: translate var(--d-1) var(--ease-out); }
+  @media (hover: hover) { .dd--lab .ld-go:hover .arr { translate: 3px 0; } }
+  /* a lamp that wakes on approach and follows the hand: white light only, never colour */
+  .dd--lab .spot {
+    position: absolute; inset: 0; pointer-events: none;
+    opacity: 0; transition: opacity var(--d-3) var(--ease-out);
+    background: radial-gradient(circle 460px at var(--mx, 70%) var(--my, 40%), color-mix(in srgb, var(--on-dark) 5%, transparent), transparent 72%);
+  }
+  @media (hover: hover) { .dd--lab:hover .spot { opacity: 1; } }
+  .dd--lab:has(:focus-visible) .spot { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { .dd--lab .spot { transition: none; } }
+
+  /* =========================================================
+     5. THE SIGN-OFF
+     ========================================================= */
+  .about-strip { padding: clamp(88px, 11vw, 150px) var(--frame-pad) 0; }
+  .about-strip .ab-p {
+    margin-top: 22px; max-width: 820px;
+    font-size: clamp(26px, 3.4vw, 40px); line-height: 1.3; letter-spacing: -.012em; color: var(--ink); text-wrap: pretty;
+  }
+  @media (min-width: 760px) {
+    .about-strip { display: grid; grid-template-columns: 92px minmax(0, 820px); column-gap: clamp(20px, 2.6vw, 40px); align-items: baseline; }
+    .about-strip .ab-p { margin-top: 0; }
+  }
+  .about-strip .ab-x { grid-column: -2; display: flex; flex-wrap: wrap; align-items: center; gap: 18px 40px; margin-top: clamp(20px, 3vw, 32px); }
+  .about-strip .lnk-more {
+    font: var(--lbl-w) var(--lbl-l)/1 var(--sans); letter-spacing: var(--trk-l); text-transform: uppercase; color: var(--ink);
+    text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0;
+    background: linear-gradient(currentColor, currentColor) 0 calc(100% - 11px) / 0 1px no-repeat;
+    transition: background-size var(--d-leave) var(--ease-in);
+  }
+  @media (hover: hover) { .about-strip .lnk-more:hover { background-size: 100% 1px; transition: background-size var(--d-2) var(--ease-out); } }
+  .about-strip .lnk-more:focus-visible { background-size: 100% 1px; }
+  .signature { display: inline-block; position: relative; }
+  .signature .name {
+    font-family: 'Great Vibes', 'Snell Roundhand', 'Apple Chancery', cursive;
+    font-size: clamp(40px, 5vw, 60px); line-height: 1.1; color: var(--ink); white-space: nowrap;
+  }
+  .signature .name i { display: inline-block; font-style: normal; color: var(--accent); }
+  /* the pen writes once the line is in view, and once its ink (Great Vibes) has arrived */
+  @media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+    .signature .name { clip-path: inset(0 100% 0 0); }
+    .sig-ready .signature.is-in .name { animation: psWrite 900ms cubic-bezier(.5,0,.4,1) 120ms forwards; }
+  }
+  @keyframes psWrite { to { clip-path: inset(0 -8% 0 0); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .masthead h1 .ch, .masthead h1 i { animation: none; }
+    .masthead h1 .ch i.drop { animation: fallRM 160ms linear both; } /* a blink, not a fall */
+    .essay h2 .tt, .hero3d-cap .t, .lt-t .tt { transition: none !important; }
+    .lt-card .arr { translate: none !important; }
+  }
+</style>
+<noscript><style>.essay.more{display:grid!important}.more-row{display:none!important}.signature .name{clip-path:none!important}</style></noscript>
+<script>document.documentElement.classList.add('js');</script>
+<script src="/assets/theme.js?v=1f909336" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Pedrum Shokouhi","url":"https://pedrumshokouhi.com/","sameAs":["https://www.linkedin.com/in/pedrumshokouhi/"]}</script>
+</head>
+<body>
+<a class="skip-link" href="#writing">Skip to content</a>
+
+<div id="top"></div>
+<canvas id="trail" aria-hidden="true"></canvas>
+
+<nav class="nav nav--glass" aria-label="Primary">
+  <a class="mark is-quiet" href="/">P<i>.</i>S<i>.</i></a>
+  <ul>
+    <li><a href="/#writing" class="active" aria-current="page">Writing</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/world" class="door">The World</a></li>
+    <li><a href="/experiments" class="lab">Experiments</a></li>
+  </ul>
+</nav>
+
+<svg class="vh" width="0" height="0" aria-hidden="true" focusable="false"><filter id="psPress" x="-4%" y="-6%" width="108%" height="112%" color-interpolation-filters="sRGB"><feOffset in="SourceAlpha" dy="3.2" result="dn"/><feGaussianBlur in="dn" stdDeviation="1.6" result="dnb"/><feComposite in="SourceAlpha" in2="dnb" operator="out" result="lip"/><feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="lip" operator="in" result="shade"/><feOffset in="SourceAlpha" dy="1.6" result="up"/><feComposite in="up" in2="SourceAlpha" operator="out" result="rim"/><feFlood flood-color="#fff" flood-opacity=".95"/><feComposite in2="rim" operator="in" result="light"/><feMerge><feMergeNode in="light"/><feMergeNode in="SourceGraphic"/><feMergeNode in="shade"/></feMerge></filter></svg>
+<header class="masthead" data-ground="paper">
+  <div class="mh">
+    <div class="mh-copy">
+      <div class="meta-row">
+        <span class="tag">Pedrum Shokouhi</span>
+        <span class="tag dim plain"><span data-count="essays">12</span> essays <span class="nw">since September 2025</span></span>
+      </div>
+      <h1 class="deboss" aria-label="P.S."><span class="ch">P</span><span class="ch"><i class="pd" tabindex="0" role="button" aria-label="Drop the period">.</i></span><span class="ch">S</span><span class="ch"><i class="pd" tabindex="0" role="button" aria-label="Drop the period">.</i></span></h1>
+      <p class="sub">These essays are whatever has my attention that month: a business, a case, an issue that will not sit still. <b>When something bothers me long enough, it ends up here.</b></p>
+      <p class="mh-act"><a class="ps-cap ps-go" href="/writing/the-referee-wears-the-home-teams-jersey">Read No. 012<span class="vh">, The Referee Wears the Home Team&rsquo;s Jersey</span><span class="arr" aria-hidden="true">&#8594;</span></a></p>
+    </div>
+    <div class="mh-stage">
+      <div class="hero3d"><svg xmlns="http://www.w3.org/2000/svg" class="ps3d-poster" data-reg="1" data-v="2" viewBox="0 0 640 560" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Twelve printed sheets, one for each essay, stacked newest on top."><style>.ps3d-poster[data-v="2"] .p-top{fill:var(--m-top,color-mix(in srgb,var(--paper) 55%,#fff))}.ps3d-poster[data-v="2"] .p-left{fill:var(--m-left,color-mix(in srgb,var(--paper) 88.5%,#74654A))}.ps3d-poster[data-v="2"] .p-right{fill:var(--m-right,color-mix(in srgb,var(--paper) 70%,#74654A))}.ps3d-poster[data-v="2"] .p-plaster{fill:var(--m-plaster,color-mix(in srgb,var(--paper) 94%,var(--ink)))}.ps3d-poster[data-v="2"] .p-foil{fill:var(--m-foil,var(--accent))}.ps3d-poster[data-v="2"] .p-metal{fill:var(--m-metal-hi,color-mix(in srgb,var(--muted) 45%,var(--paper)))}.ps3d-poster[data-v="2"] .p-metal.p-lo{fill:var(--m-metal-lo,color-mix(in srgb,var(--muted) 70%,var(--ink)))}.ps3d-poster[data-v="2"] .p-inkf{fill:var(--ink)}.ps3d-poster[data-v="2"] .p-inkc{fill:var(--ink)}.ps3d-poster[data-v="2"] .p-glass{fill:var(--ink-2)}.ps3d-poster[data-v="2"] .p-shadow{fill:var(--m-shadow,var(--ink));stroke:none}.ps3d-poster[data-v="2"] :is(.p-sil,.p-line,.p-line2,.p-fl){fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}.ps3d-poster[data-v="2"] .p-sil{stroke:var(--m-sil,var(--ink))}.ps3d-poster[data-v="2"] .p-line{stroke:var(--ink)}.ps3d-poster[data-v="2"] .p-line2{stroke:var(--ink-2)}.ps3d-poster[data-v="2"] .p-fl{stroke:var(--foil-line)}.ps3d-poster[data-v="2"] .p-plate{filter:grayscale(1) sepia(.22) contrast(1.08) brightness(1.02)}.ps3d-poster[data-v="2"] .p-plate.is-dev{filter:none}.ps3d-poster[data-v="2"] .p-txt{fill:var(--ink)}.ps3d-poster[data-v="2"] .p-txt2{fill:var(--ink-2)}:is(:root[data-tone="dark"],.tone-dark,.band--dark,[data-ground="espresso"],[data-ground="forest"],[data-ground="slate"]) .ps3d-poster[data-v="2"] .p-top,.ps3d-poster[data-v="2"][data-tone="dark"] .p-top{fill:var(--m-top,color-mix(in srgb,var(--dark) 80%,var(--on-dark)))}:is(:root[data-tone="dark"],.tone-dark,.band--dark,[data-ground="espresso"],[data-ground="forest"],[data-ground="slate"]) .ps3d-poster[data-v="2"] .p-left,.ps3d-poster[data-v="2"][data-tone="dark"] .p-left{fill:var(--m-left,color-mix(in srgb,var(--dark) 87%,var(--on-dark)))}:is(:root[data-tone="dark"],.tone-dark,.band--dark,[data-ground="espresso"],[data-ground="forest"],[data-ground="slate"]) .ps3d-poster[data-v="2"] .p-right,.ps3d-poster[data-v="2"][data-tone="dark"] .p-right{fill:var(--m-right,color-mix(in srgb,var(--dark) 92%,var(--on-dark)))}:is(:root[data-tone="dark"],.tone-dark,.band--dark,[data-ground="espresso"],[data-ground="forest"],[data-ground="slate"]) .ps3d-poster[data-v="2"] .p-plaster,.ps3d-poster[data-v="2"][data-tone="dark"] .p-plaster{fill:var(--m-plaster,color-mix(in srgb,var(--dark) 95%,var(--on-dark)))}.ps3d-poster[data-v="2"][data-tone="dark"] .p-sil{stroke:var(--m-sil,var(--on-dark))}.ps3d-poster[data-v="2"][data-tone="dark"] .p-line{stroke:var(--on-dark)}.ps3d-poster[data-v="2"][data-tone="dark"] .p-line2{stroke:var(--on-dark-2)}.ps3d-poster[data-v="2"][data-tone="dark"] .p-shadow{fill:#000}.ps3d-poster[data-v="2"][data-tone="dark"] .p-inkf{fill:color-mix(in srgb,var(--dark) 93%,var(--on-dark))}.ps3d-poster[data-v="2"][data-tone="dark"] .p-inkc{fill:var(--on-dark)}.ps3d-poster[data-v="2"][data-tone="dark"] .p-glass{fill:var(--on-dark)}</style><defs><clipPath id="p17efc0"><path d="M245.1 302.5L417.8 359.5L305.2 468.5L121.1 397.6Z"/></clipPath><clipPath id="p17efc1"><path d="M226.8 288.2L411.9 331.9L326 445.8L123.1 390.5Z"/></clipPath><clipPath id="p17efc2"><path d="M208.8 274.7L403.7 304.9L345.9 421.3L127.9 382.5Z"/></clipPath><clipPath id="p17efc3"><path d="M191.3 262L393.4 278.7L364.6 395.2L135.5 373.5Z"/></clipPath><clipPath id="p17efc4"><path d="M174.7 249.9L381.1 253.4L381.5 367.8L145.9 363.3Z"/></clipPath><clipPath id="p17efc5"><path d="M159.1 238.3L367.1 228.9L396.4 339.3L159 351.6Z"/></clipPath><clipPath id="p17efc6"><path d="M144.9 227.2L351.6 205.3L409 309.9L174.7 338.2Z"/></clipPath><clipPath id="p17efc7"><path d="M132.2 216.2L334.7 182.7L419 279.9L192.6 323.1Z"/></clipPath><clipPath id="p17efc8"><path d="M121.4 205.4L316.8 161L426.2 249.5L212.6 306.1Z"/></clipPath><clipPath id="p17efc9"><path d="M112.6 194.6L297.9 140.1L430.7 219L234.1 287.2Z"/></clipPath><clipPath id="p17efc10"><path d="M106.2 183.5L278.5 120L432.3 188.5L256.8 266.2Z"/></clipPath><clipPath id="p17efk"><path d="M165.8 84.4L974.8 289.5L564.3 1187.3L-598.4 491.6Z"/></clipPath><clipPath id="p17eft0"><path d="M121.1 397.6L305.2 468.6L417.8 359.5L245.1 302.5Z"/></clipPath><clipPath id="p17eft1"><path d="M123.1 390.5L326 445.8L411.9 331.9L226.8 288.2Z"/></clipPath><clipPath id="p17eft2"><path d="M127.9 382.5L345.9 421.3L403.7 304.9L208.8 274.7Z"/></clipPath><clipPath id="p17eft3"><path d="M135.5 373.5L364.6 395.3L393.4 278.8L191.3 262Z"/></clipPath><clipPath id="p17eft4"><path d="M145.9 363.3L381.5 367.8L381.1 253.4L174.7 249.9Z"/></clipPath><clipPath id="p17eft5"><path d="M159 351.6L396.4 339.3L367.1 228.9L159.1 238.3Z"/></clipPath><clipPath id="p17eft6"><path d="M174.7 338.3L409 309.9L351.6 205.4L144.9 227.2Z"/></clipPath><clipPath id="p17eft7"><path d="M192.6 323.2L419 279.9L334.7 182.7L132.2 216.3Z"/></clipPath><clipPath id="p17eft8"><path d="M212.6 306.2L426.2 249.5L316.8 161L121.4 205.5Z"/></clipPath><clipPath id="p17eft9"><path d="M234.1 287.2L430.7 219L297.9 140.1L112.6 194.6Z"/></clipPath><clipPath id="p17eft10"><path d="M256.8 266.3L432.3 188.5L278.5 120.1L106.2 183.5Z"/></clipPath><clipPath id="p17eft11"><path d="M280.1 243.4L431.1 158.3L258.5 100.8L102.3 171.9Z"/></clipPath><filter id="p17efb2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2"/></filter><filter id="p17efb4" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter><filter id="p17efb9" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter><filter id="p17efb10" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter></defs><g><path class="p-shadow" opacity="0.276" filter="url(#p17efb4)" d="M245.2 303L420.4 360.9L306.3 471.7L119.4 399.5Z"/></g><g clip-path="url(#p17efk)"><g opacity="0.160" filter="url(#p17efb2)"><path class="p-shadow" d="M122.2 399.3L306.3 470.3L418.7 361.2L246 304.1ZM305.2 470.2L417.8 361.1L418.7 361.2L306.3 470.3ZM121.2 399.2L305.2 470.2L306.3 470.3L122.2 399.3ZM136.7 411.2L338.8 467.4L422.6 351.8L238.2 307.4ZM337.7 467.3L421.7 351.7L422.6 351.8L338.8 467.4ZM135.7 411.2L337.7 467.3L338.8 467.4L136.7 411.2ZM154.3 422.9L370.1 462.8L424.2 343.1L231.1 311.9ZM369 462.7L423.2 343L424.2 343.1L370.1 462.8ZM153.3 422.8L369 462.7L370.1 462.8L154.3 422.9ZM174.8 434.1L399.6 456.8L423.6 335.1L224.9 317.6ZM398.6 456.7L422.7 335.1L423.6 335.1L399.6 456.8ZM173.8 434.1L398.6 456.7L399.6 456.8L174.8 434.1ZM198.1 444.7L427.1 449.5L421.1 328L219.9 324.3ZM197.1 444.6L426 449.4L427.1 449.5L198.1 444.7ZM224.1 454.2L452.1 441L417 322L216.3 332.2ZM223.1 454.2L451.1 441L452.1 441L224.1 454.2ZM252.5 462.7L474.4 431.7L411.6 316.9L214.5 341ZM213.6 340.9L251.5 462.6L252.5 462.7L214.5 341ZM251.5 462.6L473.4 431.7L474.4 431.7L252.5 462.7ZM283 469.8L493.9 421.8L405 313L214.8 350.7ZM213.8 350.7L281.9 469.7L283 469.8L214.8 350.7ZM281.9 469.7L492.9 421.7L493.9 421.8L283 469.8ZM315 475.4L510.4 411.4L397.6 310.3L217.2 361.2ZM216.3 361.2L313.9 475.3L315 475.4L217.2 361.2ZM313.9 475.3L509.4 411.3L510.4 411.4L315 475.4ZM348.2 479.4L524 400.7L389.6 308.7L222.2 372.4ZM221.2 372.3L347.1 479.3L348.2 479.4L222.2 372.4ZM347.1 479.3L523 400.7L524 400.7L348.2 479.4ZM382 481.6L534.6 390.1L381.4 308.4L229.8 384.1ZM228.8 384L381 481.6L382 481.6L229.8 384.1ZM381 481.6L533.6 390L534.6 390.1L382 481.6ZM416 482.1L542.4 379.6L373.1 309.3L240.2 396.1ZM414.9 482L541.4 379.6L542.4 379.6L416 482.1ZM239.2 396.1L414.9 482L416 482.1L240.2 396.1Z"/></g></g><g data-part="leaf-0" style="--i:0"><g clip-path="url(#p17efc0)"><path class="p-shadow" opacity="0.215" filter="url(#p17efb9)" d="M233.6 303.5L423.4 349.1L336.8 468.3L128.2 410.3Z"/></g><g clip-path="url(#p17efc1)"><path class="p-shadow" opacity="0.215" filter="url(#p17efb9)" d="M215.3 290.5L415 322L357.3 443.9L133.3 403.1Z"/></g><g clip-path="url(#p17efc2)"><path class="p-shadow" opacity="0.215" filter="url(#p17efb9)" d="M197.6 278.2L404.4 295.7L376.4 417.7L141.2 394.9Z"/></g><g clip-path="url(#p17efc3)"><path class="p-shadow" opacity="0.215" filter="url(#p17efb9)" d="M180.7 266.7L391.8 270.3L393.8 390.2L152.1 385.4Z"/></g><g clip-path="url(#p17efc4)"><path class="p-shadow" opacity="0.215" filter="url(#p17efb9)" d="M164.9 255.7L377.5 245.8L409 361.5L165.6 374.4Z"/></g><g clip-path="url(#p17efc5)"><path class="p-shadow" opacity="0.215" filter="url(#p17efb9)" d="M150.5 245.1L361.6 222.3L421.9 331.9L181.9 361.8Z"/></g><g clip-path="url(#p17efc6)"><path class="p-shadow" opacity="0.215" filter="url(#p17efb9)" d="M137.6 234.9L344.4 199.8L432 301.7L200.4 347.3Z"/></g><g clip-path="url(#p17efc7)"><path class="p-shadow" opacity="0.215" filter="url(#p17efb9)" d="M126.7 224.8L326.1 178.2L439.4 271.1L221 330.8Z"/></g><g clip-path="url(#p17efc8)"><path class="p-shadow" opacity="0.215" filter="url(#p17efb9)" d="M117.9 214.7L306.9 157.5L443.9 240.4L243.3 312.3Z"/></g><g clip-path="url(#p17efc9)"><path class="p-shadow" opacity="0.215" filter="url(#p17efb9)" d="M111.5 204.4L287 137.8L445.4 209.7L266.7 291.8Z"/></g><g clip-path="url(#p17efc10)"><path class="p-shadow" opacity="0.215" filter="url(#p17efb10)" d="M107.7 193.7L266.7 118.8L444.1 179.3L290.7 269.3Z"/></g><g clip-path="url(#p17eft0)"><path class="p-top" d="M121.1 397.6L305.2 468.6L417.8 359.5L245.1 302.5Z"/><g transform="matrix(0.18411 0.07096 -0.11264 0.10901 233.71403 288.58555)"><g transform="scale(1)"><rect class="p-top" x="0" y="0" width="1000" height="1000"/><svg x="60" y="60" width="880" height="610" viewBox="60 60 880 610"><image crossorigin="anonymous" href="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Exterior_of_last_Blockbuster_Video.jpg/250px-Exterior_of_last_Blockbuster_Video.jpg" x="-127.4" y="60.0" width="1254.9" height="610.0" class="p-plate" preserveAspectRatio="none"/></svg><rect x="61" y="61" width="878" height="608" fill="none" class="p-line" stroke-opacity=".12" stroke-width="2" style="vector-effect:none;stroke-width:1.75px;stroke-opacity:.12"/><text class="p-txt2" x="60" y="760" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="34" letter-spacing="4">NO. 001</text><text class="p-txt2" x="940" y="760" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26">Coasterlover1994 · CC BY-SA 4.0</text><text class="p-txt" x="60" y="860" font-family="Georgia, Times New Roman, serif" font-size="62">The Laugh in the Boardroom</text></g></g></g><path class="p-right" d="M305.2 470.2L417.8 361.1L417.8 359.5L305.2 468.6Z"/><path class="p-left" d="M121.2 399.2L305.2 470.2L305.2 468.6L121.1 397.6Z"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.68" d="M305.2 470.2L417.8 361.1"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.60" d="M417.8 361.1L417.8 359.5"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.29" d="M417.8 359.5L305.2 468.6"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.33" d="M305.2 468.6L305.2 470.2"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.66" d="M121.2 399.2L121.1 397.6"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.58" d="M121.1 397.6L245.1 302.5"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.30" d="M121.1 397.6L305.2 468.6"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.56" d="M417.8 359.5L245.1 302.5"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.72" d="M305.2 470.2L121.2 399.2"/></g><g data-part="leaf-1" style="--i:1"><g clip-path="url(#p17eft1)"><path class="p-top" d="M123.1 390.5L326 445.8L411.9 331.9L226.8 288.2Z"/><g transform="matrix(0.20288 0.05536 -0.08588 0.11392 209.00132 276.55742)"><g transform="scale(1)"><rect class="p-top" x="0" y="0" width="1000" height="1000"/><svg x="60" y="60" width="880" height="610" viewBox="60 60 880 610"><image crossorigin="anonymous" href="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/B-17F_formation_over_Schweinfurt%2C_Germany%2C_August_17%2C_1943.jpg/250px-B-17F_formation_over_Schweinfurt%2C_Germany%2C_August_17%2C_1943.jpg" x="60.0" y="14.2" width="880.0" height="701.6" class="p-plate" preserveAspectRatio="none"/></svg><rect x="61" y="61" width="878" height="608" fill="none" class="p-line" stroke-opacity=".12" stroke-width="2" style="vector-effect:none;stroke-width:1.75px;stroke-opacity:.12"/><text class="p-txt2" x="60" y="760" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="34" letter-spacing="4">NO. 002</text><text class="p-txt2" x="940" y="760" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26">U.S. Army Air Forces · Public domain</text><text class="p-txt" x="60" y="860" font-family="Georgia, Times New Roman, serif" font-size="62">The Planes That Came Home</text></g></g></g><path class="p-right" d="M326 447.5L411.8 333.5L411.9 331.9L326 445.8Z"/><path class="p-left" d="M123.3 392.1L326 447.5L326 445.8L123.1 390.5Z"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.68" d="M326 447.5L411.8 333.5"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.60" d="M411.8 333.5L411.9 331.9M123.1 390.5L226.8 288.2"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.29" d="M411.9 331.9L326 445.8"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.33" d="M326 445.8L326 447.5"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.69" d="M123.3 392.1L123.1 390.5"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.31" d="M123.1 390.5L326 445.8"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.56" d="M411.9 331.9L226.8 288.2"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.74" d="M326 447.5L123.3 392.1"/></g><g data-part="leaf-2" style="--i:2"><g clip-path="url(#p17eft2)"><path class="p-top" d="M127.9 382.5L345.9 421.3L403.7 304.9L208.8 274.7Z"/><g transform="matrix(0.21803 0.03881 -0.05773 0.11639 185.64835 266.14178)"><g transform="scale(1)"><rect class="p-top" x="0" y="0" width="1000" height="1000"/><svg x="60" y="60" width="880" height="610" viewBox="60 60 880 610"><image crossorigin="anonymous" href="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Coca-Cola_1915_Contour_bottle.jpg/250px-Coca-Cola_1915_Contour_bottle.jpg" x="60.0" y="-295.0" width="880.0" height="1320.0" class="p-plate" preserveAspectRatio="none"/></svg><rect x="61" y="61" width="878" height="608" fill="none" class="p-line" stroke-opacity=".12" stroke-width="2" style="vector-effect:none;stroke-width:1.75px;stroke-opacity:.12"/><text class="p-txt2" x="60" y="760" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="34" letter-spacing="4">NO. 003</text><text class="p-txt2" x="940" y="760" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26">nagualdesign · CC0</text><text class="p-txt" x="60" y="860" font-family="Georgia, Times New Roman, serif" font-size="62">A Sip Is Not a Can</text></g></g></g><path class="p-right" d="M345.9 423.1L403.6 306.6L403.7 304.9L345.9 421.3ZM128.1 384.2L345.9 423.1L345.9 421.3L127.9 382.5Z"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.68" d="M345.9 423.1L403.6 306.6"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.59" d="M403.6 306.6L403.7 304.9"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.29" d="M403.7 304.9L345.9 421.3"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.33" d="M345.9 421.3L345.9 423.1"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.72" d="M128.1 384.2L127.9 382.5"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.63" d="M127.9 382.5L208.8 274.7"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.32" d="M127.9 382.5L345.9 421.3"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.57" d="M403.7 304.9L208.8 274.7"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.75" d="M345.9 423.1L128.1 384.2"/></g><g data-part="leaf-3" style="--i:3"><g clip-path="url(#p17eft3)"><path class="p-top" d="M135.5 373.5L364.6 395.3L393.4 278.8L191.3 262Z"/><g transform="matrix(0.22906 0.02172 -0.02876 0.11652 164.29581 257.02719)"><g transform="scale(1)"><rect class="p-top" x="0" y="0" width="1000" height="1000"/><svg x="60" y="60" width="880" height="610" viewBox="60 60 880 610"><image crossorigin="anonymous" href="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg/250px-Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg" x="25.0" y="60.0" width="950.1" height="610.0" class="p-plate" preserveAspectRatio="none"/></svg><rect x="61" y="61" width="878" height="608" fill="none" class="p-line" stroke-opacity=".12" stroke-width="2" style="vector-effect:none;stroke-width:1.75px;stroke-opacity:.12"/><text class="p-txt2" x="60" y="760" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="34" letter-spacing="4">NO. 004</text><text class="p-txt2" x="940" y="760" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26">Tequask · CC BY-SA 4.0</text><text class="p-txt" x="60" y="860" font-family="Georgia, Times New Roman, serif" font-size="62">The Ten-Minute Turn</text></g></g></g><path class="p-right" d="M364.6 397L393.3 280.4L393.4 278.8L364.6 395.3ZM135.7 375.3L364.6 397L364.6 395.3L135.5 373.5Z"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.68" d="M364.6 397L393.3 280.4"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.59" d="M393.3 280.4L393.4 278.8"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.29" d="M393.4 278.8L364.6 395.3"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.33" d="M364.6 395.3L364.6 397"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.75" d="M135.7 375.3L135.5 373.5"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.65" d="M135.5 373.5L191.3 262"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.32" d="M135.5 373.5L364.6 395.3"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.57" d="M393.4 278.8L191.3 262"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.77" d="M364.6 397L135.7 375.3"/></g><g data-part="leaf-4" style="--i:4"><g clip-path="url(#p17eft4)"><path class="p-top" d="M145.9 363.3L381.5 367.8L381.1 253.4L174.7 249.9Z"/><g transform="matrix(0.2356 0.00454 0.00043 0.11445 145.50348 248.85214)"><g transform="scale(1)"><rect class="p-top" x="0" y="0" width="1000" height="1000"/><rect x="60" y="60" width="880" height="610" class="p-txt" fill-opacity=".045"/><text class="p-txt" x="500" y="455" text-anchor="middle" font-family="Georgia, Times New Roman, serif" font-size="300">005</text><text class="p-txt2" x="500" y="580" text-anchor="middle" font-family="Georgia, Times New Roman, serif" font-style="italic" font-size="46">The Two-Thirds Door</text><rect x="61" y="61" width="878" height="608" fill="none" class="p-line" stroke-opacity=".12" stroke-width="2" style="vector-effect:none;stroke-width:1.75px;stroke-opacity:.12"/><text class="p-txt2" x="60" y="760" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="34" letter-spacing="4">NO. 005</text><text class="p-txt" x="60" y="860" font-family="Georgia, Times New Roman, serif" font-size="62">The Two-Thirds Door</text></g></g></g><path class="p-right" d="M146.1 365.1L381.5 369.6L381.5 367.8L145.9 363.3Z"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.68" d="M381.1 253.4L381.5 367.8"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.78" d="M381.5 367.8L381.5 369.6M146.1 365.1L145.9 363.3M381.5 369.6L146.1 365.1"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.67" d="M145.9 363.3L174.7 249.9"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.33" d="M145.9 363.3L381.5 367.8"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.58" d="M381.1 253.4L174.7 249.9"/></g><g data-part="leaf-5" style="--i:5"><g clip-path="url(#p17eft5)"><path class="p-top" d="M159 351.6L396.4 339.3L367.1 228.9L159.1 238.3Z"/><g transform="matrix(0.23739 -0.0123 0.02931 0.11038 129.72572 241.22385)"><g transform="scale(1)"><rect class="p-top" x="0" y="0" width="1000" height="1000"/><svg x="60" y="60" width="880" height="610" viewBox="60 60 880 610"><image crossorigin="anonymous" href="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/McDonald%27s_-1_Store_Museum%2C_Des_Plaines%2C_Ill._%288268402450%29.jpg/250px-McDonald%27s_-1_Store_Museum%2C_Des_Plaines%2C_Ill._%288268402450%29.jpg" x="39.4" y="60.0" width="921.3" height="610.0" class="p-plate" preserveAspectRatio="none"/></svg><rect x="61" y="61" width="878" height="608" fill="none" class="p-line" stroke-opacity=".12" stroke-width="2" style="vector-effect:none;stroke-width:1.75px;stroke-opacity:.12"/><text class="p-txt2" x="60" y="760" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="34" letter-spacing="4">NO. 006</text><text class="p-txt2" x="940" y="760" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26">Jerry Huddleston · CC BY 2.0</text><text class="p-txt" x="60" y="860" font-family="Georgia, Times New Roman, serif" font-size="62">Rent Is the Punchline</text></g></g></g><path class="p-right" d="M159.2 353.4L396.4 341.1L396.4 339.3L159 351.6Z"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.68" d="M367.1 228.9L396.4 339.3"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.78" d="M396.4 339.3L396.4 341.1"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.80" d="M159.2 353.4L159 351.6"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.70" d="M159 351.6L159.1 238.3"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.33" d="M159 351.6L396.4 339.3"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.59" d="M367.1 228.9L159.1 238.3"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.79" d="M396.4 341.1L159.2 353.4"/></g><g data-part="leaf-6" style="--i:6"><g clip-path="url(#p17eft6)"><path class="p-top" d="M174.7 338.3L409 309.9L351.6 205.4L144.9 227.2Z"/><g transform="matrix(0.2343 -0.02837 0.05738 0.10453 117.29328 233.73822)"><g transform="scale(1)"><rect class="p-top" x="0" y="0" width="1000" height="1000"/><svg x="60" y="60" width="880" height="610" viewBox="60 60 880 610"><image crossorigin="anonymous" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Flora%27s_Wagon_of_Fools_%28Flora%27s_Mallewagen%29_tulipomania%2C_Hendrik_Gerritsz_Pot_c1637.jpg/250px-Flora%27s_Wagon_of_Fools_%28Flora%27s_Mallewagen%29_tulipomania%2C_Hendrik_Gerritsz_Pot_c1637.jpg" x="60.0" y="60.0" width="880.0" height="641.8" class="p-plate" preserveAspectRatio="none"/></svg><rect x="61" y="61" width="878" height="608" fill="none" class="p-line" stroke-opacity=".12" stroke-width="2" style="vector-effect:none;stroke-width:1.75px;stroke-opacity:.12"/><text class="p-txt2" x="60" y="760" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="34" letter-spacing="4">NO. 007</text><text class="p-txt2" x="940" y="760" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26">Hendrik Gerritsz Pot · Public domain</text><text class="p-txt" x="60" y="860" font-family="Georgia, Times New Roman, serif" font-size="62">The Herd Has No Head</text></g></g></g><path class="p-top" d="M145 228.9L174.8 340.1L174.7 338.3L144.9 227.2Z"/><path class="p-right" d="M174.8 340.1L408.9 311.7L409 309.9L174.7 338.3Z"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.68" d="M351.6 205.4L409 309.9"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.78" d="M409 309.9L408.9 311.7"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.72" d="M145 228.9L174.8 340.1"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.35" d="M174.8 340.1L174.7 338.3"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.31" d="M174.7 338.3L144.9 227.2"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.63" d="M144.9 227.2L145 228.9"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.34" d="M174.7 338.3L409 309.9"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.60" d="M351.6 205.4L144.9 227.2"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.80" d="M408.9 311.7L174.8 340.1"/></g><g data-part="leaf-7" style="--i:7"><g clip-path="url(#p17eft7)"><path class="p-top" d="M192.6 323.2L419 279.9L334.7 182.7L132.2 216.3Z"/><g transform="matrix(0.22634 -0.04327 0.08422 0.09715 108.40242 225.99984)"><g transform="scale(1)"><rect class="p-top" x="0" y="0" width="1000" height="1000"/><svg x="60" y="60" width="880" height="610" viewBox="60 60 880 610"><image crossorigin="anonymous" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Punch_card_80_columns_%281%29.jpg/250px-Punch_card_80_columns_%281%29.jpg" x="-180.6" y="60.0" width="1361.3" height="610.0" class="p-plate" preserveAspectRatio="none"/></svg><rect x="61" y="61" width="878" height="608" fill="none" class="p-line" stroke-opacity=".12" stroke-width="2" style="vector-effect:none;stroke-width:1.75px;stroke-opacity:.12"/><text class="p-txt2" x="60" y="760" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="34" letter-spacing="4">NO. 008</text><text class="p-txt2" x="940" y="760" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26">Harke · CC BY-SA 3.0</text><text class="p-txt" x="60" y="860" font-family="Georgia, Times New Roman, serif" font-size="62">Twenty Slots</text></g></g></g><path class="p-top" d="M132.3 218L192.7 325L192.6 323.2L132.2 216.3Z"/><path class="p-right" d="M192.7 325L418.9 281.7L419 279.9L192.6 323.2Z"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.68" d="M334.7 182.7L419 279.9"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.77" d="M419 279.9L418.9 281.7"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.75" d="M132.3 218L192.7 325"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.35" d="M192.7 325L192.6 323.2"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.32" d="M192.6 323.2L132.2 216.3"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.65" d="M132.2 216.3L132.3 218"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.34" d="M192.6 323.2L419 279.9"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.62" d="M334.7 182.7L132.2 216.3"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.81" d="M418.9 281.7L192.7 325"/></g><g data-part="leaf-8" style="--i:8"><g clip-path="url(#p17eft8)"><path class="p-top" d="M212.6 306.2L426.2 249.5L316.8 161L121.4 205.5Z"/><g transform="matrix(0.21368 -0.05665 0.10944 0.08851 103.11209 217.64041)"><g transform="scale(1)"><rect class="p-top" x="0" y="0" width="1000" height="1000"/><svg x="60" y="60" width="880" height="610" viewBox="60 60 880 610"><image crossorigin="anonymous" href="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg/250px-Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg" x="60.0" y="60.0" width="880.0" height="672.5" class="p-plate" preserveAspectRatio="none"/></svg><rect x="61" y="61" width="878" height="608" fill="none" class="p-line" stroke-opacity=".12" stroke-width="2" style="vector-effect:none;stroke-width:1.75px;stroke-opacity:.12"/><text class="p-txt2" x="60" y="760" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="34" letter-spacing="4">NO. 009</text><text class="p-txt2" x="940" y="760" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26">U.S. Army photograph · Public domain</text><text class="p-txt" x="60" y="860" font-family="Georgia, Times New Roman, serif" font-size="62">The Last Interface</text></g></g></g><path class="p-top" d="M121.5 207.2L212.6 308.1L212.6 306.2L121.4 205.5Z"/><path class="p-right" d="M212.6 308.1L426.2 251.3L426.2 249.5L212.6 306.2Z"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.68" d="M316.8 161L426.2 249.5M121.4 205.5L121.5 207.2"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.77" d="M426.2 249.5L426.2 251.3M121.5 207.2L212.6 308.1"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.36" d="M212.6 308.1L212.6 306.2"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.33" d="M212.6 306.2L121.4 205.5"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.34" d="M212.6 306.2L426.2 249.5"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.64" d="M316.8 161L121.4 205.5"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.81" d="M426.2 251.3L212.6 308.1"/></g><g data-part="leaf-9" style="--i:9"><g clip-path="url(#p17eft9)"><path class="p-top" d="M234.1 287.2L430.7 219L297.9 140.1L112.6 194.6Z"/><g transform="matrix(0.1966 -0.06821 0.13274 0.07886 101.34928 208.33462)"><g transform="scale(1)"><rect class="p-top" x="0" y="0" width="1000" height="1000"/><svg x="60" y="60" width="880" height="610" viewBox="60 60 880 610"><image crossorigin="anonymous" href="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Pony_Express_Map_William_Henry_Jackson.jpg/250px-Pony_Express_Map_William_Henry_Jackson.jpg" x="-396.7" y="60.0" width="1793.3" height="610.0" class="p-plate" preserveAspectRatio="none"/></svg><rect x="61" y="61" width="878" height="608" fill="none" class="p-line" stroke-opacity=".12" stroke-width="2" style="vector-effect:none;stroke-width:1.75px;stroke-opacity:.12"/><text class="p-txt2" x="60" y="760" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="34" letter-spacing="4">NO. 010</text><text class="p-txt2" x="940" y="760" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26">William Henry Jackson · Public domain</text><text class="p-txt" x="60" y="860" font-family="Georgia, Times New Roman, serif" font-size="62">We Built Machines to Save Ti…</text></g></g></g><path class="p-top" d="M112.7 196.4L234.2 289.2L234.1 287.2L112.6 194.6Z"/><path class="p-right" d="M234.2 289.2L430.6 220.8L430.7 219L234.1 287.2Z"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.68" d="M297.9 140.1L430.7 219"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.76" d="M430.7 219L430.6 220.8"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.79" d="M112.7 196.4L234.2 289.2"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.36" d="M234.2 289.2L234.1 287.2"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.34" d="M234.1 287.2L112.6 194.6M234.1 287.2L430.7 219"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.71" d="M112.6 194.6L112.7 196.4"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.65" d="M297.9 140.1L112.6 194.6"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.81" d="M430.6 220.8L234.2 289.2"/></g><g data-part="leaf-10" style="--i:10"><g clip-path="url(#p17eft10)"><path class="p-top" d="M256.8 266.3L432.3 188.5L278.5 120.1L106.2 183.5Z"/><g transform="matrix(0.17553 -0.07774 0.15385 0.06846 102.92203 197.8123)"><g transform="scale(1)"><rect class="p-top" x="0" y="0" width="1000" height="1000"/><svg x="60" y="60" width="880" height="610" viewBox="60 60 880 610"><image crossorigin="anonymous" href="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Long-distance_operators_at_the_Sunset_Telephone_Company%2C_Seattle%2C_ca_1905_%28MOHAI_1833%29.jpg/250px-Long-distance_operators_at_the_Sunset_Telephone_Company%2C_Seattle%2C_ca_1905_%28MOHAI_1833%29.jpg" x="60.0" y="60.0" width="880.0" height="712.3" class="p-plate" preserveAspectRatio="none"/></svg><rect x="61" y="61" width="878" height="608" fill="none" class="p-line" stroke-opacity=".12" stroke-width="2" style="vector-effect:none;stroke-width:1.75px;stroke-opacity:.12"/><text class="p-txt2" x="60" y="760" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="34" letter-spacing="4">NO. 011</text><text class="p-txt2" x="940" y="760" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26">Webster &amp; Stevens · Public domain</text><text class="p-txt" x="60" y="860" font-family="Georgia, Times New Roman, serif" font-size="62">The Intention Economy</text></g></g></g><path class="p-left" d="M106.3 185.3L256.8 268.3L256.8 266.3L106.2 183.5Z"/><path class="p-right" d="M256.8 268.3L432.2 190.4L432.3 188.5L256.8 266.3Z"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.68" d="M278.5 120.1L432.3 188.5"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.75" d="M432.3 188.5L432.2 190.4"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.81" d="M106.3 185.3L256.8 268.3"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.37" d="M256.8 268.3L256.8 266.3"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.34" d="M256.8 266.3L106.2 183.5"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.74" d="M106.2 183.5L106.3 185.3"/><path class="p-line" stroke-width="0.90" stroke-opacity="0.35" d="M256.8 266.3L432.3 188.5"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.67" d="M278.5 120.1L106.2 183.5"/><path class="p-sil" stroke-width="1.75" stroke-opacity="0.82" d="M432.2 190.4L256.8 268.3"/></g><g data-part="leaf-11" style="--i:11"><g clip-path="url(#p17eft11)"><path class="p-top" d="M280.1 243.4L431.1 158.3L258.5 100.8L102.3 171.9Z"/><g transform="matrix(0.151 -0.08508 0.17258 0.05756 107.53904 185.86636)"><g transform="scale(1)"><rect class="p-top" x="0" y="0" width="1000" height="1000"/><svg x="60" y="60" width="880" height="610" viewBox="60 60 880 610"><image crossorigin="anonymous" href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg/250px-The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg" x="37.7" y="60.0" width="924.6" height="610.0" class="p-plate is-dev" preserveAspectRatio="none"/></svg><rect x="61" y="61" width="878" height="608" fill="none" class="p-line" stroke-opacity=".12" stroke-width="2" style="vector-effect:none;stroke-width:1.75px;stroke-opacity:.12"/><text class="p-txt2" x="60" y="760" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="34" letter-spacing="4">NO. 012</text><text class="p-txt2" x="940" y="760" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26">Joseph Keppler · Public domain</text><text class="p-txt" x="60" y="860" font-family="Georgia, Times New Roman, serif" font-size="62">The Referee Wears the Home…</text></g></g></g><path class="p-foil" d="M280.1 245.5L431 160.2L431.1 158.3L280.1 243.4ZM102.5 173.8L280.1 245.5L280.1 243.4L102.3 171.9Z"/><path class="p-fl" stroke-width="2.01" stroke-opacity="0.68" d="M258.5 100.8L431.1 158.3"/><path class="p-fl" stroke-width="2.01" stroke-opacity="0.75" d="M431.1 158.3L431 160.2"/><path class="p-fl" stroke-width="2.01" stroke-opacity="0.83" d="M102.5 173.8L280.1 245.5"/><path class="p-fl" stroke-width="0.90" stroke-opacity="0.37" d="M280.1 245.5L280.1 243.4"/><path class="p-fl" stroke-width="0.90" stroke-opacity="0.35" d="M280.1 243.4L102.3 171.9M280.1 243.4L431.1 158.3"/><path class="p-fl" stroke-width="2.01" stroke-opacity="0.77" d="M102.3 171.9L102.5 173.8"/><path class="p-fl" stroke-width="2.01" stroke-opacity="0.70" d="M258.5 100.8L102.3 171.9"/><path class="p-fl" stroke-width="2.01" stroke-opacity="0.82" d="M431 160.2L280.1 245.5"/></g></svg><button class="hero3d-btn" type="button" aria-pressed="false"><span class="vh">Fan the stack</span></button></div>
+    </div>
+    <div class="mh-rule" aria-hidden="true"></div>
+    <div class="mh-cap">
+      <p class="hero3d-cap"><a href="/writing/the-referee-wears-the-home-teams-jersey"><span class="k">Latest · <span class="nm">&#8470;</span> 012</span><span class="vh"> · </span><span class="t">The Referee Wears the Home Team&rsquo;s Jersey</span><span class="vh"> · </span><span class="k">11 min</span></a></p>
+    </div>
+    <p class="st-hint" aria-hidden="true"><span class="k-c">Tap the stack</span><span class="k-f">Click the stack</span><span class="arr">&#8593;</span></p>
+    <p class="mh-plates">Plates: Wikimedia Commons, public domain and CC. Credits under the contents.</p>
+  </div>
+</header>
+
+<section class="latest" data-ground="vellum" aria-labelledby="latestT">
+  <a class="lt-plate-a" href="/writing/the-referee-wears-the-home-teams-jersey" tabindex="-1" aria-hidden="true">
+    <div class="plate is-dev lt-plate" data-plate data-mono="012" style="--focal:50% 30%"><img data-late-src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg/960px-The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg" data-late-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg/500px-The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg 500w, https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg/960px-The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg 960w, https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg/1280px-The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg 1280w" data-late-sizes="(max-width: 759px) 100vw, 58vw" width="1280" height="720" alt="Joseph Keppler's 1889 Puck cartoon: giant money-bag trusts tower over the senators in the chamber." decoding="async"></div>
+  </a>
+  <a class="lt-card" href="/writing/the-referee-wears-the-home-teams-jersey">
+    <span class="lt-k"><span class="numeral"><span class="nm">&#8470;</span>012</span><span class="lbl">August 2026</span></span>
+    <h2 class="lt-t" id="latestT"><span class="tt">The Referee Wears the Home Team&rsquo;s Jersey</span></h2>
+    <p class="lt-d">On regulatory capture: how the regulated come to own the regulator, and why artificial intelligence is the next test.</p>
+    <span class="lt-go">Read the essay <span class="rt">· 11 min</span><span class="arr" aria-hidden="true">&#8594;</span></span>
+  </a>
+  <div class="lt-cap">
+    <p class="lt-pt">&ldquo;The Bosses of the Senate&rdquo;</p>
+    <p class="credit2"><span>Joseph Keppler, Puck, 1889.</span> <a href="https://commons.wikimedia.org/wiki/File:The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg" rel="noopener">Public domain, via Wikimedia Commons</a></p>
+    <blockquote class="lt-q"><p>An error that repeats across centuries is a structure.</p><cite>From the essay</cite></blockquote>
+  </div>
+</section>
+
+<main class="index" id="writing">
+  <div class="ix-head">
+    <h2 class="ix-h">Contents</h2>
+    <span class="lbl"><span data-count="essays">12</span> essays, newest first</span>
+  </div>
+  <div class="ix-list">
+    <a class="essay rv" href="/writing/the-referee-wears-the-home-teams-jersey" data-pl="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg/500px-The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg" data-focal="50% 30%" data-cr="Joseph Keppler · Public domain">
+      <span class="e-pl" aria-hidden="true"><span class="plate" data-plate data-no="012" style="--focal:50% 30%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg/250px-The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg/250px-The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg/500px-The_Bosses_of_the_Senate_by_Joseph_Keppler.jpg 500w" data-sizes="(max-width: 759px) 64px, 96px" width="96" height="96" alt="" decoding="async" crossorigin="anonymous"></span></span>
+      <span class="no"><span class="nm">&#8470;</span>012</span>
+      <div class="e-main"><h2><span class="tt">The Referee Wears the Home Team&rsquo;s Jersey</span></h2>
+      <p class="kicker">On regulatory capture: how the regulated come to own the regulator, and why artificial intelligence is the next test.</p></div>
+      <span class="e-lead" aria-hidden="true"></span>
+      <span class="side"><span class="d">Aug 2026</span><span class="rt">11 min</span></span>
+    </a>
+    <a class="essay rv" href="/writing/the-intention-economy" data-pl="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Long-distance_operators_at_the_Sunset_Telephone_Company%2C_Seattle%2C_ca_1905_%28MOHAI_1833%29.jpg/500px-Long-distance_operators_at_the_Sunset_Telephone_Company%2C_Seattle%2C_ca_1905_%28MOHAI_1833%29.jpg" data-focal="50% 40%" data-cr="Webster &amp; Stevens · Public domain">
+      <span class="e-pl" aria-hidden="true"><span class="plate" data-plate data-no="011" style="--focal:50% 40%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Long-distance_operators_at_the_Sunset_Telephone_Company%2C_Seattle%2C_ca_1905_%28MOHAI_1833%29.jpg/250px-Long-distance_operators_at_the_Sunset_Telephone_Company%2C_Seattle%2C_ca_1905_%28MOHAI_1833%29.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Long-distance_operators_at_the_Sunset_Telephone_Company%2C_Seattle%2C_ca_1905_%28MOHAI_1833%29.jpg/250px-Long-distance_operators_at_the_Sunset_Telephone_Company%2C_Seattle%2C_ca_1905_%28MOHAI_1833%29.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Long-distance_operators_at_the_Sunset_Telephone_Company%2C_Seattle%2C_ca_1905_%28MOHAI_1833%29.jpg/500px-Long-distance_operators_at_the_Sunset_Telephone_Company%2C_Seattle%2C_ca_1905_%28MOHAI_1833%29.jpg 500w" data-sizes="(max-width: 759px) 64px, 96px" width="96" height="96" alt="" decoding="async" crossorigin="anonymous"></span></span>
+      <span class="no"><span class="nm">&#8470;</span>011</span>
+      <div class="e-main"><h2><span class="tt">The Intention Economy</span></h2>
+      <p class="kicker">The app economy competed for your attention. The next economy will compete for something more valuable: permission to act in your name.</p></div>
+      <span class="e-lead" aria-hidden="true"></span>
+      <span class="side"><span class="d">Jul 2026</span><span class="rt">8 min</span></span>
+    </a>
+    <a class="essay rv" href="/writing/we-built-machines-to-save-time" data-pl="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Pony_Express_Map_William_Henry_Jackson.jpg/500px-Pony_Express_Map_William_Henry_Jackson.jpg" data-focal="50% 50%" data-cr="William Henry Jackson · Public domain">
+      <span class="e-pl" aria-hidden="true"><span class="plate" data-plate data-no="010" style="--focal:50% 50%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Pony_Express_Map_William_Henry_Jackson.jpg/250px-Pony_Express_Map_William_Henry_Jackson.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Pony_Express_Map_William_Henry_Jackson.jpg/250px-Pony_Express_Map_William_Henry_Jackson.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Pony_Express_Map_William_Henry_Jackson.jpg/500px-Pony_Express_Map_William_Henry_Jackson.jpg 500w" data-sizes="(max-width: 759px) 64px, 96px" width="96" height="96" alt="" decoding="async" crossorigin="anonymous"></span></span>
+      <span class="no"><span class="nm">&#8470;</span>010</span>
+      <div class="e-main"><h2><span class="tt">We Built Machines to Save Time, and Taught Them to Occupy It</span></h2>
+      <p class="kicker">Every generation of communication technology has made messages faster. None has made us less busy. AI is about to test that pattern at scale.</p></div>
+      <span class="e-lead" aria-hidden="true"></span>
+      <span class="side"><span class="d">Jun 2026</span><span class="rt">8 min</span></span>
+    </a>
+    <a class="essay rv" href="/writing/the-last-interface" data-pl="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg/500px-Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg" data-focal="50% 40%" data-cr="U.S. Army photograph · Public domain">
+      <span class="e-pl" aria-hidden="true"><span class="plate" data-plate data-no="009" style="--focal:50% 40%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg/250px-Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg/250px-Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg/500px-Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg 500w" data-sizes="(max-width: 759px) 64px, 96px" width="96" height="96" alt="" decoding="async" crossorigin="anonymous"></span></span>
+      <span class="no"><span class="nm">&#8470;</span>009</span>
+      <div class="e-main"><h2><span class="tt">The Last Interface</span></h2>
+      <p class="kicker">Every era of computing has shortened the distance between what we want and what the machine does. We are now closing it entirely. Whatever stands in the last gap will decide what gets done in our name.</p></div>
+      <span class="e-lead" aria-hidden="true"></span>
+      <span class="side"><span class="d">May 2026</span><span class="rt">9 min</span></span>
+    </a>
+    <a class="essay rv" href="/writing/twenty-slots" data-pl="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Punch_card_80_columns_%281%29.jpg/500px-Punch_card_80_columns_%281%29.jpg" data-focal="50% 50%" data-cr="Harke · CC BY-SA 3.0">
+      <span class="e-pl" aria-hidden="true"><span class="plate" data-plate data-no="008" style="--focal:50% 50%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Punch_card_80_columns_%281%29.jpg/250px-Punch_card_80_columns_%281%29.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Punch_card_80_columns_%281%29.jpg/250px-Punch_card_80_columns_%281%29.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Punch_card_80_columns_%281%29.jpg/500px-Punch_card_80_columns_%281%29.jpg 500w" data-sizes="(max-width: 759px) 64px, 96px" width="96" height="96" alt="" decoding="async" crossorigin="anonymous"></span></span>
+      <span class="no"><span class="nm">&#8470;</span>008</span>
+      <div class="e-main"><h2><span class="tt">Twenty Slots</span></h2>
+      <p class="kicker">Buffett&rsquo;s imaginary punch card allows twenty decisions in a lifetime. Most of modern life is built to make you spend them faster.</p></div>
+      <span class="e-lead" aria-hidden="true"></span>
+      <span class="side"><span class="d">Apr 2026</span><span class="rt">6 min</span></span>
+    </a>
+    <a class="essay rv more" href="/writing/the-herd-has-no-head" data-pl="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Flora%27s_Wagon_of_Fools_%28Flora%27s_Mallewagen%29_tulipomania%2C_Hendrik_Gerritsz_Pot_c1637.jpg/500px-Flora%27s_Wagon_of_Fools_%28Flora%27s_Mallewagen%29_tulipomania%2C_Hendrik_Gerritsz_Pot_c1637.jpg" data-focal="50% 45%" data-cr="Hendrik Gerritsz Pot · Public domain">
+      <span class="e-pl" aria-hidden="true"><span class="plate" data-plate data-no="007" style="--focal:50% 45%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Flora%27s_Wagon_of_Fools_%28Flora%27s_Mallewagen%29_tulipomania%2C_Hendrik_Gerritsz_Pot_c1637.jpg/250px-Flora%27s_Wagon_of_Fools_%28Flora%27s_Mallewagen%29_tulipomania%2C_Hendrik_Gerritsz_Pot_c1637.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Flora%27s_Wagon_of_Fools_%28Flora%27s_Mallewagen%29_tulipomania%2C_Hendrik_Gerritsz_Pot_c1637.jpg/250px-Flora%27s_Wagon_of_Fools_%28Flora%27s_Mallewagen%29_tulipomania%2C_Hendrik_Gerritsz_Pot_c1637.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Flora%27s_Wagon_of_Fools_%28Flora%27s_Mallewagen%29_tulipomania%2C_Hendrik_Gerritsz_Pot_c1637.jpg/500px-Flora%27s_Wagon_of_Fools_%28Flora%27s_Mallewagen%29_tulipomania%2C_Hendrik_Gerritsz_Pot_c1637.jpg 500w" data-sizes="(max-width: 759px) 64px, 96px" width="96" height="96" alt="" decoding="async" crossorigin="anonymous"></span></span>
+      <span class="no"><span class="nm">&#8470;</span>007</span>
+      <div class="e-main"><h2><span class="tt">The Herd Has No Head</span></h2>
+      <p class="kicker">Four centuries separate the tulip taverns of Haarlem from the meme-stock subreddits, and the crowds in both behaved the same way. On what happens when prices stop measuring value and start measuring each other.</p></div>
+      <span class="e-lead" aria-hidden="true"></span>
+      <span class="side"><span class="d">Mar 2026</span><span class="rt">7 min</span></span>
+    </a>
+    <a class="essay rv more" href="/writing/rent-is-the-punchline" data-pl="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/McDonald%27s_-1_Store_Museum%2C_Des_Plaines%2C_Ill._%288268402450%29.jpg/500px-McDonald%27s_-1_Store_Museum%2C_Des_Plaines%2C_Ill._%288268402450%29.jpg" data-focal="50% 45%" data-cr="Jerry Huddleston · CC BY 2.0">
+      <span class="e-pl" aria-hidden="true"><span class="plate" data-plate data-no="006" style="--focal:50% 45%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/McDonald%27s_-1_Store_Museum%2C_Des_Plaines%2C_Ill._%288268402450%29.jpg/250px-McDonald%27s_-1_Store_Museum%2C_Des_Plaines%2C_Ill._%288268402450%29.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/McDonald%27s_-1_Store_Museum%2C_Des_Plaines%2C_Ill._%288268402450%29.jpg/250px-McDonald%27s_-1_Store_Museum%2C_Des_Plaines%2C_Ill._%288268402450%29.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/McDonald%27s_-1_Store_Museum%2C_Des_Plaines%2C_Ill._%288268402450%29.jpg/500px-McDonald%27s_-1_Store_Museum%2C_Des_Plaines%2C_Ill._%288268402450%29.jpg 500w" data-sizes="(max-width: 759px) 64px, 96px" width="96" height="96" alt="" decoding="async" crossorigin="anonymous"></span></span>
+      <span class="no"><span class="nm">&#8470;</span>006</span>
+      <div class="e-main"><h2><span class="tt">Rent Is the Punchline</span></h2>
+      <p class="kicker">Harry Sonneborn saved McDonald&rsquo;s without flipping a burger. Every company has a true business under its obvious one, and the fortune goes to whoever names it first.</p></div>
+      <span class="e-lead" aria-hidden="true"></span>
+      <span class="side"><span class="d">Feb 2026</span><span class="rt">6 min</span></span>
+    </a>
+    <a class="essay rv more" href="/writing/the-two-thirds-door" data-pl="" data-ty="2/3" data-cr="Typeset plate">
+      <span class="e-pl" aria-hidden="true"><span class="plate plate--ty"><b>2/3</b></span></span>
+      <span class="no"><span class="nm">&#8470;</span>005</span>
+      <div class="e-main"><h2><span class="tt">The Two-Thirds Door</span></h2>
+      <p class="kicker">In 1990 a magazine columnist got a game-show puzzle right. About 10,000 readers wrote in, nearly 1,000 of them with PhDs, and most told her she was wrong. On what it costs to change your mind in public.</p></div>
+      <span class="e-lead" aria-hidden="true"></span>
+      <span class="side"><span class="d">Jan 2026</span><span class="rt">6 min</span></span>
+    </a>
+    <a class="essay rv more" href="/writing/the-ten-minute-turn" data-pl="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg/500px-Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg" data-focal="50% 55%" data-cr="Tequask · CC BY-SA 4.0">
+      <span class="e-pl" aria-hidden="true"><span class="plate" data-plate data-no="004" style="--focal:50% 55%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg/250px-Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg/250px-Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg/500px-Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg 500w" data-sizes="(max-width: 759px) 64px, 96px" width="96" height="96" alt="" decoding="async" crossorigin="anonymous"></span></span>
+      <span class="no"><span class="nm">&#8470;</span>004</span>
+      <div class="e-main"><h2><span class="tt">The Ten-Minute Turn</span></h2>
+      <p class="kicker">In 1972 a broke airline sold a quarter of its fleet and refused to cut a single flight. The fix was a ten-minute turn, and it started forty-seven straight years of profit.</p></div>
+      <span class="e-lead" aria-hidden="true"></span>
+      <span class="side"><span class="d">Dec 2025</span><span class="rt">6 min</span></span>
+    </a>
+    <a class="essay rv more" href="/writing/a-sip-is-not-a-can" data-pl="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Coca-Cola_1915_Contour_bottle.jpg/500px-Coca-Cola_1915_Contour_bottle.jpg" data-focal="50% 50%" data-cr="nagualdesign · CC0">
+      <span class="e-pl" aria-hidden="true"><span class="plate" data-plate data-no="003" style="--focal:50% 50%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Coca-Cola_1915_Contour_bottle.jpg/250px-Coca-Cola_1915_Contour_bottle.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Coca-Cola_1915_Contour_bottle.jpg/250px-Coca-Cola_1915_Contour_bottle.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Coca-Cola_1915_Contour_bottle.jpg/500px-Coca-Cola_1915_Contour_bottle.jpg 500w" data-sizes="(max-width: 759px) 64px, 96px" width="96" height="96" alt="" decoding="async" crossorigin="anonymous"></span></span>
+      <span class="no"><span class="nm">&#8470;</span>003</span>
+      <div class="e-main"><h2><span class="tt">A Sip Is Not a Can</span></h2>
+      <p class="kicker">Coca-Cola tested nearly 200,000 people, got a clear answer, and surrendered to its own customers seventy-nine days later. The tests measured a sip. People drink a can.</p></div>
+      <span class="e-lead" aria-hidden="true"></span>
+      <span class="side"><span class="d">Nov 2025</span><span class="rt">6 min</span></span>
+    </a>
+    <a class="essay rv more" href="/writing/the-planes-that-came-home" data-pl="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/B-17F_formation_over_Schweinfurt%2C_Germany%2C_August_17%2C_1943.jpg/500px-B-17F_formation_over_Schweinfurt%2C_Germany%2C_August_17%2C_1943.jpg" data-focal="50% 50%" data-cr="U.S. Army Air Forces · Public domain">
+      <span class="e-pl" aria-hidden="true"><span class="plate" data-plate data-no="002" style="--focal:50% 50%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/B-17F_formation_over_Schweinfurt%2C_Germany%2C_August_17%2C_1943.jpg/250px-B-17F_formation_over_Schweinfurt%2C_Germany%2C_August_17%2C_1943.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/B-17F_formation_over_Schweinfurt%2C_Germany%2C_August_17%2C_1943.jpg/250px-B-17F_formation_over_Schweinfurt%2C_Germany%2C_August_17%2C_1943.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/B-17F_formation_over_Schweinfurt%2C_Germany%2C_August_17%2C_1943.jpg/500px-B-17F_formation_over_Schweinfurt%2C_Germany%2C_August_17%2C_1943.jpg 500w" data-sizes="(max-width: 759px) 64px, 96px" width="96" height="96" alt="" decoding="async" crossorigin="anonymous"></span></span>
+      <span class="no"><span class="nm">&#8470;</span>002</span>
+      <div class="e-main"><h2><span class="tt">The Planes That Came Home</span></h2>
+      <p class="kicker">In 1943 the military asked a refugee mathematician where to armor its bombers, and showed him the bullet holes to prove it. He asked about the planes nobody could show him.</p></div>
+      <span class="e-lead" aria-hidden="true"></span>
+      <span class="side"><span class="d">Oct 2025</span><span class="rt">6 min</span></span>
+    </a>
+    <a class="essay rv more" href="/writing/the-laugh-in-the-boardroom" data-pl="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Exterior_of_last_Blockbuster_Video.jpg/500px-Exterior_of_last_Blockbuster_Video.jpg" data-focal="50% 50%" data-cr="Coasterlover1994 · CC BY-SA 4.0">
+      <span class="e-pl" aria-hidden="true"><span class="plate" data-plate data-no="001" style="--focal:50% 50%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Exterior_of_last_Blockbuster_Video.jpg/250px-Exterior_of_last_Blockbuster_Video.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Exterior_of_last_Blockbuster_Video.jpg/250px-Exterior_of_last_Blockbuster_Video.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Exterior_of_last_Blockbuster_Video.jpg/500px-Exterior_of_last_Blockbuster_Video.jpg 500w" data-sizes="(max-width: 759px) 64px, 96px" width="96" height="96" alt="" decoding="async" crossorigin="anonymous"></span></span>
+      <span class="no"><span class="nm">&#8470;</span>001</span>
+      <div class="e-main"><h2><span class="tt">The Laugh in the Boardroom</span></h2>
+      <p class="kicker">In 2000, Netflix offered itself to Blockbuster for $50 million. The people across the table were smart and well informed, and they said no.</p></div>
+      <span class="e-lead" aria-hidden="true"></span>
+      <span class="side"><span class="d">Sep 2025</span><span class="rt">6 min</span></span>
+    </a>
+    <div class="more-row"><span class="tag dim plain"><span class="nm">&#8470;</span> 007 to 001</span><button class="more-btn ps-cap" id="moreEssays" type="button" aria-expanded="false" aria-controls="writing">Seven more essays<span class="arr arr--down" aria-hidden="true">&#8595;</span></button></div>
+    <div class="ix-fol" aria-hidden="true"><div class="fl-w"><div class="fl-l"><img alt="" decoding="async"></div><div class="fl-l"><img alt="" decoding="async"></div><div class="fl-l fl-ty"><b></b><i></i></div></div><span class="fl-cr"></span></div>
+  </div>
+  <p class="ix-cr">Plates from Wikimedia Commons, public domain except &#8470;&#8239;008 Harke, <a href="https://commons.wikimedia.org/wiki/File:Punch_card_80_columns_(1).jpg">CC BY-SA 3.0<span class="vh">, on Wikimedia Commons</span></a>; &#8470;&#8239;006 Jerry Huddleston, <a href="https://commons.wikimedia.org/wiki/File:McDonald%27s_-1_Store_Museum,_Des_Plaines,_Ill._(8268402450).jpg">CC BY 2.0<span class="vh">, on Wikimedia Commons</span></a>; &#8470;&#8239;004 Tequask, <a href="https://commons.wikimedia.org/wiki/File:Southwest_Airlines-N74SW_-_Boeing_737-2H4.jpg">CC BY-SA 4.0<span class="vh">, on Wikimedia Commons</span></a>; &#8470;&#8239;003 nagualdesign, <a href="https://commons.wikimedia.org/wiki/File:Coca-Cola_1915_Contour_bottle.jpg">CC0<span class="vh">, on Wikimedia Commons</span></a>; &#8470;&#8239;001 Coasterlover1994, <a href="https://commons.wikimedia.org/wiki/File:Exterior_of_last_Blockbuster_Video.jpg">CC BY-SA 4.0<span class="vh">, on Wikimedia Commons</span></a>.</p>
+</main>
+
+<section class="doors" aria-label="Two rooms behind the essays">
+  <div class="dd dd--world" data-ground="vellum">
+    <figure class="iso wp" data-iso="world-plan">
+      <div class="iso-stage" role="img" aria-label="Floor plan of the World: 13 rooms in four chapters." aria-describedby="wp-d"><svg xmlns="http://www.w3.org/2000/svg" class="ps3d-poster" data-reg="1" data-v="2" viewBox="0 0 640 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><style>.ps3d-poster[data-v="2"] .p-top{fill:var(--m-top,color-mix(in srgb,var(--paper) 55%,#fff))}.ps3d-poster[data-v="2"] .p-left{fill:var(--m-left,color-mix(in srgb,var(--paper) 88.5%,#74654A))}.ps3d-poster[data-v="2"] .p-right{fill:var(--m-right,color-mix(in srgb,var(--paper) 70%,#74654A))}.ps3d-poster[data-v="2"] .p-plaster{fill:var(--m-plaster,color-mix(in srgb,var(--paper) 94%,var(--ink)))}.ps3d-poster[data-v="2"] .p-foil{fill:var(--m-foil,var(--accent))}.ps3d-poster[data-v="2"] .p-metal{fill:var(--m-metal-hi,color-mix(in srgb,var(--muted) 45%,var(--paper)))}.ps3d-poster[data-v="2"] .p-metal.p-lo{fill:var(--m-metal-lo,color-mix(in srgb,var(--muted) 70%,var(--ink)))}.ps3d-poster[data-v="2"] .p-inkf{fill:var(--ink)}.ps3d-poster[data-v="2"] .p-inkc{fill:var(--ink)}.ps3d-poster[data-v="2"] .p-glass{fill:var(--ink-2)}.ps3d-poster[data-v="2"] .p-shadow{fill:var(--m-shadow,var(--ink));stroke:none}.ps3d-poster[data-v="2"] :is(.p-sil,.p-line,.p-line2,.p-fl){fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}.ps3d-poster[data-v="2"] .p-sil{stroke:var(--m-sil,var(--ink))}.ps3d-poster[data-v="2"] .p-line{stroke:var(--ink)}.ps3d-poster[data-v="2"] .p-line2{stroke:var(--ink-2)}.ps3d-poster[data-v="2"] .p-fl{stroke:var(--foil-line)}.ps3d-poster[data-v="2"] .p-plate{filter:grayscale(1) sepia(.22) contrast(1.08) brightness(1.02)}.ps3d-poster[data-v="2"] .p-plate.is-dev{filter:none}.ps3d-poster[data-v="2"] .p-txt{fill:var(--ink)}.ps3d-poster[data-v="2"] .p-txt2{fill:var(--ink-2)}:is(:root[data-tone="dark"],.tone-dark,.band--dark,[data-ground="espresso"],[data-ground="forest"],[data-ground="slate"]) .ps3d-poster[data-v="2"] .p-top,.ps3d-poster[data-v="2"][data-tone="dark"] .p-top{fill:var(--m-top,color-mix(in srgb,var(--dark) 80%,var(--on-dark)))}:is(:root[data-tone="dark"],.tone-dark,.band--dark,[data-ground="espresso"],[data-ground="forest"],[data-ground="slate"]) .ps3d-poster[data-v="2"] .p-left,.ps3d-poster[data-v="2"][data-tone="dark"] .p-left{fill:var(--m-left,color-mix(in srgb,var(--dark) 87%,var(--on-dark)))}:is(:root[data-tone="dark"],.tone-dark,.band--dark,[data-ground="espresso"],[data-ground="forest"],[data-ground="slate"]) .ps3d-poster[data-v="2"] .p-right,.ps3d-poster[data-v="2"][data-tone="dark"] .p-right{fill:var(--m-right,color-mix(in srgb,var(--dark) 92%,var(--on-dark)))}:is(:root[data-tone="dark"],.tone-dark,.band--dark,[data-ground="espresso"],[data-ground="forest"],[data-ground="slate"]) .ps3d-poster[data-v="2"] .p-plaster,.ps3d-poster[data-v="2"][data-tone="dark"] .p-plaster{fill:var(--m-plaster,color-mix(in srgb,var(--dark) 95%,var(--on-dark)))}.ps3d-poster[data-v="2"][data-tone="dark"] .p-sil{stroke:var(--m-sil,var(--on-dark))}.ps3d-poster[data-v="2"][data-tone="dark"] .p-line{stroke:var(--on-dark)}.ps3d-poster[data-v="2"][data-tone="dark"] .p-line2{stroke:var(--on-dark-2)}.ps3d-poster[data-v="2"][data-tone="dark"] .p-shadow{fill:#000}.ps3d-poster[data-v="2"][data-tone="dark"] .p-inkf{fill:color-mix(in srgb,var(--dark) 93%,var(--on-dark))}.ps3d-poster[data-v="2"][data-tone="dark"] .p-inkc{fill:var(--on-dark)}.ps3d-poster[data-v="2"][data-tone="dark"] .p-glass{fill:var(--on-dark)}.ps3d-poster[data-v="2"] .p-num{fill:var(--ink-2);stroke:none;font:500 12px "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.06em}.ps3d-poster[data-v="2"] .p-ch{fill:var(--ink);stroke:none;font:500 12px "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.14em}</style><defs><clipPath id="p32t0c0"><path d="M155 82.3L307.7 134.1L273.6 168.8L120.9 117Z"/></clipPath><clipPath id="p32t0c1"><path d="M166.7 54.3L608 204.1L473.3 341.2L32 191.5Z"/></clipPath><clipPath id="p32t0c2"><path d="M155 82.3L307.7 134.1L273.6 168.8L120.9 117Z"/></clipPath><clipPath id="p32t0c3"><path d="M155 82.3L307.7 134.1L273.6 168.8L120.9 117Z"/></clipPath><clipPath id="p32t0c4"><path d="M166.7 54.3L608 204.1L473.3 341.2L32 191.5Z"/></clipPath><clipPath id="p32t0c5"><path d="M130.2 150.5L187.3 169.9L153.2 204.6L96.1 185.2Z"/></clipPath><clipPath id="p32t0c6"><path d="M166.7 54.3L608 204.1L473.3 341.2L32 191.5Z"/></clipPath><clipPath id="p32t0c7"><path d="M323.6 132.5L380.8 151.9L346.7 186.6L289.5 167.2Z"/></clipPath><clipPath id="p32t0c8"><path d="M203.2 170L308.2 205.7L274.1 240.3L169.2 204.7Z"/></clipPath><clipPath id="p32t0c9"><path d="M396.7 161.7L549.4 213.6L515.3 248.2L362.6 196.4Z"/></clipPath><clipPath id="p32t0c10"><path d="M166.7 54.3L608 204.1L473.3 341.2L32 191.5Z"/></clipPath><clipPath id="p32t0c11"><path d="M166.7 54.3L608 204.1L473.3 341.2L32 191.5Z"/></clipPath><clipPath id="p32t0c12"><path d="M203.2 170L308.2 205.7L274.1 240.3L169.2 204.7Z"/></clipPath><clipPath id="p32t0c13"><path d="M396.7 161.7L549.4 213.6L515.3 248.2L362.6 196.4Z"/></clipPath><clipPath id="p32t0c14"><path d="M396.7 161.7L549.4 213.6L515.3 248.2L362.6 196.4Z"/></clipPath><clipPath id="p32t0c15"><path d="M324.1 208.4L476.8 260.3L442.8 295L290 243.1Z"/></clipPath><clipPath id="p32t0c16"><path d="M166.7 54.3L608 204.1L473.3 341.2L32 191.5Z"/></clipPath><clipPath id="p32t0c17"><path d="M324.1 208.4L476.8 260.3L442.8 295L290 243.1Z"/></clipPath><clipPath id="p32t0c18"><path d="M324.1 208.4L476.8 260.3L442.8 295L290 243.1Z"/></clipPath><clipPath id="p32t0k"><path d="M166.7 54.3L608 204L473.3 341.2L32 191.4Z"/></clipPath><filter id="p32t0b1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1"/></filter><filter id="p32t0b2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2"/></filter><filter id="p32t0b3" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter><filter id="p32t0b4" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter><filter id="p32t0b6" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter></defs><g data-part="plinth" style="--i:0"><path class="p-plaster" d="M32 191.5L473.3 341.3L608 204.1L166.7 54.4Z"/><path class="p-right" d="M32 195.9L473.3 345.6L473.3 341.3L32 191.5ZM473.3 345.6L608 208.5L608 204.1L473.3 341.3Z"/><path class="p-line2" stroke-width="1.40" stroke-opacity="0.56" d="M473.3 345.6L608 208.5"/><path class="p-line2" stroke-width="1.40" stroke-opacity="0.49" d="M608 208.5L608 204.1"/><path class="p-line2" stroke-width="0.72" stroke-opacity="0.24" d="M608 204.1L473.3 341.3"/><path class="p-line2" stroke-width="0.72" stroke-opacity="0.26" d="M473.3 341.3L473.3 345.6"/><path class="p-line2" stroke-width="1.40" stroke-opacity="0.48" d="M32 195.9L32 191.5"/><path class="p-line2" stroke-width="1.40" stroke-opacity="0.42" d="M32 191.5L166.7 54.4M608 204.1L166.7 54.4"/><path class="p-line2" stroke-width="0.72" stroke-opacity="0.23" d="M32 191.5L473.3 341.3"/><path class="p-line2" stroke-width="1.40" stroke-opacity="0.55" d="M473.3 345.6L32 195.9"/></g><g><path class="p-shadow" opacity="0.276" filter="url(#p32t0b6)" d="M167.2 57.3L612 208.3L475.3 347.5L30.5 196.5Z"/></g><g clip-path="url(#p32t0k)"><g opacity="0.160" filter="url(#p32t0b2)"><path class="p-shadow" d="M144.8 132.6L187 146.9L211.3 122.1L169.2 107.8ZM185.3 146.6L209.7 121.8L211.3 122.1L187 146.9ZM143.2 132.3L185.3 146.6L187 146.9L144.8 132.6ZM130.8 134.7L283.5 186.5L317.6 151.8L164.9 100ZM120.9 132.8L273.6 184.6L283.5 186.5L130.8 134.7ZM273.6 184.6L307.7 149.9L317.6 151.8L283.5 186.5ZM193.6 149L235.7 163.3L260.1 138.5L217.9 124.2ZM233.1 162.8L257.5 138L260.1 138.5L235.7 163.3ZM191 148.5L233.1 162.8L235.7 163.3L193.6 149ZM242.2 165.4L284.3 179.7L308.7 154.9L266.5 140.6ZM280.9 179L305.2 154.3L308.7 154.9L284.3 179.7ZM238.7 164.7L280.9 179L284.3 179.7L242.2 165.4ZM99.4 191.1L156.6 210.5L190.6 175.8L133.5 156.4ZM153.2 209.9L187.3 175.2L190.6 175.8L156.6 210.5ZM96.1 190.5L153.2 209.9L156.6 210.5L99.4 191.1ZM114.9 189.3L157.1 203.6L181.4 178.8L139.2 164.5ZM153.9 203L178.3 178.2L181.4 178.8L157.1 203.6ZM111.8 188.7L153.9 203L157.1 203.6L114.9 189.3ZM303.9 192.8L361 212.2L395.1 177.5L338 158.1ZM346.7 209.4L380.8 174.7L395.1 177.5L361 212.2ZM289.5 190L346.7 209.4L361 212.2L303.9 192.8ZM320 191.1L362.1 205.4L386.5 180.6L344.3 166.3ZM358.4 204.7L382.7 179.9L386.5 180.6L362.1 205.4ZM316.2 190.4L358.4 204.7L362.1 205.4L320 191.1ZM196.6 215.8L238.8 230.1L263.1 205.3L221 191ZM230.3 228.4L254.7 203.7L263.1 205.3L238.8 230.1ZM188.2 214.1L230.3 228.4L238.8 230.1L196.6 215.8ZM389.1 215.1L431.3 229.4L455.6 204.7L413.4 190.4ZM428.7 229L453.1 204.2L455.6 204.7L431.3 229.4ZM386.6 214.6L428.7 229L431.3 229.4L389.1 215.1ZM175.8 216.6L280.7 252.2L314.8 217.5L209.9 181.9ZM169.2 215.3L274.1 250.9L280.7 252.2L175.8 216.6ZM274.1 250.9L308.2 216.2L314.8 217.5L280.7 252.2ZM374.2 217.1L526.9 268.9L561 234.2L408.3 182.4ZM362.6 214.8L515.3 266.7L526.9 268.9L374.2 217.1ZM515.3 266.7L549.4 232L561 234.2L526.9 268.9ZM242 231.5L284.2 245.8L308.5 221L266.4 206.7ZM278.1 244.7L302.4 219.9L308.5 221L284.2 245.8ZM235.9 230.4L278.1 244.7L284.2 245.8L242 231.5ZM437.5 231.5L479.6 245.8L504 221L461.8 206.7ZM476.5 245.2L500.9 220.4L504 221L479.6 245.8ZM434.3 230.9L476.5 245.2L479.6 245.8L437.5 231.5ZM485.3 247.7L527.4 262L551.8 237.2L509.6 222.9ZM524.3 261.4L548.6 236.6L551.8 237.2L527.4 262ZM482.1 247.1L524.3 261.4L527.4 262L485.3 247.7ZM324.5 258.1L366.6 272.4L391 247.6L348.8 233.3ZM352.8 269.8L377.2 245L391 247.6L366.6 272.4ZM310.7 255.5L352.8 269.8L366.6 272.4L324.5 258.1ZM298.3 257.9L451 309.7L485.1 275L332.4 223.2ZM290 256.3L442.8 308.1L451 309.7L298.3 257.9ZM442.8 308.1L476.8 273.4L485.1 275L451 309.7ZM361.6 272.3L403.8 286.6L428.1 261.8L385.9 247.5ZM400.6 286L425 261.2L428.1 261.8L403.8 286.6ZM358.5 271.7L400.6 286L403.8 286.6L361.6 272.3ZM409.4 288.5L451.5 302.8L475.9 278L433.7 263.7ZM448.4 302.2L472.7 277.4L475.9 278L451.5 302.8ZM406.2 287.9L448.4 302.2L451.5 302.8L409.4 288.5Z"/></g></g><g data-part="v-c" style="--i:1"><g clip-path="url(#p32t0c0)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b1)" d="M158.2 89.7L201 104.2L176.3 129.3L133.5 114.8Z"/></g><g clip-path="url(#p32t0c1)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b3)" d="M159.2 98.1L313.7 150.6L278.6 186.3L124.1 133.9Z"/></g><g clip-path="url(#p32t0c2)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b1)" d="M206.4 106L249.2 120.5L224.5 145.6L181.7 131.1Z"/></g><g clip-path="url(#p32t0c3)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b1)" d="M254.6 122.3L297.4 136.8L272.7 161.9L229.9 147.4Z"/></g><path class="p-top" d="M133.2 112L175.4 126.3L199.7 101.5L157.6 87.2Z"/><path class="p-right" d="M175.4 128.9L199.7 104.2L199.7 101.5L175.4 126.3ZM133.2 114.6L175.4 128.9L175.4 126.3L133.2 112Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.62" d="M175.4 128.9L199.7 104.2M133.2 114.6L133.2 112"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.60" d="M199.7 104.2L199.7 101.5M133.2 112L157.6 87.2"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.26" d="M199.7 101.5L175.4 126.3M133.2 112L175.4 126.3"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.27" d="M175.4 126.3L175.4 128.9"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.59" d="M199.7 101.5L157.6 87.2"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.63" d="M175.4 128.9L133.2 114.6"/><path class="p-top" d="M120.9 117.1L273.6 168.9L307.7 134.2L155 82.4Z"/><path class="p-right" d="M120.9 132.8L273.6 184.6L273.6 168.9L120.9 117.1ZM273.6 184.6L307.7 149.9L307.7 134.2L273.6 168.9Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.66" d="M273.6 184.6L307.7 149.9"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.64" d="M307.7 149.9L307.7 134.2M273.6 184.6L120.9 132.8"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.28" d="M307.7 134.2L273.6 168.9M120.9 117.1L273.6 168.9"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.29" d="M273.6 168.9L273.6 184.6"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.61" d="M120.9 132.8L120.9 117.1M307.7 134.2L155 82.4"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.60" d="M120.9 117.1L155 82.4"/><path class="p-top" d="M181 126.7L223.2 141L247.5 116.3L205.4 101.9Z"/><path class="p-right" d="M223.2 145.2L247.5 120.4L247.5 116.3L223.2 141ZM181 130.9L223.2 145.2L223.2 141L181 126.7Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.64" d="M223.2 145.2L247.5 120.4M181 130.9L181 126.7"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.63" d="M247.5 120.4L247.5 116.3"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.27" d="M247.5 116.3L223.2 141M181 126.7L223.2 141"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.28" d="M223.2 141L223.2 145.2"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.62" d="M181 126.7L205.4 101.9M247.5 116.3L205.4 101.9"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.65" d="M223.2 145.2L181 130.9"/><path class="p-top" d="M228.8 141.6L271 155.9L295.3 131.2L253.2 116.8Z"/><path class="p-right" d="M271 161.4L295.3 136.6L295.3 131.2L271 155.9ZM228.8 147.1L271 161.4L271 155.9L228.8 141.6Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.66" d="M271 161.4L295.3 136.6M228.8 147.1L228.8 141.6"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.65" d="M295.3 136.6L295.3 131.2M228.8 141.6L253.2 116.8"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.28" d="M295.3 131.2L271 155.9"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.29" d="M271 155.9L271 161.4M228.8 141.6L271 155.9"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.64" d="M295.3 131.2L253.2 116.8"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.67" d="M271 161.4L228.8 147.1"/></g><g data-part="v-p" style="--i:2"><g clip-path="url(#p32t0c4)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b1)" d="M131.5 155.6L189.5 175.3L155 210.5L97 190.8Z"/></g><g clip-path="url(#p32t0c5)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b1)" d="M134.1 158L176.9 172.5L152.2 197.7L109.4 183.1Z"/></g><path class="p-top" d="M96.1 185.2L153.2 204.6L187.3 169.9L130.2 150.5Z"/><path class="p-right" d="M153.2 209.9L187.3 175.2L187.3 169.9L153.2 204.6ZM96.1 190.5L153.2 209.9L153.2 204.6L96.1 185.2Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.69" d="M153.2 209.9L187.3 175.2M96.1 190.5L96.1 185.2"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.67" d="M187.3 175.2L187.3 169.9M96.1 185.2L130.2 150.5"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.29" d="M187.3 169.9L153.2 204.6"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.30" d="M153.2 204.6L153.2 209.9M96.1 185.2L153.2 204.6"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.66" d="M187.3 169.9L130.2 150.5"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.70" d="M153.2 209.9L96.1 190.5"/><path class="p-top" d="M108.4 177.8L150.6 192.2L175 167.4L132.8 153.1Z"/><path class="p-right" d="M150.6 197.1L175 172.3L175 167.4L150.6 192.2ZM108.4 182.8L150.6 197.1L150.6 192.2L108.4 177.8Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.69" d="M150.6 197.1L175 172.3M108.4 182.8L108.4 177.8"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.68" d="M175 172.3L175 167.4M108.4 177.8L132.8 153.1"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.29" d="M175 167.4L150.6 192.2"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.30" d="M150.6 192.2L150.6 197.1M108.4 177.8L150.6 192.2"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.67" d="M175 167.4L132.8 153.1"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.70" d="M150.6 197.1L108.4 182.8"/></g><g data-part="v-IV" style="--i:3"><g clip-path="url(#p32t0c6)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b4)" d="M329.8 155.4L389.5 175.7L353.9 211.9L294.2 191.6Z"/></g><g clip-path="url(#p32t0c7)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b1)" d="M327.8 140.1L370.7 154.6L345.9 179.8L303.1 165.2Z"/></g><path class="p-top" d="M289.5 167.3L346.7 186.7L380.8 152L323.6 132.6Z"/><path class="p-right" d="M346.7 209.4L380.8 174.7L380.8 152L346.7 186.7ZM289.5 190L346.7 209.4L346.7 186.7L289.5 167.3Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.69" d="M346.7 209.4L380.8 174.7"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.67" d="M380.8 174.7L380.8 152M380.8 152L323.6 132.6"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.30" d="M380.8 152L346.7 186.7M289.5 167.3L346.7 186.7"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.31" d="M346.7 186.7L346.7 209.4"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.70" d="M289.5 190L289.5 167.3M346.7 209.4L289.5 190"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.68" d="M289.5 167.3L323.6 132.6"/><path class="p-top" d="M301.9 159L344.1 173.3L368.4 148.5L326.2 134.2Z"/><path class="p-right" d="M344.1 179.2L368.4 154.4L368.4 148.5L344.1 173.3ZM301.9 164.9L344.1 179.2L344.1 173.3L301.9 159Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.70" d="M344.1 179.2L368.4 154.4M301.9 164.9L301.9 159"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.69" d="M368.4 154.4L368.4 148.5M301.9 159L326.2 134.2"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.30" d="M368.4 148.5L344.1 173.3M301.9 159L344.1 173.3"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.31" d="M344.1 173.3L344.1 179.2"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.68" d="M368.4 148.5L326.2 134.2"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.71" d="M344.1 179.2L301.9 164.9"/></g><g data-part="v-I" style="--i:4"><g clip-path="url(#p32t0c8)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b2)" d="M209.5 177.6L253.2 192.4L228 218.1L184.3 203.3Z"/></g><g clip-path="url(#p32t0c10)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b2)" d="M206.1 180.6L312.2 216.6L277.4 252L171.3 216Z"/></g><g clip-path="url(#p32t0c12)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b2)" d="M256.3 193.8L299.5 208.5L274.6 233.9L231.3 219.2Z"/></g><path class="p-top" d="M181.5 188.9L223.7 203.2L248 178.5L205.9 164.2Z"/><path class="p-right" d="M223.7 216.7L248 191.9L248 178.5L223.7 203.2ZM181.5 202.4L223.7 216.7L223.7 203.2L181.5 188.9Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.73" d="M223.7 216.7L248 191.9M181.5 202.4L181.5 188.9"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.72" d="M248 191.9L248 178.5M181.5 188.9L205.9 164.2"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.31" d="M248 178.5L223.7 203.2"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.32" d="M223.7 203.2L223.7 216.7M181.5 188.9L223.7 203.2"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.71" d="M248 178.5L205.9 164.2"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.74" d="M223.7 216.7L181.5 202.4"/><path class="p-top" d="M169.2 204.8L274.1 240.4L308.2 205.7L203.2 170.1Z"/><path class="p-right" d="M169.2 215.3L274.1 250.9L274.1 240.4L169.2 204.8ZM274.1 250.9L308.2 216.2L308.2 205.7L274.1 240.4Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.75" d="M274.1 250.9L308.2 216.2M274.1 250.9L169.2 215.3"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.73" d="M308.2 216.2L308.2 205.7M169.2 215.3L169.2 204.8"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.32" d="M308.2 205.7L274.1 240.4M169.2 204.8L274.1 240.4"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.33" d="M274.1 240.4L274.1 250.9"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.71" d="M169.2 204.8L203.2 170.1M308.2 205.7L203.2 170.1"/><path class="p-top" d="M229.3 208.9L271.5 223.2L295.8 198.4L253.7 184.1Z"/><path class="p-right" d="M271.5 232.9L295.8 208.1L295.8 198.4L271.5 223.2ZM229.3 218.6L271.5 232.9L271.5 223.2L229.3 208.9Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.75" d="M271.5 232.9L295.8 208.1"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.74" d="M295.8 208.1L295.8 198.4M229.3 208.9L253.7 184.1"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.32" d="M295.8 198.4L271.5 223.2M229.3 208.9L271.5 223.2"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.33" d="M271.5 223.2L271.5 232.9"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.76" d="M229.3 218.6L229.3 208.9M271.5 232.9L229.3 218.6"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.73" d="M295.8 198.4L253.7 184.1"/></g><g data-part="v-III" style="--i:5"><g clip-path="url(#p32t0c9)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b1)" d="M400.4 169.2L443.2 183.7L418.5 208.8L375.7 194.3Z"/></g><g clip-path="url(#p32t0c11)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b3)" d="M401.7 180.2L556.4 232.7L521.2 268.6L366.4 216.1Z"/></g><g clip-path="url(#p32t0c13)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b1)" d="M448.4 185.4L491.2 200L466.5 225.1L423.7 210.6Z"/></g><g clip-path="url(#p32t0c14)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b1)" d="M496.2 201.6L539 216.2L514.3 241.3L471.5 226.8Z"/></g><path class="p-top" d="M375 190L417.1 204.3L441.5 179.5L399.3 165.2Z"/><path class="p-right" d="M417.1 208.4L441.5 183.6L441.5 179.5L417.1 204.3ZM375 194L417.1 208.4L417.1 204.3L375 190Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.74" d="M417.1 208.4L441.5 183.6M375 194L375 190M417.1 208.4L375 194"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.72" d="M441.5 183.6L441.5 179.5M375 190L399.3 165.2"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.31" d="M441.5 179.5L417.1 204.3"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.32" d="M417.1 204.3L417.1 208.4M375 190L417.1 204.3"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.71" d="M441.5 179.5L399.3 165.2"/><path class="p-top" d="M362.6 196.5L515.3 248.3L549.4 213.6L396.7 161.8Z"/><path class="p-right" d="M362.6 214.8L515.3 266.7L515.3 248.3L362.6 196.5ZM515.3 266.7L549.4 232L549.4 213.6L515.3 248.3Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.77" d="M515.3 266.7L549.4 232"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.75" d="M549.4 232L549.4 213.6"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.33" d="M549.4 213.6L515.3 248.3M362.6 196.5L515.3 248.3"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.34" d="M515.3 248.3L515.3 266.7"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.73" d="M362.6 214.8L362.6 196.5M549.4 213.6L396.7 161.8"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.71" d="M362.6 196.5L396.7 161.8"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.76" d="M515.3 266.7L362.6 214.8"/><path class="p-top" d="M422.8 205.3L464.9 219.6L489.3 194.8L447.1 180.5Z"/><path class="p-right" d="M464.9 224.6L489.3 199.8L489.3 194.8L464.9 219.6ZM422.8 210.3L464.9 224.6L464.9 219.6L422.8 205.3Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.76" d="M464.9 224.6L489.3 199.8M422.8 210.3L422.8 205.3"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.74" d="M489.3 199.8L489.3 194.8M422.8 205.3L447.1 180.5M489.3 194.8L447.1 180.5"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.32" d="M489.3 194.8L464.9 219.6"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.33" d="M464.9 219.6L464.9 224.6M422.8 205.3L464.9 219.6"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.77" d="M464.9 224.6L422.8 210.3"/><path class="p-top" d="M470.5 221.5L512.7 235.8L537.1 211L494.9 196.7Z"/><path class="p-right" d="M512.7 240.8L537.1 216L537.1 211L512.7 235.8ZM470.5 226.5L512.7 240.8L512.7 235.8L470.5 221.5Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.78" d="M512.7 240.8L537.1 216M470.5 226.5L470.5 221.5"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.77" d="M537.1 216L537.1 211M470.5 221.5L494.9 196.7"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.33" d="M537.1 211L512.7 235.8M470.5 221.5L512.7 235.8"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.34" d="M512.7 235.8L512.7 240.8"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.76" d="M537.1 211L494.9 196.7"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.79" d="M512.7 240.8L470.5 226.5"/></g><g data-part="v-II" style="--i:6"><g clip-path="url(#p32t0c15)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b4)" d="M332.7 216L377.3 231.2L351.5 257.4L306.9 242.3Z"/></g><g clip-path="url(#p32t0c16)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b2)" d="M327.7 221.6L481.9 273.9L446.9 309.5L292.7 257.2Z"/></g><g clip-path="url(#p32t0c17)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b1)" d="M375.9 232.1L418.6 246.7L393.9 271.8L351.1 257.3Z"/></g><g clip-path="url(#p32t0c18)"><path class="p-shadow" opacity="0.276" filter="url(#p32t0b1)" d="M423.6 248.4L466.4 262.9L441.7 288L398.9 273.5Z"/></g><path class="p-top" d="M302.4 218.9L344.6 233.2L368.9 208.4L326.7 194.1Z"/><path class="p-right" d="M344.6 255.1L368.9 230.3L368.9 208.4L344.6 233.2ZM302.4 240.8L344.6 255.1L344.6 233.2L302.4 218.9Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.79" d="M344.6 255.1L368.9 230.3M302.4 240.8L302.4 218.9M302.4 218.9L326.7 194.1"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.78" d="M368.9 230.3L368.9 208.4M368.9 208.4L326.7 194.1"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.34" d="M368.9 208.4L344.6 233.2M344.6 233.2L344.6 255.1M302.4 218.9L344.6 233.2"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.80" d="M344.6 255.1L302.4 240.8"/><path class="p-top" d="M290 243.2L442.8 295L476.8 260.3L324.1 208.5Z"/><path class="p-right" d="M290 256.3L442.8 308.1L442.8 295L290 243.2ZM442.8 308.1L476.8 273.4L476.8 260.3L442.8 295Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.82" d="M442.8 308.1L476.8 273.4"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.81" d="M476.8 273.4L476.8 260.3M442.8 308.1L290 256.3"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.35" d="M476.8 260.3L442.8 295M290 243.2L442.8 295"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.36" d="M442.8 295L442.8 308.1"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.79" d="M290 256.3L290 243.2"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.77" d="M290 243.2L324.1 208.5"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.78" d="M476.8 260.3L324.1 208.5"/><path class="p-top" d="M350.2 252L392.3 266.3L416.7 241.5L374.5 227.2Z"/><path class="p-right" d="M392.3 271.3L416.7 246.5L416.7 241.5L392.3 266.3ZM350.2 257L392.3 271.3L392.3 266.3L350.2 252Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.81" d="M392.3 271.3L416.7 246.5M350.2 257L350.2 252"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.80" d="M416.7 246.5L416.7 241.5M350.2 252L374.5 227.2"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.34" d="M416.7 241.5L392.3 266.3"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.35" d="M392.3 266.3L392.3 271.3M350.2 252L392.3 266.3"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.79" d="M416.7 241.5L374.5 227.2"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.82" d="M392.3 271.3L350.2 257"/><path class="p-top" d="M398 268.2L440.1 282.5L464.5 257.7L422.3 243.4Z"/><path class="p-right" d="M440.1 287.5L464.5 262.7L464.5 257.7L440.1 282.5ZM398 273.2L440.1 287.5L440.1 282.5L398 268.2Z"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.83" d="M440.1 287.5L464.5 262.7M398 273.2L398 268.2"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.82" d="M464.5 262.7L464.5 257.7M398 268.2L422.3 243.4"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.35" d="M464.5 257.7L440.1 282.5M398 268.2L440.1 282.5"/><path class="p-line" stroke-width="0.72" stroke-opacity="0.36" d="M440.1 282.5L440.1 287.5"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.81" d="M464.5 257.7L422.3 243.4"/><path class="p-sil" stroke-width="1.40" stroke-opacity="0.84" d="M440.1 287.5L398 273.2"/></g><g class="p-num" text-anchor="middle" dominant-baseline="central"><text x="141.7" y="172.2">00</text><text x="214.8" y="183.3">01</text><text x="262.6" y="203.2">02</text><text x="335.7" y="213.2">03</text><text x="383.4" y="246.3">04</text><text x="431.2" y="262.5">05</text><text x="408.2" y="184.3">08</text><text x="456.0" y="199.6">07</text><text x="503.8" y="215.8">06</text><text x="335.1" y="153.3">09</text><text x="166.5" y="106.3">12</text><text x="214.3" y="121.1">11</text><text x="262.1" y="136.0">10</text></g><g class="p-ch" text-anchor="middle" dominant-baseline="central"><text x="109.5" y="215.6">PROLOGUE</text><text x="206.5" y="248.5">I · THE BUILDERS</text><text x="351.2" y="297.6">II · THE MONEY</text><text x="486.6" y="173.0">III · TASTE</text><text x="365.7" y="127.6">IV · THE DESK</text><text x="244.8" y="93.6">CODA</text></g></svg></div>
+      <figcaption>
+        <p class="wp-bar"><span class="wp-t" data-rest="The floor plan, in walking order" aria-live="polite"></span><a class="wp-go" href="/world">Go<span class="vh"> to this room</span></a></p>
+        <p class="wp-d" id="wp-d">A prologue, four chapters and a coda. Pick a room to walk straight in.</p>
+        <ol class="wp-links" aria-label="Rooms of the World"><li><a href="/world#hello" data-part="hello" data-no="00" data-name="Hi, Friend" data-n=""><b>00</b>Hi, Friend</a></li><li><a href="/world#founders" data-part="founders" data-no="01" data-name="Case Files" data-n="25 files"><b>01</b>Case Files <small>25 files</small></a></li><li><a href="/world#no" data-part="no" data-no="02" data-name="Museum of No" data-n="23 refusals"><b>02</b>Museum of No <small>23 refusals</small></a></li><li><a href="/world#lineage" data-part="lineage" data-no="03" data-name="Lineage of Capital" data-n="9 financiers"><b>03</b>Lineage of Capital <small>9 financiers</small></a></li><li><a href="/world#allocators" data-part="allocators" data-no="04" data-name="Allocators" data-n="10 investors"><b>04</b>Allocators <small>10 investors</small></a></li><li><a href="/world#numbers" data-part="numbers" data-no="05" data-name="Numbers" data-n="18 numbers"><b>05</b>Numbers <small>18 numbers</small></a></li><li><a href="/world#gallery" data-part="gallery" data-no="06" data-name="The Gallery" data-n="10 artists"><b>06</b>The Gallery <small>10 artists</small></a></li><li><a href="/world#cabinet" data-part="cabinet" data-no="07" data-name="Cabinet of Taste" data-n="8 places"><b>07</b>Cabinet of Taste <small>8 places</small></a></li><li><a href="/world#canon" data-part="canon" data-no="08" data-name="The Canon" data-n="18 books"><b>08</b>The Canon <small>18 books</small></a></li><li><a href="/world#desk" data-part="desk" data-no="09" data-name="The Desk" data-n=""><b>09</b>The Desk</a></li><li><a href="/world#experiments" data-part="experiments" data-no="10" data-name="Experiments" data-n="47 machines"><b>10</b>Experiments <small>47 machines</small></a></li><li><a href="/world#board" data-part="board" data-no="11" data-name="The Blackboard" data-n=""><b>11</b>The Blackboard</a></li><li><a href="/world#colophon" data-part="colophon" data-no="12" data-name="Colophon" data-n=""><b>12</b>Colophon</a></li></ol>
+      </figcaption>
+    </figure>
+    <div class="dd-copy">
+      <span class="lbl">The World · <span data-count="rooms">13</span> rooms</span>
+      <h2>The essays end here.</h2>
+      <p class="dd-p">The World begins: 25 founder case files, 600 years of capital, 10 artists, and a blackboard you can draw on.</p>
+      <a class="ps-cap ps-cap--foil" href="/world">Enter the World<span class="arr" aria-hidden="true">&#8594;</span></a>
+    </div>
+  </div>
+  <div class="dd dd--lab" data-ground="espresso" id="labDoor">
+    <div class="spot" aria-hidden="true"></div>
+    <figure class="lab-fig">
+      <a class="lab-art" href="/experiments#exp-2" tabindex="-1" aria-hidden="true"><svg class="ld-doors" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><path class="d-floor" d="M20 450H780"/><g transform="translate(56 120)"><path class="d-case" d="M-10 330V-10H206V330"/><rect class="d-panel" x="0" y="0" width="196" height="330"/><rect class="d-inset" x="20" y="20" width="156" height="118"/><rect class="d-inset" x="20" y="154" width="156" height="156"/><circle class="d-knob" cx="176" cy="164" r="6"/><path class="d-pick" d="M-4 330V-4H200V330"/><text class="d-no" x="98" y="-26" text-anchor="middle">1</text></g><g transform="translate(302 120)"><path class="d-case" d="M-10 330V-10H206V330"/><rect class="d-panel" x="0" y="0" width="196" height="330"/><rect class="d-inset" x="20" y="20" width="156" height="118"/><rect class="d-inset" x="20" y="154" width="156" height="156"/><circle class="d-knob" cx="176" cy="164" r="6"/><text class="d-no" x="98" y="-26" text-anchor="middle">2</text></g><g transform="translate(548 120)"><path class="d-case" d="M-10 330V-10H206V330"/><rect class="d-void" x="0" y="0" width="196" height="330"/><path class="d-room" d="M58 306H196"/><path class="d-leaf d-swing" d="M0 0L58 20V308L0 330Z"/><text class="d-no" x="98" y="-26" text-anchor="middle">3</text></g></svg><span class="lab-tag lt-pick"><span>Your pick</span></span><span class="lab-tag lt-goat"><span>Goat</span></span></a>
+      <figcaption>
+        <p class="wp-bar"><a class="wp-t ld-go" href="/experiments#exp-2">In the Window &middot; Three doors<span class="arr" aria-hidden="true">&#8594;</span></a></p>
+        <p class="wp-d">Three doors, one car. You pick one, the host opens a door on a goat, and you choose: keep or switch.</p>
+      </figcaption>
+    </figure>
+    <div class="dd-copy">
+      <span class="lbl">The Lab · Experiments</span>
+      <h2><span data-count="machines" data-count-word="Cap">Forty-seven</span> machines in <span data-count="wings" data-count-word="">twelve</span> wings.</h2>
+      <p class="dd-p">Each one turns an idea into a decision you make yourself.</p>
+      <a class="ps-cap ps-cap--foil" href="/experiments">Enter the Lab<span class="arr" aria-hidden="true">&#8594;</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="about-strip" aria-labelledby="abH">
+  <h2 class="lbl lbl--ink" id="abH">About</h2>
+  <p class="ab-p">I&rsquo;m Pedrum Shokouhi. Builder by instinct, endlessly curious about technology and obsessed with how companies get built, funded, and run.</p>
+  <div class="ab-x">
+    <div class="signature" aria-label="Signature of Pedrum Shokouhi"><div class="name" aria-hidden="true">Pedrum Shokouhi<i>.</i></div></div>
+    <a class="lnk-more" href="/about">More about Pedrum<span class="arr" aria-hidden="true">&#8594;</span></a>
+  </div>
+</section>
+
+<footer class="footer">
+  <a class="f-mark" href="/" aria-label="P.S., home">P<i>.</i>S<i>.</i></a>
+  <div class="cols">
+    <span>&copy; 2026 Pedrum Shokouhi</span>
+    <a href="mailto:pedrumshokouhi@gmail.com">Write to me</a>
+    <a href="https://www.linkedin.com/in/pedrumshokouhi/" target="_blank" rel="noopener">LinkedIn<span class="vh"> (opens in a new tab)</span></a>
+  </div>
+  <nav class="cols" aria-label="Footer">
+    <a href="/#writing">All essays</a>
+    <a href="/world">The World</a>
+    <a href="/experiments">Experiments</a>
+    <a href="#top" class="f-top">Back to top<span class="arr arr--up" aria-hidden="true">&#8593;</span></a>
+  </nav>
+</footer>
+
+<script type="application/json" id="stackLeaves">[{"no":"012","title":"The Referee Wears the Home Team’s Jersey","href":"/writing/the-referee-wears-the-home-teams-jersey","min":"11 min","credit":"Joseph Keppler · Public domain","img":{"w":5111,"h":3372,"focal":"50% 30%"}},{"no":"011","title":"The Intention Economy","href":"/writing/the-intention-economy","min":"8 min","credit":"Webster & Stevens · Public domain","img":{"w":640,"h":518,"focal":"50% 40%"}},{"no":"010","title":"We Built Machines to Save Time, and Taught Them to Occupy It","href":"/writing/we-built-machines-to-save-time","min":"8 min","credit":"William Henry Jackson · Public domain","img":{"w":8902,"h":3028,"focal":"50% 50%"}},{"no":"009","title":"The Last Interface","href":"/writing/the-last-interface","min":"9 min","credit":"U.S. Army photograph · Public domain","img":{"w":1340,"h":1024,"focal":"50% 40%"}},{"no":"008","title":"Twenty Slots","href":"/writing/twenty-slots","min":"6 min","credit":"Harke · CC BY-SA 3.0","img":{"w":3093,"h":1386,"focal":"50% 50%"}},{"no":"007","title":"The Herd Has No Head","href":"/writing/the-herd-has-no-head","min":"7 min","credit":"Hendrik Gerritsz Pot · Public domain","img":{"w":3296,"h":2404,"focal":"50% 45%"}},{"no":"006","title":"Rent Is the Punchline","href":"/writing/rent-is-the-punchline","min":"6 min","credit":"Jerry Huddleston · CC BY 2.0","img":{"w":1024,"h":678,"focal":"50% 45%"}},{"no":"005","title":"The Two-Thirds Door","href":"/writing/the-two-thirds-door","min":"6 min","credit":"","img":null},{"no":"004","title":"The Ten-Minute Turn","href":"/writing/the-ten-minute-turn","min":"6 min","credit":"Tequask · CC BY-SA 4.0","img":{"w":2411,"h":1548,"focal":"50% 55%"}},{"no":"003","title":"A Sip Is Not a Can","href":"/writing/a-sip-is-not-a-can","min":"6 min","credit":"nagualdesign · CC0","img":{"w":600,"h":900,"focal":"50% 50%"}},{"no":"002","title":"The Planes That Came Home","href":"/writing/the-planes-that-came-home","min":"6 min","credit":"U.S. Army Air Forces · Public domain","img":{"w":1800,"h":1435,"focal":"50% 50%"}},{"no":"001","title":"The Laugh in the Boardroom","href":"/writing/the-laugh-in-the-boardroom","min":"6 min","credit":"Coasterlover1994 · CC BY-SA 4.0","img":{"w":4032,"h":1960,"focal":"50% 50%"}}]</script>
+<script>
+(function () {
+  var root = document.documentElement;
+  var rmq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function reduced() { return rmq.matches; }
+  var hero = null;
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var hasIO = 'IntersectionObserver' in window;
+
+  /* ---------- Back lands where it left: the list is already open (head script), the scroll comes back here ---------- */
+  var idx = document.getElementById('writing'), more = document.getElementById('moreEssays');
+  function navType() { try { var e = performance.getEntriesByType('navigation')[0]; return e ? e.type : 'navigate'; } catch (x) { return 'navigate'; } }
+  if (root.classList.contains('ps-more')) { idx.classList.add('open'); if (more) more.setAttribute('aria-expanded', 'true'); }
+  function restoreY() {
+    if (location.hash.length > 1) return;
+    var t = navType(), y = 0;
+    if (t !== 'back_forward' && t !== 'reload') return;
+    try { y = +sessionStorage.getItem('psHomeY') || 0; } catch (e) {}
+    if (y > 0) window.scrollTo(0, y);
+  }
+  restoreY();
+  window.addEventListener('pageshow', function (e) { if (!e.persisted) restoreY(); });
+  window.addEventListener('pagehide', function () { try { sessionStorage.setItem('psHomeY', String(Math.round(window.scrollY || 0))); } catch (e) {} });
+
+  /* the more-toggle: seven rows open, rise in order, and focus lands on the first. The page remembers it for Back */
+  if (more) more.addEventListener('click', function () {
+    more.setAttribute('aria-expanded', 'true');
+    idx.classList.add('open');
+    try { sessionStorage.setItem('psMoreOpen', '1'); } catch (e) {}
+    var shown = idx.querySelectorAll('.essay.more');
+    if (window.PS_REVEAL) window.PS_REVEAL.cascade(shown);
+    if (shown[0]) shown[0].focus({ preventScroll: true });
+  });
+
+  /* the pen waits for its ink, and for the reader: it writes once Great Vibes has arrived (or 800ms pass) and the line is in view */
+  (function () {
+    var done = false;
+    function ready() { if (done) return; done = true; root.classList.add('sig-ready'); }
+    try {
+      if (!document.fonts || !document.fonts.load) ready();
+      else { setTimeout(ready, 800); document.fonts.load('48px "Great Vibes"', 'Pedrum Shokouhi.').then(ready, ready); }
+    } catch (e) { ready(); }
+    var sig = document.querySelector('.about-strip .signature');
+    if (!sig) return;
+    if (!hasIO) { sig.classList.add('is-in'); return; }
+    var io = new IntersectionObserver(function (es) {
+      if (es[es.length - 1].isIntersecting) { sig.classList.add('is-in'); io.disconnect(); }
+    }, { rootMargin: '0px 0px -12% 0px' });
+    io.observe(sig);
+  })();
+
+  var rows = document.querySelectorAll('#writing a.essay');
+  var mast = document.querySelector('.masthead'), h1 = mast.querySelector('h1');
+
+  /* one stamp per screen: the nav mark's periods stay ink while the masthead's own P.S. is in view */
+  var navMark = document.querySelector('.nav .mark');
+  if (navMark) {
+    if (hasIO) new IntersectionObserver(function (es) { navMark.classList.toggle('is-quiet', es[es.length - 1].isIntersecting); }).observe(h1);
+    else navMark.classList.remove('is-quiet');
+  }
+
+  /* read state: essays finished to the end carry a foil pip (theme.js records them) */
+  try {
+    var read = JSON.parse(localStorage.getItem('psReadEssays') || '[]');
+    if (Array.isArray(read)) read.forEach(function (slug) {
+      if (typeof slug !== 'string' || !/^[a-z0-9-]+$/.test(slug)) return;
+      var a = document.querySelector('a.essay[href="/writing/' + slug + '"]');
+      if (!a || a.classList.contains('is-read')) return;
+      a.classList.add('is-read');
+      var no = a.querySelector('.no');
+      if (!no) return;
+      var s = document.createElement('span');
+      s.className = 'vh'; s.textContent = ' Read';
+      no.appendChild(s);
+    });
+  } catch (e) {}
+
+  /* chalk trail: fine pointers only, pressure from speed, four alpha passes per frame, idle when still */
+  var trail = document.getElementById('trail');
+  if (trail && (!fine || reduced())) { trail.remove(); trail = null; }
+  if (trail) {
+    var tctx = trail.getContext('2d');
+    var strokes = [], current = null, drawing = false, ink = [18, 17, 16];
+    var LIFE = 700, NA = 4, NW = 3;
+    var sizeTrail = function () {
+      var d = Math.min(window.devicePixelRatio || 1, 1.5);
+      trail.width = Math.round(innerWidth * d); trail.height = Math.round(innerHeight * d);
+      tctx.setTransform(d, 0, 0, d, 0, 0);
+      tctx.lineCap = 'round'; tctx.lineJoin = 'round';
+    };
+    var readInk = function () { ink = getComputedStyle(document.body).color.match(/\d+/g) || [18, 17, 16]; };
+    sizeTrail(); readInk();
+    window.addEventListener('resize', sizeTrail);
+    window.addEventListener('pstheme', readInk);
+    var mid = function (a, b) { return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }; };
+    var render = function () {
+      tctx.clearRect(0, 0, innerWidth, innerHeight);
+      var now = performance.now(), keep = [], bk = [];
+      for (var s = 0; s < strokes.length; s++) {
+        var st = strokes[s], p = st.pts, alive = false;
+        while (p.length > 2 && now - p[1].t > LIFE) p.shift();
+        for (var i = 1; i < p.length; i++) {
+          var age = now - p[i].t;
+          if (age > LIFE) continue;
+          alive = true;
+          var a = Math.min(NA - 1, Math.floor(age / LIFE * NA));
+          var w = Math.min(NW - 1, Math.floor(Math.min(1.6, p[i].v * .9) / 1.6 * NW));
+          var from = i === 1 ? p[0] : mid(p[i - 1], p[i]);
+          var to = i === p.length - 1 ? p[i] : mid(p[i], p[i + 1]);
+          (bk[a * NW + w] || (bk[a * NW + w] = [])).push(from, p[i], to);
+        }
+        if (alive || now - st.last < 800) keep.push(st);
+      }
+      for (var k = 0; k < bk.length; k++) {
+        var seg = bk[k];
+        if (!seg) continue;
+        var ba = Math.floor(k / NW), bw = k % NW;
+        tctx.lineWidth = 2.4 - (bw + .5) / NW * 1.6;
+        tctx.strokeStyle = 'rgba(' + ink[0] + ',' + ink[1] + ',' + ink[2] + ',' + ((1 - (ba + .5) / NA) * .28).toFixed(3) + ')';
+        tctx.beginPath();
+        for (var j = 0; j < seg.length; j += 3) {
+          tctx.moveTo(seg[j].x, seg[j].y);
+          tctx.quadraticCurveTo(seg[j + 1].x, seg[j + 1].y, seg[j + 2].x, seg[j + 2].y);
+        }
+        tctx.stroke();
+      }
+      strokes = keep;
+      if (strokes.length) requestAnimationFrame(render);
+      else { drawing = false; current = null; }
+    };
+    window.addEventListener('pointermove', function (e) {
+      if (e.pointerType && e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
+      if (e.target && e.target.closest && e.target.closest('.ix-list, .hero3d')) return; /* the plate and the Stack answer the hand there */
+      var now = performance.now();
+      if (!current || now - current.last > 90) { current = { pts: [], last: now }; strokes.push(current); }
+      var pts = current.pts, prev = pts[pts.length - 1], v = 0;
+      if (prev) {
+        var raw = Math.hypot(e.clientX - prev.x, e.clientY - prev.y) / Math.max(1, now - prev.t);
+        v = prev.v * .6 + raw * .4;
+      }
+      pts.push({ x: e.clientX, y: e.clientY, t: now, v: v });
+      current.last = now;
+      if (!drawing) { drawing = true; requestAnimationFrame(render); }
+    }, { passive: true });
+  }
+
+  /* falling period easter egg: click, Enter or Space. It bounces on the rule the Stack stands on (or the screen edge),
+     and the Stack feels each landing: 2.5 degrees on the drop, 1.2 and 0.5 on the bounces */
+  var rule = mast.querySelector('.mh-rule');
+  function dropDot(dot) {
+    if (dot.classList.contains('drop')) return;
+    try {
+      var r = dot.getBoundingClientRect(), fs = parseFloat(getComputedStyle(dot).fontSize) || 0;
+      var rr = rule && rule.getClientRects().length ? rule.getBoundingClientRect() : null;
+      var floor = Math.min(rr && rr.top > r.bottom ? rr.top - 1 : mast.getBoundingClientRect().bottom - 1, innerHeight - 12);
+      dot.style.setProperty('--fall', Math.max(40, Math.round(floor - r.bottom + fs * .06)) + 'px');
+    } catch (e) {}
+    dot.classList.add('drop');
+    setTimeout(function () { dot.classList.remove('drop'); }, 1400);
+    if (!reduced()) [[562, 2.5], [750, -1.2], [937, .5]].forEach(function (b) {
+      setTimeout(function () { if (hero) hero.impulse(b[1], 20); }, b[0]);
+    });
+  }
+  document.querySelectorAll('.masthead h1 i.pd').forEach(function (dot) {
+    dot.addEventListener('click', function () { dropDot(dot); });
+    dot.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); dropDot(dot); }
+    });
+  });
+
+  /* the Lab door's lamp: one write per frame */
+  var lab = document.getElementById('labDoor'), spot = lab && lab.querySelector('.spot');
+  if (spot) {
+    var spotX = 0, spotY = 0, spotRaf = 0;
+    lab.addEventListener('pointermove', function (e) {
+      spotX = e.clientX; spotY = e.clientY;
+      if (spotRaf) return;
+      spotRaf = requestAnimationFrame(function () {
+        spotRaf = 0;
+        var r = lab.getBoundingClientRect();
+        spot.style.setProperty('--mx', ((spotX - r.left) / r.width * 100) + '%');
+        spot.style.setProperty('--my', ((spotY - r.top) / r.height * 100) + '%');
+      });
+    }, { passive: true });
+  }
+
+  /* the page turn: the clicked title flies into the essay headline (forward only, and only from the screen) */
+  var picked = null;
+  document.addEventListener('click', function (e) {
+    picked = e.target.closest ? e.target.closest('a.essay, .hero3d-cap a, a.lt-card') : null;
+  }, true);
+  function onScreen(el) {
+    var r = el.getClientRects();
+    if (!r.length) return false;
+    var b = el.getBoundingClientRect();
+    return b.bottom > 0 && b.top < innerHeight;
+  }
+  function flier(p) {
+    if (picked && picked.getAttribute('href') === p) {
+      var own = picked.querySelector('h2, .t');
+      if (own && onScreen(own)) return own;
+      return null;
+    }
+    var all = document.querySelectorAll('a.essay[href="' + p + '"] h2');
+    for (var i = 0; i < all.length; i++) if (onScreen(all[i])) return all[i];
+    return null;
+  }
+  window.addEventListener('pageswap', function (e) {
+    if (!e.viewTransition || !e.activation || !e.activation.entry) return;
+    var p = new URL(e.activation.entry.url).pathname.replace(/\.html$/, '');
+    var h = flier(p);
+    /* a named element must be one box: the caption's inline title becomes a block for the length of the turn */
+    if (h) {
+      h.style.width = 'fit-content';
+      if (h.matches('.hero3d-cap .t')) h.style.display = 'inline-block';
+      h.style.viewTransitionName = 'essay-title';
+    }
+  });
+  window.addEventListener('pageshow', function () {
+    picked = null;
+    document.querySelectorAll('a.essay h2, .hero3d-cap .t, .lt-t').forEach(function (h) { h.style.viewTransitionName = ''; h.style.width = ''; h.style.display = ''; });
+  });
+
+  /* tab title */
+  var realTitle = document.title;
+  document.addEventListener('visibilitychange', function () {
+    document.title = document.hidden ? 'P.S. Twelve essays, still here.' : realTitle;
+  });
+
+  /* console */
+  try {
+    console.log('%cP.S.', 'font: bold 64px Georgia, serif; color: #FF4D00;');
+    console.log('%cWritten by hand in HTML and CSS. No trackers. Nothing you do here leaves your browser.',
+      'font: 12px Helvetica, sans-serif; color: #8B877C;');
+    console.log('%cThe World is at /world. Some things there are hidden.',
+      'font: 12px Helvetica, sans-serif; color: #8B877C;');
+  } catch (e) {}
+
+  /* ---------- the latest plate: it waits until the reader comes near, so the first screen's budget goes to the Stack ---------- */
+  (function () {
+    var img = document.querySelector('.lt-plate img[data-late-src]');
+    if (!img) return;
+    var go = function () {
+      if (!img.hasAttribute('data-late-src')) return;
+      img.setAttribute('data-sizes', img.getAttribute('data-late-sizes'));
+      img.setAttribute('data-srcset', img.getAttribute('data-late-srcset'));
+      img.setAttribute('data-src', img.getAttribute('data-late-src'));
+      ['data-late-src', 'data-late-srcset', 'data-late-sizes'].forEach(function (a) { img.removeAttribute(a); });
+      if (window.PS && PS.img && PS.img.load) PS.img.load(img);
+      else { img.sizes = img.getAttribute('data-sizes'); img.srcset = img.getAttribute('data-srcset'); img.src = img.getAttribute('data-src'); }
+    };
+    if (!hasIO) { go(); return; }
+    var io = new IntersectionObserver(function (es) { if (es[es.length - 1].isIntersecting) { io.disconnect(); go(); } }, { rootMargin: '0px' });
+    io.observe(img.parentNode);
+  })();
+
+  /* ---------- the contents: one plate travels down the list. It is there as soon as the first row is, beside the row at the
+     reading line, in warm monochrome while you scroll; when the page comes to rest it develops into colour. Under the hand it
+     follows the cursor, cross-fades from row to row and develops at once ---------- */
+  (function () {
+    var list = document.querySelector('.ix-list'), fol = list && list.querySelector('.ix-fol');
+    if (!fol || !window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 760px)').matches) return;
+    var L = fol.querySelectorAll('.fl-l'), ty = fol.querySelector('.fl-ty'), cr = fol.querySelector('.fl-cr');
+    var on = -1, cur = null, x = 0, y = 0, tx = 0, ty0 = 0, raf = 0, lastY = 0, lastX = 0, hand = false, snap = true, seen = false, sq = 0, devT = 0;
+    function dwell() { clearTimeout(devT); devT = setTimeout(function () { if (fol.classList.contains('on')) fol.classList.add('dev'); }, 650); }
+    function bounds() {
+      var r = list.getBoundingClientRect(), a = list.querySelector('a.essay'), m = a && a.querySelector('.e-main'), sd = a && a.querySelector('.side');
+      var mr = m ? m.getBoundingClientRect().right - r.left : r.width * .55, sl = sd ? sd.getBoundingClientRect().left - r.left : r.width;
+      return { r: r, x0: mr + 32, x1: Math.max(mr + 32, sl - 280 - 32) };
+    }
+    function target() {
+      var b = bounds(), h = fol.offsetHeight || 380, mid = (b.x0 + b.x1) / 2;
+      tx = hand ? Math.min(b.x1, Math.max(b.x0, mid + (lastX - b.r.left - mid) * .14)) : mid;
+      /* the plate stops at the foot of the last row on show, so it never sits over the fold's capsule */
+      var rs = list.querySelectorAll('a.essay'), foot = b.r.height;
+      for (var i = rs.length - 1; i >= 0; i--) if (rs[i].getClientRects().length) { foot = rs[i].getBoundingClientRect().bottom - b.r.top; break; }
+      ty0 = Math.min(foot - h, Math.max(0, lastY - b.r.top - h * .5));
+    }
+    function step() {
+      raf = 0;
+      var k = reduced() || snap ? 1 : (hand ? .2 : .14);
+      snap = false;
+      x += (tx - x) * k; y += (ty0 - y) * k;
+      fol.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
+      if (Math.abs(tx - x) > .3 || Math.abs(ty0 - y) > .3) raf = requestAnimationFrame(step);
+    }
+    function kick() { target(); if (!raf) raf = requestAnimationFrame(step); }
+    function show(a) {
+      if (a === cur) return;
+      cur = a;
+      if (!a) return;
+      var src = a.getAttribute('data-pl'), t = a.getAttribute('data-ty');
+      cr.textContent = a.getAttribute('data-cr') || '';
+      if (!src) {
+        ty.querySelector('b').textContent = t || '';
+        ty.querySelector('i').textContent = (a.querySelector('h2') || {}).textContent || '';
+        L[0].classList.remove('on'); L[1].classList.remove('on'); ty.classList.add('on');
+        return;
+      }
+      on = on === 0 ? 1 : 0;
+      var layer = L[on], img = layer.querySelector('img'), other = L[on ? 0 : 1];
+      img.style.objectPosition = a.getAttribute('data-focal') || '50% 50%';
+      var swap = function () { if (cur !== a) return; layer.classList.add('on'); other.classList.remove('on'); ty.classList.remove('on'); };
+      if (img.getAttribute('src') === src && img.complete) swap();
+      else { img.onload = swap; img.onerror = swap; img.src = src; }
+    }
+    function open(v) { if (v && !fol.classList.contains('on')) snap = true; fol.classList.toggle('on', !!v); }
+    /* the reading line: the row whose middle sits nearest 42% of the screen */
+    function byScroll() {
+      sq = 0;
+      if (hand) return;
+      var r = list.getBoundingClientRect(), vh = innerHeight, line = vh * .42;
+      if (r.bottom < vh * .25 || r.top > vh * .88) { clearTimeout(devT); open(false); cur = null; return; }
+      var best = null, bd = 1e9;
+      list.querySelectorAll('a.essay').forEach(function (a) {
+        var q = a.getBoundingClientRect();
+        if (!q.height) return;
+        var d = Math.abs(q.top + q.height / 2 - line);
+        if (d < bd) { bd = d; best = a; lastY = q.top + q.height / 2; }
+      });
+      if (!best) return;
+      fol.classList.remove('dev');
+      open(true); show(best); kick(); dwell();
+    }
+    window.addEventListener('scroll', function () { if (!sq) sq = requestAnimationFrame(byScroll); }, { passive: true });
+    window.addEventListener('resize', function () { if (!sq) sq = requestAnimationFrame(byScroll); }, { passive: true });
+    list.addEventListener('pointermove', function (e) {
+      if (e.pointerType && e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
+      lastX = e.clientX; lastY = e.clientY;
+      var a = e.target.closest && e.target.closest('a.essay');
+      if (!a) return;
+      hand = true; fol.classList.add('dev'); open(true); show(a); kick();
+    }, { passive: true });
+    list.addEventListener('pointerleave', function () { hand = false; byScroll(); });
+    /* keyboard: the plate sits beside the focused row, developed */
+    list.addEventListener('focusin', function (e) {
+      var a = e.target.closest && e.target.closest('a.essay');
+      if (!a || !a.matches(':focus-visible')) return;
+      var r = a.getBoundingClientRect(); lastX = r.left + r.width * .7; lastY = r.top + r.height / 2;
+      hand = true; fol.classList.add('dev'); open(true); show(a); kick();
+    });
+    list.addEventListener('focusout', function () { hand = false; byScroll(); });
+    byScroll();
+  })();
+
+  /* ---------- 3D: the Stack. A fine pointer starts it now; a touch screen starts it on the first touch or key, or when the
+     page goes idle (3s at most), so the first screen's bytes go to the poster, which is the same drawing at rest. Nothing at
+     all on Save-Data, and the poster stays if anything fails ---------- */
+  var conn = navigator.connection;
+  var saveData = !!(conn && conn.saveData);
+  var coarse = window.matchMedia('(pointer: coarse)').matches;
+  var coreP = null;
+  function core() {
+    if (window.PS3D) return Promise.resolve(window.PS3D);
+    if (coreP) return coreP;
+    coreP = new Promise(function (res, rej) {
+      var s = document.createElement('script');
+      s.src = '/assets/3d/core.js?v=3'; s.async = true;
+      s.onload = function () { if (window.PS3D) res(window.PS3D); else rej(new Error('ps3d')); };
+      s.onerror = function () { coreP = null; rej(new Error('ps3d')); };
+      document.head.appendChild(s);
+    });
+    return coreP;
+  }
+
+  /* the entrance clock: the poster's drop, the foil and the caption are CSS; when the last has landed the page says so,
+     and the canvas takes over at rest. Under reduced motion it is already at rest. */
+  var host = mast.querySelector('.hero3d'), poster = host.querySelector('.ps3d-poster'), capBox = mast.querySelector('.mh-cap');
+  var entered = false;
+  function enter() { if (entered) return; entered = true; try { host.dispatchEvent(new CustomEvent('hero:entered')); } catch (e) {} }
+  (function () {
+    if (reduced() || !poster || !poster.getAnimations) { enter(); return; }
+    var list = poster.getAnimations({ subtree: true }).concat(capBox.getAnimations ? capBox.getAnimations({ subtree: true }) : []);
+    if (!list.length) { enter(); return; }
+    Promise.all(list.map(function (a) { return a.finished.catch(function () {}); })).then(enter);
+    setTimeout(enter, 2600);
+  })();
+
+  /* the Stack: twelve printed sheets, one per essay, newest on top */
+  var leaves = [];
+  try { leaves = JSON.parse(document.getElementById('stackLeaves').textContent); } catch (e) {}
+  /* each plate's URL is printed once, on the poster's own <image>: the canvas takes the same file in the same CORS mode */
+  (function () {
+    var N = leaves.length;
+    leaves.forEach(function (lf, k) {
+      if (!lf || !lf.img) return;
+      var im = poster && poster.querySelector('g[data-part="leaf-' + (N - 1 - k) + '"] image');
+      if (im && im.getAttribute('href')) lf.img.src = im.getAttribute('href'); else lf.img = null;
+    });
+  })();
+  var hint = mast.querySelector('.st-hint'), fanBtn = host.querySelector('.hero3d-btn'), metaRow = mast.querySelector('.meta-row');
+  var navEl = document.querySelector('.nav'), ruleEl = mast.querySelector('.mh-rule'), pendFan = false, started = false;
+  /* the hint goes after the first fan, and stays gone for the visit */
+  function seen() {
+    if (!hint || hint.classList.contains('is-gone')) return;
+    hint.classList.add('is-gone');
+    try { sessionStorage.setItem('psStackSeen', '1'); } catch (e) {}
+  }
+  /* the open fan keeps to clear paper: under the nav and the byline, above the letters (phones) or right of them (desk), and
+     inside the screen. Returned in the canvas's own CSS px */
+  function fanBox(w, h) {
+    var cv = hero && hero.view && hero.view.canvas;
+    if (!cv) return null;
+    var c = cv.getBoundingClientRect(), hr = h1.getBoundingClientRect(), vw = document.documentElement.clientWidth || innerWidth;
+    var b = { x0: Math.max(0, 8 - c.left), x1: Math.min(w, vw - 8 - c.left), y0: 0, y1: h };
+    if (hr.top >= c.top + h * .5) {
+      var fs = parseFloat(getComputedStyle(h1).fontSize) || 0;
+      b.y1 = Math.min(b.y1, hr.top + fs * .057 - 8 - c.top);
+    } else if (hr.right > c.left && hr.left < c.left) b.x0 = Math.max(b.x0, hr.right + 16 - c.left);
+    if (navEl) { var nb = navEl.getBoundingClientRect().bottom; if (nb > c.top) b.y0 = Math.max(b.y0, nb + 8 - c.top); }
+    /* the rule the Stack stands on: the caption under it names the sheet under the hand, so the fan stays above it */
+    if (ruleEl && ruleEl.getClientRects().length) { var rt = ruleEl.getBoundingClientRect().top; if (rt > c.top + h * .5) b.y1 = Math.min(b.y1, rt - 10 - c.top); }
+    if (metaRow) { var mr = metaRow.getBoundingClientRect(); if (mr.bottom > c.top && mr.right - c.left > b.x0 + 1) b.y0 = Math.max(b.y0, mr.bottom + 6 - c.top); }
+    return b;
+  }
+  /* a tap on the Stack, the hint or the button before the engine is here: it starts now, and the fan opens once the canvas shows */
+  function wantFan() {
+    if (hero) { hero.toggle(); return; }
+    if (saveData || !leaves.length) return;
+    pendFan = true; startStack();
+  }
+  if (hint) hint.addEventListener('click', function (e) { e.preventDefault(); wantFan(); });
+  if (fanBtn) fanBtn.addEventListener('click', function () { if (!hero) wantFan(); });
+  host.addEventListener('click', function (e) {
+    if (hero || !fanBtn || e.defaultPrevented) return;
+    var r = fanBtn.getBoundingClientRect();
+    if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) wantFan();
+  });
+  function startStack() {
+    if (started || saveData || !leaves.length) return;
+    started = true;
+    core().then(function (P) {
+    return P.load([P.support() === '2d' ? 'c2d' : 'gl', 'hero']).then(function () { return P; });
+  }).then(function (P) {
+    var cap = mast.querySelector('.hero3d-cap');
+    var capA = cap.querySelector('a'), capK = cap.querySelectorAll('.k'), capT = cap.querySelector('.t');
+    var rest = { href: capA.getAttribute('href'), k0: capK[0].textContent, t: capT.textContent, k1: capK[1].textContent };
+    /* the number is set the house way everywhere: a serif numero sign, as in the index and the essay header */
+    var setK = function (el, s) {
+      var i = s.indexOf('№');
+      if (i < 0) { el.textContent = s; return; }
+      el.textContent = s.slice(0, i);
+      var nm = document.createElement('span');
+      nm.className = 'nm'; nm.textContent = '№';
+      el.appendChild(nm);
+      el.appendChild(document.createTextNode(s.slice(i + 1)));
+    };
+    var showCap = function (o) { capA.setAttribute('href', o.href); setK(capK[0], o.k0); capT.textContent = o.t; capK[1].textContent = o.k1; };
+    /* the caption keeps its typesetting while the fan is open: the sheet under the hand takes the latest's place */
+    var capProxy = {
+      get innerHTML() { return ''; },
+      set innerHTML(v) { showCap(rest); },
+      set textContent(txt) {
+        var b = String(txt).split(' · '), lf = null;
+        for (var i = 0; i < leaves.length; i++) if (leaves[i].title === b[1]) lf = leaves[i];
+        if (lf) showCap({ href: lf.href, k0: b[0].replace(/^No\.\s*/, '№ '), t: b[1], k1: b[2] || '' });
+      }
+    };
+    hero = P.hero(host, {
+      leaves: leaves, latest: 0, caption: capProxy, light: 'pointer', entrance: 'poster', fanBox: fanBox,
+      onFan: function (on) { mast.classList.toggle('is-fanned', on); if (on) seen(); }
+    });
+    /* a tap that came before the engine: the fan opens as soon as the canvas has taken over from the poster */
+    if (pendFan) {
+      var openNow = function () { if (!pendFan) return; pendFan = false; hero.fan(true); };
+      hero.view.on('shown', function () { setTimeout(openNow, 60); });
+      setTimeout(openNow, 3200);
+    }
+    /* the drop may have landed before the engine arrived: say it again, so the canvas takes over now */
+    if (entered) try { host.dispatchEvent(new CustomEvent('hero:entered')); } catch (e) {}
+    /* the hand turns to a pointer only over paper, not over the air around it */
+    if (fine) {
+      var q = 0, lx = 0, ly = 0;
+      host.addEventListener('pointermove', function (e) {
+        lx = e.clientX; ly = e.clientY;
+        if (q) return;
+        q = requestAnimationFrame(function () {
+          q = 0;
+          var r = hero.view.canvas.getBoundingClientRect();
+          host.classList.toggle('is-hit', hero.leafAt(lx - r.left, ly - r.top).hit);
+        });
+      }, { passive: true });
+      host.addEventListener('pointerleave', function () { host.classList.remove('is-hit'); });
+    }
+  }).catch(function () { started = false; pendFan = false; /* the poster stays: it is the same drawing at rest */ });
+  }
+  if (!saveData && leaves.length) {
+    if (!coarse) startStack();
+    else {
+      var kick = function () {
+        ['pointerdown', 'keydown', 'touchstart'].forEach(function (t) { window.removeEventListener(t, kick, true); });
+        startStack();
+      };
+      ['pointerdown', 'keydown', 'touchstart'].forEach(function (t) { window.addEventListener(t, kick, { capture: true, passive: true }); });
+      var idle = function () { if ('requestIdleCallback' in window) requestIdleCallback(kick, { timeout: 3000 }); else setTimeout(kick, 1200); };
+      if (document.readyState === 'complete') idle(); else window.addEventListener('load', idle);
+    }
+  }
+
+  /* the three eggs that reach this page light the latest leaf: the konami code, Twombly's name, the Void */
+  function pulse() { if (hero) hero.pulse(); }
+  var KON = ['arrowup', 'arrowup', 'arrowdown', 'arrowdown', 'arrowleft', 'arrowright', 'arrowleft', 'arrowright', 'b', 'a'], ki = 0, typed = '';
+  window.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey || !e.key) return;
+    if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable]')) return;
+    var k = e.key.toLowerCase();
+    ki = k === KON[ki] ? ki + 1 : (k === KON[0] ? 1 : 0);
+    if (ki === KON.length) { ki = 0; pulse(); }
+    if (k.length === 1) { typed = (typed + k).slice(-7); if (typed === 'twombly') { typed = ''; pulse(); } }
+  });
+  window.addEventListener('pstheme', function (e) { if (e.detail === 'void') setTimeout(pulse, 640); });
+
+  /* ---------- the World's floor plan: lit, mounted as it nears the screen. A room under the hand lifts and turns foil and
+     its name prints in the bar; a click walks straight in. On touch the first tap names the room and offers Go;
+     a second tap on the same room, or Go, walks in ---------- */
+  var fig = document.querySelector('figure.wp'), stage = fig.querySelector('.iso-stage'), bar = fig.querySelector('.wp-t'), goA = fig.querySelector('.wp-go');
+  var ROOMS = [];
+  fig.querySelectorAll('.wp-links a').forEach(function (a) {
+    ROOMS.push([a.getAttribute('data-part'), a.getAttribute('data-no'), a.getAttribute('data-name'), a.getAttribute('data-n') || '']);
+  });
+  function roomCap(id) {
+    for (var i = 0; i < ROOMS.length; i++) if (ROOMS[i][0] === id) return [ROOMS[i][1], ROOMS[i][2], ROOMS[i][3]].filter(Boolean).join(' · ');
+    return '';
+  }
+  function plan(P, def) {
+    var cv = document.createElement('canvas');
+    cv.className = 'ps3d-canvas';
+    cv.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%;display:block;opacity:0';
+    stage.appendChild(cv);
+    var v = P.create(cv, { camera: def.camera || 'ortho', surface: 'paper' });
+    /* the v2 plan (chapter volumes) carries its own thirteen rooms; the v1 plan is fed the list printed under it.
+       Under 520px the six chapter names stay off the floor */
+    var root0 = P.build(def, (def.v || 1) >= 2 ? { base: '/world#', names: stage.clientWidth >= 520 } : { rooms: ROOMS, base: '/world#' });
+    /* the chapter names keep clear of the tiles: the front row's sit on the plinth a step in front of their volume, the back
+       row's ride the roof line just behind theirs, where no taller volume can stand in front of them */
+    if (def.labels && def.params && def.params.chapters) {
+      var roofOf = {};
+      def.params.chapters.forEach(function (c) { roofOf[c[2] === c[3] ? c[3] : c[2] + ' · ' + c[3]] = c[4]; });
+      def.labels.forEach(function (l) {
+        if (l.align !== 'ch' || !(l.text in roofOf) || !l.at) return;
+        l.at = l.at[2] < 0 ? [l.at[0], roofOf[l.text] + .02, l.at[2] + .5] : [l.at[0], l.at[1], l.at[2] + .3];
+      });
+    }
+    var parts = root0.parts || {}, all = [];
+    for (var k in parts) if (parts[k] && parts[k].href) all.push(parts[k]);
+    v.add(root0);
+    v.camera.set((def.views && def.views.iso) || { yaw: 45, pitch: 35.264 });
+    /* the same framing the poster was drawn with: the model's own fill if it names one */
+    var frame = function () { if (P.frame) P.frame(v, { fill: def.fill || .86 }); else v.fit(1); };
+    frame();
+    v.on('resize', frame);
+    all.forEach(function (n) { n._b = n.pos ? n.pos.slice() : [0, 0, 0]; n._l = 0; });
+    /* room numbers drawn on their tiles, through the engine's label layer (the v2 plan lists them) */
+    if (def.labels && def.labels.length && P.labels) {
+      var lh = document.createElement('div');
+      lh.className = 'wp-labs'; lh.setAttribute('aria-hidden', 'true');
+      /* the numbers show with the canvas (the poster prints its own until then), so none is ever printed at the stage's
+         corner before it has a place, and none is printed twice */
+      lh.style.visibility = 'hidden';
+      v.on('shown', function () { lh.style.visibility = ''; });
+      v.on('fallback', function () { lh.style.visibility = 'hidden'; });
+      stage.appendChild(lh);
+      var L = P.labels(v, lh, {});
+      def.labels.forEach(function (l) {
+        var el = document.createElement('span');
+        el.className = 'iso-label' + (/[A-Za-z]{2}/.test(l.text) ? ' is-ch' : ''); el.textContent = l.text; lh.appendChild(el);
+        L.add({ el: el, at: l.at, n: l.part ? parts[l.part] || null : null });
+      });
+      v.on('frame', function () { L.layout(); });
+    }
+    P._handoff(v, stage, {});
+    fig._v = v;
+    var hov = null, stop = null, picked = null;
+    function show(id) {
+      var n = id ? parts[id] || null : null;
+      id = n ? id : null;
+      if (id === hov) return;
+      hov = id;
+      /* the room under the hand lifts and lights; the volume that holds it stays; everything else steps back */
+      var from = all.map(function (m) { return [m.dim == null ? 1 : m.dim, m.hl || 0, m._l]; });
+      var to = all.map(function (m) { return !n ? [1, 0, 0] : m === n ? [1, 1, 1] : (m.has && m.has(n)) || (n.has && n.has(m)) ? [1, 0, 0] : [.5, 0, 0]; });
+      if (stop) stop();
+      stop = P.tween({ from: 0, to: 1, dur: reduced() ? 0 : 220, ease: 'out', update: function (k) {
+        all.forEach(function (m, i) {
+          var f = from[i], t = to[i];
+          m.dim = f[0] + (t[0] - f[0]) * k; m.hl = f[1] + (t[1] - f[1]) * k; m._l = f[2] + (t[2] - f[2]) * k;
+          if (m.lift) m.pos = [m._b[0], m._b[1] + m._l * m.lift, m._b[2]];
+        });
+        v.invalidate();
+      } });
+      bar.textContent = id ? (roomCap(id) || n.cap || n.name || '') : '';
+      stage.style.cursor = n && n.href ? 'pointer' : '';
+    }
+    function at(e) {
+      var r = v.canvas.getBoundingClientRect(), hit = v.pick(e.clientX - r.left, e.clientY - r.top);
+      return hit && hit.part && parts[hit.part] && parts[hit.part].href ? hit.part : null;
+    }
+    var mq = 0, last = null;
+    stage.addEventListener('pointermove', function (e) {
+      if (e.pointerType === 'touch') return;
+      last = e;
+      if (mq) return;
+      mq = requestAnimationFrame(function () { mq = 0; if (last) show(at(last)); });
+    }, { passive: true });
+    stage.addEventListener('pointerleave', function (e) { if (e.pointerType === 'touch') return; last = null; if (!picked) show(null); });
+    var touchTap = false;
+    stage.addEventListener('pointerdown', function (e) { touchTap = e.pointerType === 'touch' || e.pointerType === 'pen'; });
+    stage.addEventListener('click', function (e) {
+      var id = at(e), n = id ? parts[id] : null;
+      if (!touchTap) { if (n && n.href) location.href = n.href; return; }
+      if (!n) { picked = null; show(null); goA.classList.remove('on'); return; }
+      if (picked === id) { location.href = n.href; return; }
+      picked = id; show(id);
+      goA.href = n.href; goA.classList.add('on');
+    });
+    /* keyboard: the room links light their tile as they take focus */
+    fig.addEventListener('focusin', function (e) {
+      var a = e.target.closest && e.target.closest('.wp-links [data-part]');
+      if (a) show(a.getAttribute('data-part'));
+    });
+    fig.addEventListener('focusout', function () { if (!picked) show(null); });
+    v.invalidate();
+    return v;
+  }
+  function mountPlan() {
+    if (saveData) return;
+    core().then(function (P) {
+      return P.load([P.support() === '2d' ? 'c2d' : 'gl', 'models/world-plan']).then(function () { return P.need('world-plan'); }).then(function (def) { return plan(P, def); });
+    }).catch(function () { /* the poster stays: it is the same plan at rest */ });
+  }
+  if (!hasIO) mountPlan();
+  else {
+    var pio = new IntersectionObserver(function (es) {
+      for (var i = 0; i < es.length; i++) if (es[i].isIntersecting) { pio.disconnect(); mountPlan(); return; }
+    }, { rootMargin: '600px 0px' });
+    pio.observe(fig);
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+/* P.S. Lab, No. 38: The punch card. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.punch-chad { position: absolute; z-index: 2; border-radius: 50%; pointer-events: none;
+  background: color-mix(in srgb, var(--accent) 5%, var(--card)); box-shadow: 0 0 0 1px var(--line), var(--elev-1);
+  animation: chadFall 700ms cubic-bezier(.45, 0, .9, .55) forwards; }
+.newcard { display: none; min-height: 36px; margin-top: 14px; padding: 0; background: none; border: 0; cursor: pointer;
+  font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink-2);
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--hair-strong);
+  transition: color var(--d-1) var(--ease-out); }
+.newcard.show { display: inline-block; }
+@media (hover: hover) {
+  .newcard:hover { color: var(--ink); text-decoration-color: currentColor; }
+}
+@media (pointer: coarse) {
+  .newcard { min-height: var(--tap); }
+}
+.lx-desk { padding-block: 34px 34px; }
+.lx-desk .punch { --ink: var(--on-light); --ink-2: var(--on-light-2); --manila: #EADCB4; color-scheme: light; color: var(--ink);
+  max-width: 640px; margin: 0 auto; border: 0; border-radius: 3px;
+  background: linear-gradient(170deg, #F1E6C6 0%, var(--manila) 52%, #DFCE9F 100%);
+  box-shadow: 0 0 0 1px color-mix(in srgb, #6E5A2A 22%, transparent), 0 2px 3px color-mix(in srgb, #000 10%, transparent),
+  0 22px 34px -16px color-mix(in srgb, #3A2C10 40%, transparent); rotate: -.6deg; }
+.lx-desk .punch::after { background: linear-gradient(135deg, var(--vellum) 0 calc(50% - .5px), color-mix(in srgb, #6E5A2A 30%, transparent) calc(50% - .5px) calc(50% + .5px), transparent calc(50% + .5px)); }
+.lx-desk .punch .slot { border-color: color-mix(in srgb, #3A2C10 34%, transparent); }
+.lx-desk .punch .slot.x { background: var(--vellum); border-color: color-mix(in srgb, #3A2C10 26%, transparent);
+  box-shadow: inset 0 3px 6px color-mix(in srgb, #000 30%, transparent), inset 0 -1px 0 color-mix(in srgb, #fff 40%, transparent); }
+.lx-desk .punch-chad { background: var(--manila); box-shadow: 0 0 0 1px color-mix(in srgb, #6E5A2A 30%, transparent), var(--elev-1); }
+.lx-desk { padding-block: 28px; }

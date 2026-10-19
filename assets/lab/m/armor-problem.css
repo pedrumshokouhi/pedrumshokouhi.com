@@ -1,0 +1,27 @@
+/* P.S. Lab, No. 08: The armor problem. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.ap-plate svg { display: block; width: 100%; max-width: 520px; height: auto; margin: 0 auto; overflow: visible; }
+.ap-main { fill: var(--card); stroke: var(--ink); stroke-width: 1.2; stroke-linejoin: round; }
+#apShape .ap-d { fill: none; stroke-width: .75; opacity: .5; }
+.ap-land { fill: none; stroke: var(--ink); stroke-width: 1; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.ap-land.go { animation: apLand .42s var(--ease-out); }
+.ap-gh, .ap-ghh, .ap-gt { opacity: 0; transition: opacity var(--d-4) var(--ease-out); }
+.ap-gh { fill: none; stroke: var(--ink-2); stroke-width: 1; stroke-dasharray: 4 4; }
+#apSvg.ghost :is(.ap-gh, .ap-ghh, .ap-gt) { opacity: 1; }
+.ap-gt { font: var(--lbl-w) 10px var(--sans); letter-spacing: .12em; text-transform: uppercase; fill: var(--ink-2); }
+#apHoles circle { fill: var(--ink); opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(0);
+  transition: opacity .2s var(--ease-out), transform .32s var(--spring); }
+#apHoles circle.on { opacity: .78; transform: none; }
+.ap-ghh circle { fill: var(--accent); }
+.ap-count { margin-top: 8px; text-align: center; font: var(--lbl-w) var(--lbl-xs)/1.4 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase;
+  color: var(--ink-2); font-variant-numeric: lining-nums tabular-nums; }
+.exp #apLine { font-style: normal; color: var(--ink); font-size: 16px; }
+.exp .ebtn2.is-answer, .exp .ebtn2.is-answer[aria-pressed="true"] { background: var(--accent); border-color: var(--accent);
+  color: color-mix(in srgb, var(--dark) 70%, #000); }
+.exp .ap-plate.lx-bench { border: 0; border-radius: 0; padding-block: 26px 18px; }
+.exp .ap-plate.lx-bench svg { filter: drop-shadow(0 12px 14px color-mix(in srgb, var(--sh) 22%, transparent)); }
+.lx-bench .ap-main { fill: color-mix(in srgb, var(--paper) 55%, #fff); stroke-width: 1.3; }
+:root[data-tone="dark"] .lx-bench .ap-main { fill: color-mix(in srgb, var(--vellum) 80%, var(--ink)); }
+.lx-bench .ap-gt { font-size: 11px; }
+@media (max-width: 720px) {
+  .ap-gt, .lx-bench .ap-gt { font-size: 14.5px; }
+}

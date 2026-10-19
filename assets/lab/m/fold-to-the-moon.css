@@ -1,0 +1,74 @@
+/* P.S. Lab, No. 04: Fold to the Moon. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.fold-stage { --fh: 170px; --fb: 16px; --ft: 36px; position: relative; overflow: hidden;
+  height: calc(var(--fh) + var(--fb) + var(--ft) + 2px); border: 1px solid var(--line-2); border-radius: var(--r-paper);
+  background-color: var(--card);
+  background-image: radial-gradient(color-mix(in srgb, var(--ink) 9%, transparent) 1px, transparent 1px);
+  background-size: 18px 18px; background-position: 9px 9px; }
+.fold-rule { position: absolute; left: 14px; top: var(--ft); bottom: var(--fb); width: 46px; margin: 0; padding: 0; list-style: none;
+  border-right: 1px solid var(--hair); }
+.fold-rule li { position: absolute; right: -1px; bottom: calc(var(--n) / 42 * 100%); translate: 0 50%; display: flex; align-items: center; gap: 6px;
+  font: 600 10px/1 var(--sans); letter-spacing: .02em; color: var(--dim); font-variant-numeric: lining-nums tabular-nums;
+  transition: color var(--d-2) var(--ease-out); }
+.fold-rule li::after { content: ""; width: 8px; height: 1px; background: var(--hair-strong); transition: background-color var(--d-2) var(--ease-out); }
+.fold-rule li.q { color: transparent; }
+.fold-rule li.on { color: var(--ink); }
+.fold-rule li.q.on { color: transparent; }
+.fold-rule li.on::after { background: var(--ink); }
+.fold-stack { position: absolute; left: 80px; bottom: var(--fb); width: 56px; height: var(--fh);
+  transform-origin: bottom; transform: scaleY(var(--p, .02)); transition: transform .45s var(--ease-out);
+  background: repeating-linear-gradient(0deg, var(--card) 0 2px, color-mix(in srgb, var(--ink) 18%, var(--card)) 2px 3px);
+  box-shadow: inset 1px 0 0 var(--hair-strong), inset -1px 0 0 var(--hair-strong); }
+.fold-cap { position: absolute; left: 72px; bottom: var(--fb); width: 72px; height: 2px; margin-bottom: -1px; background: var(--accent);
+  transform: translateY(calc(var(--p, .02) * var(--fh) * -1)); transition: transform .45s var(--ease-out); }
+.fold-cap > span { position: absolute; left: calc(100% + 12px); bottom: 6px; width: max-content; max-width: min(260px, calc(100vw - 230px));
+  font: italic 400 14px/1.25 var(--serif); color: var(--ink-2); }
+.fold-stage::after { content: ""; position: absolute; left: 152px; right: 98px; top: calc(var(--ft) - .5px); height: 0;
+  border-top: 1px dashed var(--hair-strong); transition: border-color var(--d-2) var(--ease-out); }
+.fold-stage.full::after { border-top-color: var(--accent); }
+@media (max-width: 600px) {
+  .fold-stage { --ft: 50px; }
+}
+.fold-moon { position: absolute; right: 18px; top: calc(var(--ft) - 5px); display: inline-flex; align-items: center; gap: 8px;
+  font: 600 var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--dim);
+  transition: color var(--d-2) var(--ease-out); }
+.fold-moon i { width: 8px; height: 8px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--accent);
+  transition: background-color var(--d-2) var(--ease-out); }
+.fold-stage.full .fold-moon { color: var(--ink); }
+.fold-stage.full .fold-moon i { background: var(--accent); }
+#foldT { font-size: clamp(34px, 4vw, 44px); }
+.fold-stage .f3-cv { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; border-radius: 0; background: none; opacity: 0;
+  touch-action: pan-y; cursor: grab; transition: opacity var(--d-3) var(--ease-out); }
+.fold-stage .f3-tags { position: absolute; inset: 0; pointer-events: none; }
+.fold-stage.f3d { height: clamp(300px, 36vw, 400px); background-image: none; }
+.fold-stage.f3d .f3-cv { opacity: 1; }
+.fold-stage.f3d :is(.fold-rule, .fold-stack, .fold-moon) { display: none; }
+.fold-stage.f3d::after { display: none; }
+.fold-stage.f3d .fold-cap { left: 16px; top: 14px; bottom: auto; width: auto; height: auto; margin: 0; background: none; transform: none; z-index: 1; }
+.fold-stage.f3d .fold-cap > span { position: static; max-width: none; }
+.fold-lm { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.fold-lm button { min-height: 32px; padding: 0 12px; border: 1px solid var(--hair-strong); border-radius: var(--r-pill); background: transparent;
+  cursor: pointer; color: var(--ink-2); font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase;
+  font-variant-numeric: lining-nums tabular-nums; transition: color var(--d-1) var(--ease-out), border-color var(--d-1) var(--ease-out), scale var(--d-1) var(--spring); }
+.fold-lm button b { font-weight: inherit; color: var(--ink); margin-left: .4em; }
+@media (hover: hover) {
+  .fold-lm button:hover { border-color: var(--ink); color: var(--ink); }
+}
+.fold-lm button:active { scale: .97; }
+.fold-lm button.on { border-color: var(--foil-line); color: var(--ink); box-shadow: inset 0 0 0 1px var(--foil-line); }
+.fold-lm button.past { color: var(--ink); }
+.exp .fold-stage.lx-fold { margin-inline: calc(-1 * var(--xpad)); border: 0; border-radius: 0; --fb: 22px; --ft: 42px;
+  background-color: var(--vellum); background-image: radial-gradient(60% 130% at 50% 0%, color-mix(in srgb, var(--paper) 72%, transparent), transparent 72%);
+  box-shadow: inset 0 1px 0 var(--hair), inset 0 -1px 0 var(--hair), inset 0 14px 18px -18px color-mix(in srgb, var(--sh) 60%, transparent); }
+.lx-fold .fold-rule { left: var(--xpad); }
+.lx-fold .fold-stack { left: calc(var(--xpad) + 66px); width: 64px;
+  background: repeating-linear-gradient(0deg, var(--sheet) 0 2px, color-mix(in srgb, var(--ink) 16%, var(--sheet)) 2px 3px);
+  box-shadow: inset 1px 0 0 var(--hair-strong), inset -1px 0 0 var(--hair-strong), 10px 0 14px -10px color-mix(in srgb, var(--sh) 40%, transparent); }
+.lx-fold .fold-cap { left: calc(var(--xpad) + 58px); width: 80px; }
+.lx-fold.fold-stage::after { left: calc(var(--xpad) + 146px); right: calc(var(--xpad) + 84px); }
+.lx-fold .fold-moon { right: var(--xpad); }
+.lx-fold .fold-moon i { width: 14px; height: 14px; box-shadow: none;
+  background: radial-gradient(circle at 36% 32%, #FFFFFF 0%, #E9E5DA 46%, #B9B3A4 100%); filter: drop-shadow(0 0 4px color-mix(in srgb, var(--sh) 25%, transparent)); }
+.lx-fold.full .fold-moon i { background: radial-gradient(circle at 36% 32%, #FFFFFF 0%, color-mix(in srgb, var(--accent) 40%, #fff) 46%, var(--accent) 100%); }
+.lx-fold .fold-rule li { font-size: 11px; }
+.lx-fold.f3d .fold-cap { left: var(--xpad); }
+.exp .fold-stage.lx-fold { background-size: 100% 100%; background-position: 0 0; background-repeat: no-repeat; }

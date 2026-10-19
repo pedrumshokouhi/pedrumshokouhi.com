@@ -1,0 +1,34 @@
+/* P.S. Lab, No. 28: The gauntlet. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.q-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 16px; }
+.q-rail { display: flex; gap: 4px; }
+.q-rail i { width: 28px; height: 2px; background: var(--hair-strong);
+  transition: background-color var(--d-2) var(--ease-out), opacity var(--d-2) var(--ease-out); }
+.q-rail i.cur { background: var(--ink); }
+.q-rail i.done { background: var(--accent); }
+.q-rail i.miss { background: var(--ink); opacity: .35; }
+.q-title { margin-bottom: 8px; font: 400 24px/1.2 var(--serif); letter-spacing: -.015em; color: var(--ink); text-wrap: balance; }
+.q-text { max-width: 62ch; margin-bottom: 16px; font-size: 16px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; }
+.q-text:empty { display: none; }
+.exp[data-m="gauntlet"] .q-shell { padding: 0; background: none; border: 0; }
+.ga-flip { display: grid; perspective: 1600px; transition: height 760ms var(--ease-io); }
+.ga-face { grid-area: 1 / 1; align-self: start; min-width: 0; padding: clamp(16px, 2.6vw, 22px); background: var(--paper); border: 1px solid var(--hair);
+  border-radius: var(--r-paper); -webkit-backface-visibility: hidden; backface-visibility: hidden;
+  transition: transform 760ms var(--ease-io), visibility 0s linear 380ms; }
+.ga-back { transform: rotateY(180deg); visibility: hidden; }
+.ga-flip.over .ga-front { transform: rotateY(-180deg); visibility: hidden; }
+.ga-flip.over .ga-back { transform: none; visibility: visible; }
+.ga-flip .q-choices > :last-child { margin-bottom: 0; }
+.ga-took { display: grid; gap: 10px; margin: 6px 0 4px; }
+.ga-took p { display: grid; grid-template-columns: 7.5em minmax(0, 1fr); gap: 12px; font: 400 15.5px/1.45 var(--serif); color: var(--ink); }
+.ga-took .k { padding-top: 3px; font: var(--lbl-w) var(--lbl-xs)/1.3 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink-2); }
+.ga-took .ok { color: var(--foil-text); }
+.ga-back .q-reveal { margin-top: 14px; }
+.lx-table .ga-face .q-opt { margin: 0; border: 0; border-top: 1px solid var(--hair); border-radius: 0; background: transparent; min-height: 54px; padding: 14px 6px; }
+.lx-table .ga-face .q-choices > :last-child { border-bottom: 1px solid var(--hair); }
+@media (hover: hover) {
+  .exp .lx-table .ga-face .q-opt:not([disabled]):hover { border-color: var(--hair); background: color-mix(in srgb, var(--ink) 4%, transparent); }
+}
+.lx-table .ga-face .q-opt--mine { box-shadow: inset 3px 0 0 var(--ink); }
+.lx-table .ga-face .q-opt--right { box-shadow: inset 3px 0 0 var(--accent); }
+.lx-table .q-top { margin-bottom: 18px; }
+.lx-table .q-rail i { width: 32px; height: 3px; border-radius: 2px; }

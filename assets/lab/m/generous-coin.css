@@ -1,0 +1,35 @@
+/* P.S. Lab, No. 23: The generous coin. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.gc-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 4px; }
+.gc-row .btnrow { margin-top: 0; flex: 1 1 260px; }
+#gcC { margin-top: 16px; }
+@media (prefers-reduced-motion: no-preference) {
+  .gc-coin.toss { animation: gcToss 1.1s var(--ease-out); }
+}
+.gc-row.lx-spot { margin-top: 10px; padding-block: 34px 30px; gap: 28px clamp(28px, 5vw, 56px);
+  background-image: radial-gradient(34% 120% at 18% 50%, color-mix(in srgb, var(--paper) 85%, #fff) 0%, transparent 70%); }
+.lx-spot .gc-coin { width: 132px; height: 132px; position: relative; }
+.lx-spot .gc-coin::after { content: ""; position: absolute; left: 6%; right: 6%; bottom: -16px; height: 16px; border-radius: 50%; z-index: -1;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--sh) 32%, transparent), transparent); }
+.lx-spot .gc-spin i { font: 400 30px/1 var(--serif); letter-spacing: -.02em; }
+.lx-spot .gc-spin .h { color: #2B1A06;
+  background: radial-gradient(circle at 34% 28%, #FFF1C9 0%, #E2B866 32%, #B98A35 64%, #7E5A1F 100%);
+  box-shadow: inset 0 0 0 7px color-mix(in srgb, #F6DFA0 60%, transparent), inset 0 0 0 8px color-mix(in srgb, #5E4214 40%, transparent),
+  inset 0 -6px 14px color-mix(in srgb, #4A3210 40%, transparent), 0 10px 22px -8px color-mix(in srgb, #000 45%, transparent); }
+.lx-spot .gc-spin .t { color: #1C1A17;
+  background: radial-gradient(circle at 34% 28%, #FFFFFF 0%, #D9D6CE 30%, #A9A49A 64%, #6E6A62 100%);
+  box-shadow: inset 0 0 0 7px color-mix(in srgb, #F2F0EA 60%, transparent), inset 0 0 0 8px color-mix(in srgb, #4A4740 40%, transparent),
+  inset 0 -6px 14px color-mix(in srgb, #3A3832 40%, transparent), 0 10px 22px -8px color-mix(in srgb, #000 45%, transparent); }
+.lx-spot .gc-spin i::before { opacity: .22; }
+@media (prefers-reduced-motion: no-preference) {
+  .lx-spot .gc-coin.toss { animation-name: gcTossHi; }
+}
+@media (max-width: 480px) {
+  .lx-spot .gc-coin { width: 104px; height: 104px; }
+  .lx-spot .gc-spin i { font-size: 24px; }
+}
+.gc-row.lx-spot { isolation: isolate; }
+@media (max-width: 720px) {
+  .gc-row.lx-spot { background-image: radial-gradient(60% 60% at 50% 30%, color-mix(in srgb, var(--paper) 85%, #fff) 0%, transparent 70%); justify-content: center; }
+}
+.gc-row.lx-spot { padding-block: 26px 24px; }
+.lx-spot .gc-coin { width: 120px; height: 120px; }

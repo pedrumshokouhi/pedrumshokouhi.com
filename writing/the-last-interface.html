@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Last Interface · Pedrum Shokouhi</title>
+<meta name="description" content="Every era of computing has shortened the distance between what we want and what the machine does. We are now closing that distance entirely, and we should think hard about what stands in the remaining gap.">
+<link rel="canonical" href="https://pedrumshokouhi.com/writing/the-last-interface">
+<meta name="author" content="Pedrum Shokouhi">
+<meta name="format-detection" content="telephone=no">
+<meta property="og:site_name" content="P.S.">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pedrumshokouhi.com/writing/the-last-interface">
+<meta property="og:title" content="The Last Interface">
+<meta property="og:description" content="Every era of computing has shortened the distance between what we want and what the machine does. We are now closing that distance entirely, and we should think hard about what stands in the remaining gap.">
+<meta property="og:image" content="https://pedrumshokouhi.com/assets/og/the-last-interface.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Last Interface, an essay by Pedrum Shokouhi">
+<meta property="article:published_time" content="2026-05-01">
+<meta property="article:author" content="Pedrum Shokouhi">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#F6F4ED">
+<script>(function(r){var t;try{t=localStorage.getItem("psTheme")}catch(e){}if(t){r.setAttribute("data-theme",t);if(" night board blueprint terminal sim abyss city swarm warp aurora rain ember void ".indexOf(" "+t+" ")>-1)r.setAttribute("data-tone","dark");var p={night:"#141312",board:"#232A27",blueprint:"#0F2C4E",riso:"#F6F1E5",terminal:"#0A0D0A",sim:"#06080F",aurora:"#0B1024",rain:"#171C23",play:"#F2EDE2",swarm:"#050505",abyss:"#06222B",city:"#0B0E1A",ember:"#191210",warp:"#030308",void:"#000000",gallery:"#FFFFFF"}[t],m=document.querySelector("meta[name=theme-color]");if(p&&m)m.content=p}function b(a){return a&&a.navigationType==="traverse"&&a.from&&a.entry&&a.entry.index<a.from.index}addEventListener("pagereveal",function(e){r.classList.remove("vt-out");if(!e.viewTransition)return;r.classList.add("vt-in");try{if(b(navigation.activation))e.viewTransition.types.add("back")}catch(x){}});addEventListener("pageswap",function(e){r.classList.add("vt-out");try{if(e.viewTransition&&b(e.activation))e.viewTransition.types.add("back")}catch(x){}})})(document.documentElement);</script>
+<script type="speculationrules">{"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/finaltable-privacy*"}}]},"eagerness":"moderate"}]}</script>
+<link rel="stylesheet" href="/assets/site.css?v=eb4517df">
+<link rel="stylesheet" href="/assets/essay.css?v=763d5ee5">
+<script src="/assets/theme.js?v=1f909336" defer></script>
+<script src="/assets/essay.js?v=7f2f7696" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"The Last Interface","datePublished":"2026-05","author":{"@type":"Person","name":"Pedrum Shokouhi","url":"https://pedrumshokouhi.com/about"},"image":"https://pedrumshokouhi.com/assets/og/the-last-interface.png","mainEntityOfPage":"https://pedrumshokouhi.com/writing/the-last-interface"}</script>
+</head>
+<body data-essay="last">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div id="top"></div>
+
+<nav class="nav nav--glass" aria-label="Primary">
+  <a class="mark" href="/">P<i>.</i>S<i>.</i></a>
+  <ul>
+    <li><a href="/#writing" class="active" aria-current="true">Writing</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/world" class="door">The World</a></li>
+    <li><a href="/experiments" class="lab">Experiments</a></li>
+  </ul>
+</nav>
+
+<main id="main" tabindex="-1">
+<article>
+<div class="pxe-essay">
+
+<header class="e-open e-open--a" data-ground="espresso">
+<div class="plate e-open-plate" data-plate data-no="009" style="--focal:50% 42%;--focal-m:58% 40%"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg/1280px-Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg" srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg/250px-Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg 250w, https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg/330px-Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg 330w, https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg/500px-Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg 500w, https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg/960px-Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg 960w, https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg/1280px-Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg 1280w, https://upload.wikimedia.org/wikipedia/commons/d/d3/Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg 1340w" sizes="100vw" width="1280" height="978" alt="Betty Snyder and Glen Beck programming ENIAC by setting switches and cables on the machine&#x27;s panels, late 1940s" decoding="async" fetchpriority="high"></div>
+<div class="e-open-in">
+<div class="e-open-tx">
+<h1>The Last Interface</h1>
+<p class="kicker">Every era of computing has shortened the distance between what we want and what the machine does. We are now closing that distance entirely. Whatever stands in that last gap will decide what gets done in our name.</p>
+<p class="e-folio"><span class="no">&#8470;&#8201;009</span><span>May 2026</span><span>9 min read</span><span>Pedrum Shokouhi</span></p>
+</div>
+<p class="e-open-cap"><span class="e-cap">Betty Snyder and Glen Beck programming ENIAC at the Ballistic Research Laboratory. The &ldquo;interface&rdquo; was the machine itself: switches, cables, and days of setup per calculation.</span><span class="credit2"><span>U.S. Army photograph</span><a href="https://commons.wikimedia.org/wiki/File:Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg">Public domain<span class="vh">, on Wikimedia Commons</span></a></span></p>
+</div>
+</header>
+
+<details class="mg"><summary>University of Pennsylvania</summary><span class="mg-b">Betty Snyder &#183; Jean Bartik</span></details>
+
+<p class="e-first"><span class="e-lead">In the spring of 1946,</span> if you wanted to give a computer an instruction, you walked inside it. ENIAC, the first general-purpose electronic computer, filled a room at the University of Pennsylvania: eighty feet of black steel panels, 17,468 vacuum tubes, a machine that consumed so much power that a probably apocryphal but persistent legend claimed the lights of Philadelphia dimmed when it switched on. Programming it was not typing; it was rewiring. A team of six mathematicians, most famously women like Betty Snyder and Jean Bartik whose names the newspapers of the day did not bother to record, would spend days setting switches and replugging cables by hand to prepare a single calculation, tracing the logic of a ballistics equation through a forest of wires. The distance between a human intention (<em>tell me where the shell will land</em>) and the machine&rsquo;s execution of it was measured in days of physical labor. The entire history of computing since that room can be told as one long campaign to shorten that distance. The campaign is nearly over. The distance between wanting and doing is about to fall, for the first time, to zero.</p>
+
+<p>Consider, by contrast, how I began today, and how most of us now begin every day. Before I was fully conscious I had silenced an alarm, checked the weather, scanned messages, glanced at a calendar and the markets, and asked an artificial intelligence to summarize what I had missed while sleeping. Each act is small. Together they describe modern life: we no longer use technology when we need it; we wake up inside a technological environment that has already organized the day on our behalf. While writing this essay I audited my own phone and found myself embarrassingly typical of the era. Somewhere on the average phone sit roughly eighty applications, each one a company, a service, and a small claim on our attention. We will open perhaps nine or ten of them today and maybe thirty over the course of the month, but their silent presence on the home screen tells the story of the era we are now leaving: the app era, in which every human need was translated into an icon, and every icon dreamed of becoming a habit.</p>
+
+<figure>
+  <div class="chart-card">
+    <h3>The app era, measured</h3>
+    <p class="sub">Apps on the average smartphone vs. apps actually used (approximate industry figures)</p>
+    <svg viewBox="0 0 640 300" role="img" aria-label="Bar chart: roughly 80 apps installed on an average phone, about 30 used monthly, about 10 used daily">
+      <line x1="60" y1="250" x2="600" y2="250" stroke="var(--baseline)" stroke-width="1"/>
+      <line x1="60" y1="200" x2="600" y2="200" stroke="var(--grid)" stroke-width="1"/>
+      <line x1="60" y1="150" x2="600" y2="150" stroke="var(--grid)" stroke-width="1"/>
+      <line x1="60" y1="100" x2="600" y2="100" stroke="var(--grid)" stroke-width="1"/>
+      <line x1="60" y1="50"  x2="600" y2="50"  stroke="var(--grid)" stroke-width="1"/>
+      <text x="52" y="254" text-anchor="end" class="chart-label">0</text>
+      <text x="52" y="204" text-anchor="end" class="chart-label">20</text>
+      <text x="52" y="154" text-anchor="end" class="chart-label">40</text>
+      <text x="52" y="104" text-anchor="end" class="chart-label">60</text>
+      <text x="52" y="54"  text-anchor="end" class="chart-label">80</text>
+      <path class="bar" data-hl d="M 134 250 V 54 Q 134 50 138 50 H 202 Q 206 50 206 54 V 250 Z" fill="var(--blue)">
+        <title>~80 apps installed on the average smartphone</title>
+      </path>
+      <path class="bar" d="M 284 250 V 179 Q 284 175 288 175 H 352 Q 356 175 356 179 V 250 Z" fill="var(--blue)">
+        <title>~30 apps used at least once a month</title>
+      </path>
+      <path class="bar" d="M 434 250 V 229 Q 434 225 438 225 H 502 Q 506 225 506 229 V 250 Z" fill="var(--blue)">
+        <title>~10 apps used on a typical day</title>
+      </path>
+      <text x="170" y="38"  text-anchor="middle" class="chart-value">~80</text>
+      <text x="320" y="163" text-anchor="middle" class="chart-value">~30</text>
+      <text x="470" y="213" text-anchor="middle" class="chart-value">~10</text>
+      <text x="170" y="272" text-anchor="middle" class="chart-label">installed</text>
+      <text x="320" y="272" text-anchor="middle" class="chart-label">used monthly</text>
+      <text x="470" y="272" text-anchor="middle" class="chart-label">used daily</text>
+    </svg>
+  </div>
+  <figcaption>Most of the app economy is inventory we carry but never open: icons waiting for a habit that never formed. Figures are approximate industry averages (data.ai and similar mobile-analytics reports).</figcaption>
+</figure>
+
+<details class="mg"><summary>Xerox PARC &#183; the Macintosh</summary><span class="mg-b">1984</span></details>
+
+<p>At the RAISE Summit in Paris, a gathering of the people building the next generation of AI systems, a prediction was floated that sounds at first like the technology industry&rsquo;s usual theater: the keyboard and mouse are dying. Every product in that world is revolutionary; every launch marks the dawn of a new civilization; the wise reader applies a discount. But underneath the theatrical language sits a serious historical argument, because every major wave of computing really has changed not just what machines do but how human beings approach them. The mainframe era required specialized commands and a priesthood of operators: the ENIAC women and their descendants in glass-walled rooms. The personal computer put the machine on an individual desk but still demanded its language, a blinking cursor waiting for the correctly spelled incantation. The graphical interface, born at Xerox PARC and carried to the world by the Macintosh in 1984, performed a translation in the opposite direction for the first time: it turned invisible processes into pictures (windows, folders, a trash can) that an ordinary person could point at and manipulate. The smartphone replaced the pointer with the finger and shattered software into self-contained applications. Each transition moved the interface closer to the human body: from the machine room to the desk, from the desk to the hand. Now AI proposes the final approach, from operating software to expressing intention, from clicking through interfaces to describing what we want and letting the machine work out the rest.</p>
+
+<figure>
+  <div class="chart-card chart-card--wide">
+    <h3>Each interface era has been shorter than the last</h3>
+    <p class="sub">Dominant way humans instructed computers, 1950-present</p>
+    <svg viewBox="0 0 665 250" role="img" aria-label="Timeline chart: command line era roughly 1950 to 1984, graphical interfaces 1984 to 2007, touch and apps 2007 to the mid-2020s, conversational agents beginning around 2022">
+      <line x1="70" y1="215" x2="630" y2="215" stroke="var(--baseline)" stroke-width="1"/>
+      <text x="70"  y="234" text-anchor="middle" class="chart-label">1950</text>
+      <text x="210" y="234" text-anchor="middle" class="chart-label">1970</text>
+      <text x="350" y="234" text-anchor="middle" class="chart-label">1990</text>
+      <text x="490" y="234" text-anchor="middle" class="chart-label">2010</text>
+      <text x="630" y="234" text-anchor="middle" class="chart-label">2030</text>
+      <line x1="210" y1="38" x2="210" y2="215" stroke="var(--grid)" stroke-width="1"/>
+      <line x1="350" y1="38" x2="350" y2="215" stroke="var(--grid)" stroke-width="1"/>
+      <line x1="490" y1="38" x2="490" y2="215" stroke="var(--grid)" stroke-width="1"/>
+
+      <text x="70" y="52" class="chart-cat">Commands &amp; punch cards: 34 yrs</text>
+      <rect x="70" y="58" width="238" height="20" rx="4" fill="#86b6ef"><title>Batch processing and command lines, ~1950-1984</title></rect>
+
+      <text x="308" y="97" class="chart-cat">Windows &amp; mouse: 23 yrs</text>
+      <rect x="308" y="103" width="161" height="20" rx="4" fill="#5598e7"><title>Graphical interfaces, 1984-2007</title></rect>
+
+      <text x="469" y="142" class="chart-cat">Touch &amp; apps: ~17 yrs</text>
+      <rect x="469" y="148" width="119" height="20" rx="4" fill="#2a78d6"><title>Smartphones and the app economy, 2007 to the mid-2020s</title></rect>
+
+      <text x="574" y="187" text-anchor="end" class="chart-cat">Conversation: ?&nbsp;&nbsp;</text>
+      <rect x="574" y="193" width="49" height="20" rx="4" fill="#184f95"><title>Conversational agents, ~2022 onward</title></rect>
+      <path d="M 623 193 L 641 203 L 623 213 Z" fill="#184f95" opacity="0.45"/>
+    </svg>
+  </div>
+  <figcaption>Dates mark the arrival of the era&rsquo;s defining product (Macintosh 1984, iPhone 2007, modern conversational AI ~2022). Eras overlap in practice; the command line never died. But each successor reached more people, faster, than the one before.</figcaption>
+</figure>
+
+<p>That tidy timeline hides an embarrassment: we have buried the keyboard before. Voice assistants arrived a decade ago wrapped in precisely today&rsquo;s rhetoric (conversation would replace the screen, speaking would replace tapping), and after billions of dollars of investment they settled into a humbler life of kitchen timers, weather reports, and misheard song requests. Anyone who lived through that cycle is entitled to reach for the discount rate when told, again, that the interface is dying, and I reached for it too. What changed my mind is one difference: those assistants could only trigger commands somebody had pre-built, a thousand hard-coded hallways behind a microphone, while the new systems handle open-ended intention. They can be handed an objective rather than an instruction, and that is the threshold that actually matters. Still, I hold the forecast loosely, and I note for the record that I am typing this sentence on the keyboard that is supposed to be dying. Prophecy is cheap; the calluses are real.</p>
+
+<h2>What the railroad did to noon</h2>
+
+<details class="mg"><summary>The day of two noons</summary><span class="mg-b">November 18, 1883</span></details>
+
+<p>To see how deep such a transition can cut, go back to the nineteenth century, when industrial society first learned that a machine could reorganize far more than physical labor. Before the railways, every community lived on its own time. Noon was the moment the sun stood highest over your particular town, which meant that noon in Bristol arrived eleven minutes after noon in London, and no one minded, because no one could travel fast enough for the difference to matter. Then the railroads began stitching distant places together at mechanical speed, and suddenly ten thousand local noons became an operational catastrophe: timetables could not be written, connections could not be made, and collisions on shared track became a matter of arithmetic error. So on November 18, 1883, a date newspapers called &ldquo;the day of two noons,&rdquo; the North American railroads imposed a solution, dividing the continent into standard time zones, and crowds gathered outside jewelry shops to watch their clocks be corrected to the railroad&rsquo;s satisfaction. Congress would not get around to ratifying the arrangement for another thirty-five years; the network had already decided. The railway also reached into every town it touched and confiscated their relationship with the sun. What had once belonged to the sky and the parish now belonged to the system.</p>
+
+<details class="mg"><summary>The Pony Express</summary><span class="mg-b">Closure announced, October 1861</span></details>
+
+<p>The telegraph performed a similar amputation, severing information from the physical world that had always carried it. Before the wire, a message could travel only as fast as a body (a horse, a ship, a train) could haul it. When the transcontinental telegraph was completed in October 1861, the Pony Express, that heroic relay of riders and station-keepers strung across two thousand miles of desert and mountain, announced its closure within two days. Nobody out-competed it; the wire made it unnecessary within a week. And the typewriter, when Remington began selling it commercially in 1874, mechanized written language itself, standardized the appearance of business correspondence, and helped conjure into existence the modern corporate office, an organizational form in which companies could communicate, monitor, and manage themselves at a scale no roomful of clerks with ink pens could have sustained. In each case the machine arrived as a convenience and stayed as an architecture. Important technologies rarely remain tools. They become systems, and systems, given a generation, become assumptions: invisible, unquestioned, load-bearing. Standardized time feels like a fact of nature, though it was an operational requirement of railroads. The QWERTY keyboard feels inevitable, though it descends from the jamming tendencies of 1870s type-bars. Windows and folders feel like obvious pictures of information, though they were metaphors deliberately invented to make computers legible to people who had only ever organized paper. The grid of apps on your phone feels equally eternal. It is eighteen years old, younger than many of the people reading this sentence.</p>
+
+<h2>When the interface disappears, where does the power go?</h2>
+
+<p>The promise of the AI agent is that the interface, that whole accumulated archaeology of menus, icons, buttons, and taps, evaporates. Instead of opening one app to examine a calendar, another to book a flight, a third to compare hotels, and a fourth to send the itinerary, you will describe the trip you want and allow the system to coordinate the services underneath. The computer will no longer wait passively for instructions delivered in the correct sequence through the correct rectangles; it will interpret an objective, decompose it into tasks, select its own tools, and return when the work is done. From the user&rsquo;s side of the glass, dozens of applications may collapse into two or three conversational systems. The complexity will not have gone anywhere (the airlines, banks, and booking engines will still exist), but it will be concealed behind language, the way the power grid is concealed behind a light switch.</p>
+
+<aside class="pq" aria-hidden="true">Prophecy is cheap; the calluses are real.</aside>
+
+<p>When an interface disappears, the power embedded in it moves behind the curtain. In the app era, whatever its faults, I can at least see which company I am choosing when my thumb comes down on an icon; the choice may be shallow, engineered, and habitual, but it is visible. In an agentic era, the system may make that choice for me: which airline to surface, which news to summarize, which message deserves my attention, which of a hundred restaurants &ldquo;best reflects my preferences.&rdquo; And it will make those choices according to logics I cannot inspect; perhaps my interests, perhaps a partnership, perhaps a bidding war I will never know occurred. The great commercial competition of the coming decade will therefore be waged not over who owns the application but over who owns the layer that interprets human intention. The dominant agent will answer questions. It will also stand between billions of individuals and the entire digital world, quietly deciding how requests become actions; it is the most valuable real estate ever constructed, and it is made of nothing but trust and language.</p>
+
+<details class="mg"><summary>The ENIAC women</summary><span class="mg-b">Philadelphia, 1946</span></details>
+
+<p>Computers may finally conform to us, and that is beautiful, because for the whole history of the machine it has been the other way around. We learned their punch cards, their command syntaxes, their file systems, their menus, their gestures; the ENIAC women learned to think in cables. Natural-language computing appears at last to reverse the direction of the accommodation: we speak as ourselves, and the machine performs the translation. But the railroad should make us careful about declaring victory, because every system that adapts itself to humanity also, in time, adapts the humanity around it. Railways standardized our clocks. Factories standardized our hours. Social platforms standardized our performances of identity. An AI agent, standing closer to us than any of those systems ever stood, may standardize something more intimate still: the way we formulate desire, the way we delegate judgment, the way we decide what is worth wanting at all. The keyboard and mouse will not vanish overnight, and perhaps they never fully will; the command line, after all, still hums beneath every data center on earth. The prediction that matters is that we are approaching the end of the long era in which using technology meant visibly operating a machine, and entering one in which the machine operates largely out of view, anticipating what we need before we have consciously asked. When that interface arrives it will feel so natural that we will struggle to remember why computers ever confronted us with screens full of menus and icons. And that is exactly when the old pattern says to look hardest, because the more natural a technology feels, the deeper its assumptions have sunk. I expect to love the agent era. I am impatient for it, which is why I am writing this now, while the assumptions are still wet. The final interface may be the one we can no longer see, and I would like, at minimum, to remember that there is something to look for.</p>
+
+<hr>
+
+<section class="e-end" aria-label="Notes and pictures">
+<div class="e-end-col">
+<h2 class="e-end-h">Notes</h2>
+<ol class="e-notes">
+<li>The interface-history argument follows discussions at the <a href="https://raisesummit.com/">RAISE Summit</a> (Paris).</li>
+<li>ENIAC details from standard histories of the Moore School and the U.S. Army Ballistic Research Laboratory.</li>
+<li>&ldquo;Day of two noons,&rdquo; November 18, 1883, per contemporary press accounts (Congress ratified zones in the Standard Time Act of 1918).</li>
+<li>Transcontinental telegraph completed October 24, 1861, Pony Express closure announced October 26; Remington commercial typewriter, 1874.</li>
+<li>App-usage figures are approximate industry averages from mobile-analytics firms (data.ai and similar).</li>
+</ol>
+</div>
+<div class="e-end-col">
+<h2 class="e-end-h">Pictures</h2>
+<ol class="e-pics">
+<li><span class="e-pic-t">Betty Snyder and Glen Beck program ENIAC, about 1947</span><span class="e-pic-a">U.S. Army photograph</span><a class="e-pic-l" href="https://commons.wikimedia.org/wiki/File:Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg">Public domain<span class="vh">, Betty Snyder and Glen Beck program ENIAC, about 1947 on Wikimedia Commons</span></a></li>
+</ol>
+</div>
+</section>
+
+<aside class="e-lab" aria-label="The Lab">
+<a class="e-lab-card" href="/experiments#exp-37">
+<svg class="e-lab-art" viewBox="0 0 320 180" aria-hidden="true" focusable="false"><defs><radialGradient id="laPool" cx="50%" cy="44%" r="62%"><stop offset="0" stop-color="#fff" stop-opacity=".10"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><rect width="320" height="180" class="la-bg"/><rect width="320" height="180" fill="url(#laPool)"/><circle cx="160" cy="88" r="52" class="la-knob2"/><circle cx="113.3" cy="134.7" r="3" class="la-hl-dot"/><circle cx="94.4" cy="95.4" r="3" class="la-hl-dot"/><circle cx="104.1" cy="52.9" r="3" class="la-hl-dot"/><circle cx="138.2" cy="25.7" r="3" class="la-hl-dot"/><circle cx="181.8" cy="25.7" r="3" class="la-hl-dot"/><circle cx="215.9" cy="52.9" r="3" class="la-hl-dot"/><circle cx="225.6" cy="95.4" r="3" class="la-dot2"/><circle cx="206.7" cy="134.7" r="3" class="la-dot2"/><line x1="160" y1="88" x2="195.6" y2="65.7" class="la-ptr"/></svg>
+<span class="e-lab-tx"><span class="e-lab-k lbl">From the Lab</span><span class="e-lab-t">The delegation dial</span><span class="e-lab-d">Hand your daily choices to the machine, one notch at a time. Every notch is more convenient. Read the list at the end.</span><span class="e-lab-go">Play it in the lab<span class="arr" aria-hidden="true">&#8594;</span></span></span>
+</a>
+</aside>
+
+<p class="e-author"><a class="e-author-m" href="/about" aria-label="About Pedrum">P<i>.</i>S<i>.</i></a><span>I&rsquo;m Pedrum Shokouhi. Builder by instinct, endlessly curious about technology and obsessed with how companies get built, funded, and run. This is where I share what I&rsquo;m learning.</span></p>
+
+</div>
+</article>
+</main>
+
+<nav class="enav" aria-label="More essays">
+<div class="enav-in">
+<a class="enav-c prev" href="/writing/twenty-slots"><span class="enav-art enav-art--type" data-ground="espresso"><span class="stat foil">20</span></span><span class="enav-tx"><span class="dir">&#8592; Previous</span><span class="enav-no">&#8470;&#8201;008</span><span class="t">Twenty Slots</span><span class="d">Buffett&rsquo;s imaginary punch card allows twenty decisions in a lifetime. Most of modern life is built to make you spend them faster.</span></span></a>
+<a class="enav-c next" href="/writing/we-built-machines-to-save-time"><span class="enav-art plate" data-plate style="--focal:50% 50%"><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Pony_Express_Map_William_Henry_Jackson.jpg/500px-Pony_Express_Map_William_Henry_Jackson.jpg" data-srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Pony_Express_Map_William_Henry_Jackson.jpg/330px-Pony_Express_Map_William_Henry_Jackson.jpg 330w, https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Pony_Express_Map_William_Henry_Jackson.jpg/500px-Pony_Express_Map_William_Henry_Jackson.jpg 500w, https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Pony_Express_Map_William_Henry_Jackson.jpg/960px-Pony_Express_Map_William_Henry_Jackson.jpg 960w" data-sizes="(max-width: 760px) 100vw, 560px" width="500" height="170" alt="" decoding="async"></span><span class="enav-tx"><span class="dir">Next &#8594;</span><span class="enav-no">&#8470;&#8201;010</span><span class="t">We Built Machines to Save Time, and Taught Them to Occupy It</span><span class="d">Every generation of communication technology has made messages faster. None has made us less busy. AI is about to test that pattern at scale.</span><span class="enav-cr">Picture: William Henry Jackson · Public domain</span></span></a>
+</div>
+</nav>
+
+<footer class="footer">
+  <a class="f-mark" href="/" aria-label="P.S., home">P<i>.</i>S<i>.</i></a>
+  <div class="cols">
+    <span>&copy; 2026 Pedrum Shokouhi</span>
+    <a href="mailto:pedrumshokouhi@gmail.com">Write to me</a>
+    <a href="https://www.linkedin.com/in/pedrumshokouhi/" target="_blank" rel="noopener">LinkedIn<span class="vh"> (opens in a new tab)</span></a>
+  </div>
+  <nav class="cols" aria-label="Footer">
+    <a href="/#writing">All essays</a>
+    <a href="/world">The World</a>
+    <a href="/experiments">Experiments</a>
+    <a href="#top" class="f-top">Back to top<span class="arr arr--up" aria-hidden="true">&#8593;</span></a>
+  </nav>
+</footer>
+
+<script>(function(){var d=document,mq=window.matchMedia?matchMedia("(min-width: 1180px)"):null;function m(){var w=mq&&mq.matches,l=d.querySelectorAll("details.mg");for(var i=0;i<l.length;i++){var s=l[i].querySelector("summary");if(w){l[i].open=true;l[i].setAttribute("data-wide","");if(s)s.setAttribute("tabindex","-1");}else if(l[i].hasAttribute("data-wide")){l[i].open=false;l[i].removeAttribute("data-wide");if(s)s.removeAttribute("tabindex");}}}m();if(mq){if(mq.addEventListener)mq.addEventListener("change",m);else if(mq.addListener)mq.addListener(m);}var l=d.querySelectorAll("details.mg summary");for(var j=0;j<l.length;j++)l[j].addEventListener("click",function(e){if(this.parentNode.hasAttribute("data-wide"))e.preventDefault();});})();</script>
+
+</body>
+</html>

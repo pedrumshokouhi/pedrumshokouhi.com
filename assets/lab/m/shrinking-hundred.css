@@ -1,0 +1,22 @@
+/* P.S. Lab, No. 16: The shrinking hundred. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+.ctl-row { display: grid; grid-template-columns: 64px minmax(0, 1fr); align-items: center; gap: 14px; }
+.readout + .ctl-row { margin-top: 12px; }
+.ctl-row + .ctl-row { margin-top: 4px; }
+.exp .ctl-row input[type=range] { margin: 0; }
+.inf-rw { position: relative; min-width: 0; padding-bottom: 20px; }
+.inf-det i { position: absolute; bottom: 0; left: calc(9px + (100% - 18px) * var(--p)); translate: -50% 0; padding-top: 7px; white-space: nowrap; font-style: normal;
+  font: var(--lbl-w) 10px/1 var(--sans); letter-spacing: .06em; color: var(--ink-2); transition: color var(--d-2) var(--ease-out); }
+.inf-det i:first-child { translate: -12px 0; }
+.inf-det i::before { content: ""; position: absolute; left: 50%; top: 0; width: 1px; height: 5px; background: var(--hair-strong); }
+.inf-det i:first-child::before { left: 12px; }
+.inf-det i.on { color: var(--ink); }
+.inf-det i.on::before { background: var(--accent); height: 6px; }
+.inf-det b { font-weight: inherit; }
+.inf-key { display: none; }
+@media (max-width: 480px) {
+  .inf-rw { padding-bottom: 0; }
+  .inf-det { position: relative; padding-top: 20px; }
+  .inf-det i { top: 0; bottom: auto; }
+  .inf-det b { display: none; }
+  .inf-key { display: block; margin-top: 2px; font: var(--lbl-w) 10px/1.4 var(--sans); letter-spacing: .06em; color: var(--ink-2); }
+}

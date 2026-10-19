@@ -1,0 +1,139 @@
+/* Follow one dollar (Lab No. 20): a lit model of a venture fund on an espresso stage, six steps beside it, then the waterline.
+   Moved from the World in v3.1; the room's rules scoped to .lab-money and laid out by the machine's own width. */
+.lab-money { position: relative; }
+/* the 3D layers are placed before explorer.css arrives, so nothing flashes unstyled */
+.lab-money .iso { margin: 0; }
+.lab-money .iso-stage { position: relative; overflow: hidden; }
+.lab-money .iso-stage > .ps3d-poster { position: absolute; inset: 0; width: 100%; height: 100%; }
+.exp .lab-money .iso-stage canvas { border: 0; border-radius: 0; background: transparent; }
+.lab-money :is(.iso-pins, .iso-leaders) { position: absolute; inset: 0; pointer-events: none; }
+.lab-money :is(.iso-label, .iso-pin) { position: absolute; left: 0; top: 0; }
+.lab-money :is(.iso-keys, .iso-card) { position: absolute; opacity: 0; pointer-events: none; }
+.lab-money .iso:not(.is-drawn) :is(.iso-pins, .iso-leaders, .mf-call, .mf-lead) { visibility: hidden; }
+
+/* the plate: the step's subject, named from a fixed corner of the stage, on a hairline leader to the part. Glass over the
+   espresso, a bronze hair, the name in small capitals and the figure in the serif. It and its leader appear in the same frame. */
+.lab-money .mf-call { position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none; max-width: min(240px, 52%);
+  padding: 11px 15px 12px; border-radius: 4px;
+  background: color-mix(in srgb, var(--card) 82%, transparent); -webkit-backdrop-filter: blur(8px) saturate(1.1); backdrop-filter: blur(8px) saturate(1.1);
+  box-shadow: 0 0 0 1px var(--hair-strong), 0 14px 30px -14px rgba(0, 0, 0, .7);
+  opacity: 0; transition: opacity var(--d-1, 160ms) var(--ease-out); }
+.lab-money .mf-call.is-on { opacity: 1; transition-duration: var(--d-2, 320ms); }
+.lab-money .mf-call-k { display: block; font: var(--lbl-w) var(--lbl-xs)/1.3 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink-2); white-space: nowrap; }
+.lab-money .mf-call-f { display: block; margin-top: 6px; font: 400 24px/1.05 var(--serif); letter-spacing: -.01em; color: var(--ink); white-space: nowrap;
+  font-variant-numeric: lining-nums tabular-nums; }
+.lab-money .mf-lead { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; overflow: visible; pointer-events: none;
+  opacity: 0; transition: opacity var(--d-1, 160ms) var(--ease-out); }
+.lab-money .mf-lead.is-on { opacity: 1; transition-duration: var(--d-2, 320ms); }
+.lab-money .mf-lead line { stroke: var(--ink-2); stroke-width: 1; stroke-opacity: .75; vector-effect: non-scaling-stroke; }
+.lab-money .mf-lead circle { fill: var(--accent); stroke: var(--paper); stroke-width: 1.5; }
+@media (prefers-reduced-motion: no-preference) {
+  .lab-money :is(.mf-call, .mf-lead).is-in { animation: mfIn var(--d-2, 320ms) var(--ease-out) both; }
+}
+@keyframes mfIn { from { opacity: 0; } }
+@container (max-width: 519px) {
+  .lab-money .mf-call { padding: 8px 11px 9px; max-width: 60%; }
+  .lab-money .mf-call-f { margin-top: 4px; font-size: 18px; }
+}
+
+/* ---------- the trip: a lit stage across the card, its six steps in the band beneath the drawing, the words below ---------- */
+.lab-money .mf { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
+.lab-money .mf-stage { position: relative; min-width: 0; border-radius: var(--r-card, 6px); overflow: hidden; box-shadow: var(--elev-2); }
+/* a lit floor under the fund: the pool brightens where the model stands */
+.lab-money .mf-stage::before { content: ""; position: absolute; left: 10%; right: 10%; top: 34%; height: 50%; pointer-events: none; border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--on-dark) 8%, transparent), transparent); }
+.lab-money .mf-fig { position: relative; min-width: 0; }
+.lab-money .mf-iso { height: clamp(260px, 56cqi, 470px); min-height: 0; }
+.lab-money .mf-fig .iso-label { color: var(--ink-2); }
+.lab-money .iso-card b, .lab-money .iso-fig { background: none; padding: 0; }
+.lab-money .mf-band { position: relative; z-index: 1; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 10px 24px;
+  padding: 0 clamp(14px, 3cqi, 24px) clamp(14px, 2.6cqi, 20px); }
+.lab-money .mf-ticks { flex: 1 1 320px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; list-style: none; margin: 0; padding: 0; }
+.lab-money .mf-ticks li { margin: 0; }
+.lab-money .mf-ticks button { display: grid; gap: 8px; width: 100%; min-height: 44px; padding: 0; border: 0; background: none; cursor: pointer; text-align: left; color: var(--ink-2); }
+.lab-money .mf-ticks button::before { content: ""; display: block; height: 2px; margin-top: 8px; border-radius: 1px; background: var(--hair-strong);
+  transition: background-color var(--d-2) var(--ease-out); }
+.lab-money .mf-ticks button.is-past::before { background: color-mix(in srgb, var(--ink) 70%, transparent); }
+.lab-money .mf-ticks button[aria-current]::before { background: var(--accent); }
+.lab-money .mf-ticks button[aria-current] { color: var(--ink); }
+@media (hover: hover) { .lab-money .mf-ticks button:hover { color: var(--ink); } }
+.lab-money .mf-ticks button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
+.lab-money .mf-tn { font: 400 15px/1 var(--serif); font-variant-numeric: lining-nums tabular-nums; }
+.lab-money .mf-tt { display: none; font: var(--lbl-w) var(--lbl-xs)/1.25 var(--sans); letter-spacing: .06em; text-transform: uppercase; }
+@container (min-width: 760px) { .lab-money .mf-tt { display: block; } }
+.lab-money .mf-nav { display: flex; gap: 8px; flex: none; }
+.lab-money .mf-nav button:disabled { opacity: .36; cursor: default; }
+.lab-money .mf-nav .ebtn2 { min-height: 40px; padding: 0 16px; }
+.lab-money .mf-nav .ebtn { min-height: 40px; padding: 0 18px; }
+@container (max-width: 520px) { .lab-money .mf-nav { width: 100%; } .lab-money .mf-nav button { flex: 1; padding: 0 10px; } .lab-money .mf-w { display: none; } }
+.lab-money .arr { display: inline-block; margin-left: 8px; }
+.lab-money .arr--back { margin: 0 8px 0 0; }
+.lab-money .mf-w { margin-left: .32em; }
+
+.lab-money .mf-side { min-width: 0; }
+.lab-money .mf-step { display: none; min-width: 0; }
+.lab-money .mf-step.is-on { display: block; }
+@media (prefers-reduced-motion: no-preference) { .lab-money .mf-step.is-on { animation: psFadeUp var(--d-3) var(--ease-out) both; } }
+.lab-money .mf-step--out.is-on { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px clamp(24px, 4.4cqi, 44px); align-items: start; }
+@container (min-width: 700px) { .lab-money .mf-step--out.is-on { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); } .lab-money .mf-step--out .mf-out { margin-top: 0; } }
+.lab-money .mf-k { margin: 0; font: var(--lbl-w) var(--lbl-xs)/1.4 var(--num); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.lab-money .mf-t { margin: 10px 0 0; font: 400 clamp(28px, 5.4cqi, 44px)/1.04 var(--serif); letter-spacing: -.02em; color: var(--ink); text-wrap: balance; }
+.lab-money .mf-x { margin: 14px 0 0; font-size: 17px; line-height: 1.62; color: var(--ink-2); max-width: 52ch; text-wrap: pretty; }
+
+/* the outcome you set: a ledger of four figures, a bar against the $100 that went in */
+.lab-money .mf-out { margin-top: 20px; padding: 16px 16px 14px; display: grid; gap: 8px; border-radius: var(--r-card, 6px);
+  background: color-mix(in srgb, var(--ink) 3%, transparent); box-shadow: inset 0 0 0 1px var(--hair); }
+.lab-money .mf-lab, .lab-money .wpf-lab { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0; }
+.lab-money .mf-lab span, .lab-money .wpf-lab span { font: var(--lbl-w) var(--lbl-xs)/1.4 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink-2); }
+.lab-money .mf-lab output, .lab-money .wpf-lab output { font: 200 34px/1 var(--stat); letter-spacing: -.03em; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
+.exp .lab-money :is(#mfM, #csP) { margin: 2px 0 0; }
+.lab-money .mf-read { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 18px; margin: 4px 0 0; }
+.lab-money .mf-read div { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 8px 0; border-top: var(--hair-w) solid var(--hair); }
+.lab-money .mf-read dt { font: var(--lbl-w) var(--lbl-xs)/1.3 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink-2); }
+.lab-money .mf-read dd { margin: 0; font: 400 20px/1 var(--num); color: var(--ink); font-variant-numeric: lining-nums tabular-nums; letter-spacing: -.01em; }
+.lab-money .mf-bar { position: relative; height: 24px; margin-top: 4px; }
+.lab-money .mf-bar::before { content: ""; position: absolute; left: 0; right: 0; top: 4px; height: 6px; border-radius: 3px; background: var(--hair); }
+.lab-money .mf-fill { position: absolute; left: 0; top: 4px; height: 6px; width: 100%; border-radius: 3px; background: var(--w-hue, var(--ink)); transform-origin: left; transform: scaleX(var(--f, .435));
+  transition: transform var(--d-2) var(--ease-out), background-color var(--d-1) var(--ease-out); }
+.lab-money .mf-bar.is-under .mf-fill { background: var(--ink-2); }
+.lab-money .mf-par { position: absolute; left: calc(100% / 3.4); top: 0; width: 1px; height: 14px; background: var(--ink); }
+.lab-money .mf-par-l { position: absolute; left: calc(100% / 3.4); top: 15px; translate: -50% 0; font: var(--lbl-w) var(--lbl-xs)/1 var(--num); letter-spacing: .04em; color: var(--ink-2); }
+.lab-money .mf-hint { margin: 10px 0 0; font-size: 14px; line-height: 1.55; color: var(--ink-2); max-width: 46ch; }
+.lab-money .mf-cap { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--ink-2); max-width: 70ch; }
+.lab-money .mf-src { margin: 12px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--ink-2); max-width: 90ch; text-wrap: pretty; }
+.lab-money .mf-src span { margin-right: 10px; font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; }
+
+/* ---------- who gets paid first: a capital stack on a lit vellum plinth ---------- */
+.lab-money .wpf { margin-top: clamp(40px, 7cqi, 64px); padding-top: clamp(26px, 4.4cqi, 38px); border-top: 1px solid var(--hair-strong);
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+.lab-money .wpf-h { display: grid; gap: 10px; align-content: start; }
+.lab-money .wpf-t { margin: 0; font: 400 clamp(26px, 4.6cqi, 36px)/1.1 var(--serif); letter-spacing: -.015em; color: var(--ink); text-wrap: balance; }
+.lab-money .wpf-h p { margin: 0; font-size: 16.5px; line-height: 1.55; color: var(--ink-2); max-width: 52ch; }
+.lab-money .wpf-h .wpf-cap { margin-top: 2px; font-size: 12.5px; line-height: 1.5; }
+.lab-money .wpf-fig { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+@container (min-width: 700px) { .lab-money .wpf-fig { grid-template-columns: minmax(0, 1fr) 270px; gap: 28px; align-items: start; } }
+.lab-money .wpf-fig .iso-stage { height: clamp(320px, 52cqi, 430px); min-height: 0; border-radius: var(--r-card, 6px);
+  background-color: var(--vellum); box-shadow: inset 0 0 0 1px var(--hair); }
+.lab-money .wpf-fig figcaption { display: grid; gap: 12px; align-content: start; font: 400 13px/1.45 var(--sans); color: var(--ink-2); }
+.lab-money .wpf-parts { list-style: none; margin: 0; padding: 0; display: grid !important; gap: 0 !important; max-height: none !important; overflow: visible !important; border-top: 1px solid var(--hair-strong); }
+.lab-money .wpf-parts li { margin: 0; }
+.lab-money .wpf-parts button { display: grid !important; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 8px; align-items: baseline; width: 100%; min-height: 0; padding: 9px 0 !important;
+  border: 0 !important; border-bottom: var(--hair-w) solid var(--hair) !important; border-radius: 0 !important; background: none; color: var(--ink-2); cursor: pointer; text-align: left; font: 400 13px/1.3 var(--sans); }
+.lab-money .wpf-parts button[aria-pressed="true"] { border-bottom-color: var(--foil-line) !important; color: var(--ink); }
+.lab-money .wpf-parts .n { font: 400 14px/1 var(--serif); color: var(--bronze); }
+.lab-money .wpf-parts .nm { display: block; color: var(--ink); }
+.lab-money .wpf-parts .nm small { display: block; margin-top: 2px; font: 400 11px/1.3 var(--num); color: var(--ink-2); letter-spacing: .02em; font-variant-numeric: tabular-nums; }
+.lab-money .wpf-parts .v { white-space: nowrap; font: 400 14px/1.2 var(--num); color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
+.lab-money .wpf-ctl { display: grid; gap: 4px; }
+.lab-money .wpf-range { position: relative; padding-bottom: 24px; }
+.lab-money .wpf-th { position: absolute; top: 32px; left: calc(9px + var(--at) * (100% - 18px)); white-space: nowrap;
+  font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); transition: color var(--d-1) var(--ease-out); }
+.lab-money .wpf-th--l { translate: -100% 0; }
+.lab-money .wpf-th i { position: absolute; left: 0; top: -12px; width: 1px; height: 7px; background: var(--ink-2); }
+.lab-money .wpf-th--l i { left: auto; right: 0; }
+.lab-money .wpf-th.is-on { color: var(--ink); }
+.lab-money .wpf-th.is-on i { background: var(--accent); }
+.lab-money .wpf-call { min-height: 3em; margin: 0; font: 400 17px/1.45 var(--serif); color: var(--ink); text-wrap: pretty; }
+.lab-money .iso-ctl { display: flex; flex-wrap: wrap; gap: 10px; }
+
+@media (prefers-reduced-motion: reduce) { .lab-money .mf-fill { transition: none; } }

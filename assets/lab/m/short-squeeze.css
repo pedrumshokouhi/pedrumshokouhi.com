@@ -1,0 +1,19 @@
+/* P.S. Lab, No. 24: The short squeeze. The rules that touch only this machine, moved verbatim from experiments.html (Rev 047). */
+#sqC { transition: box-shadow var(--d-2) var(--ease-out); }
+.exp[data-m="short-squeeze"].called #sqC { box-shadow: inset 0 0 0 2px var(--loss); }
+.sq-call { position: absolute; left: 14px; top: 30px; z-index: 1; display: grid; gap: 6px; padding: 12px 16px 11px; background: var(--paper);
+  border: 1px solid var(--loss); border-radius: var(--r-paper); box-shadow: var(--elev-1); }
+.sq-call .k { font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--loss); }
+.sq-call b { font: 400 18px/1.1 var(--serif); color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
+@media (prefers-reduced-motion: no-preference) {
+  .sq-call.go { animation: sqShake 240ms linear; }
+}
+.sq-eq { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 14px; margin-top: 12px; }
+.sq-eq .k { font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--dim); }
+.sq-tr { position: relative; height: 8px; border-radius: 1px; background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.sq-tr i { position: absolute; inset: 0; transform-origin: left; transform: scaleX(var(--e, .5)); background: var(--ink); opacity: .72;
+  transition: transform .14s linear, background-color var(--d-2) var(--ease-out); }
+.sq-tr.low i { background: var(--loss); opacity: 1; }
+.sq-tr b { position: absolute; left: 50%; top: -4px; bottom: -4px; width: 1px; background: var(--ink); }
+.sq-stage.lx-bench .sq-call { left: calc(var(--xpad) + 14px); top: 46px; border-radius: 4px; box-shadow: var(--elev-2), 0 0 0 1px var(--loss); border: 0; rotate: -1.5deg; }
+.sq-call .k { color: var(--ink); }

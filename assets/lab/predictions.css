@@ -1,0 +1,153 @@
+/* Predictions, checked (Lab No. 29): seven dated forecasts on an engraved rule, one clipping at a time, a Brier score at the end.
+   Moved from the World in v3.1; the room's rules scoped to .lab-pred and laid out by the machine's own width. */
+.lab-pred { position: relative; }
+
+/* ---------- the rule: 1924 to 2015, a stem and a dot for each forecast ---------- */
+.lab-pred .pd-rail { margin: 0 0 clamp(14px, 2.6cqi, 22px); padding: 4px 0 0; }
+.lab-pred .pd-line { --pd-gap: 8px; position: relative; height: calc(62px + var(--lv, 1) * 40px); margin: 0; }
+.lab-pred .pd-axis { position: absolute; left: 0; right: 0; bottom: 28px; height: 1px; }
+.lab-pred .pd-marks { list-style: none; margin: 0; padding: 0; }
+.lab-pred .pd-marks li { margin: 0; }
+.lab-pred .pd-rule { position: absolute; inset: 0; background: var(--ink); transform-origin: left; }
+.lab-pred .pd-dec { position: absolute; top: 0; width: 1px; height: 6px; }
+.lab-pred .pd-dec::before { content: ""; position: absolute; inset: 0; background: var(--ink); }
+.lab-pred .pd-dec span { position: absolute; top: 10px; left: 0; translate: -50% 0; font: 400 12px/1 var(--serif); color: var(--ink-2); font-variant-numeric: lining-nums tabular-nums; }
+.lab-pred .pd-mark { position: absolute; bottom: 28px; left: 0; width: 1px; height: calc(20px + var(--l, 0) * 40px); padding: 0; margin: 0; border: 0; background: none; cursor: pointer; color: var(--ink); }
+/* a generous hit area around each stem */
+.lab-pred .pd-mark::after { content: ""; position: absolute; left: -16px; bottom: -16px; width: 32px; height: calc(100% + 32px); }
+.lab-pred .pd-stem { position: absolute; left: 0; bottom: 0; width: 1px; height: 100%; background: var(--hair-strong); transform-origin: bottom; transition: background-color var(--d-1) var(--ease-out); }
+/* each dot wears a ring of the page around it, so two forecasts a year apart read as two coins, one in front */
+.lab-pred .pd-dot { position: absolute; left: -5px; bottom: -5px; width: 11px; height: 11px; border-radius: 50%; background: var(--card); box-shadow: 0 0 0 2px var(--card), inset 0 0 0 1px var(--ink-2);
+  transition: background-color var(--d-1) var(--ease-out), box-shadow var(--d-1) var(--ease-out), scale var(--d-2) var(--spring); }
+.lab-pred .pd-ml { position: absolute; top: -6px; left: var(--pd-gap); translate: 0 -50%; display: flex; gap: 6px; align-items: baseline; white-space: nowrap; }
+.lab-pred .pd-mark.is-left .pd-ml { left: auto; right: var(--pd-gap); }
+.lab-pred .pd-mark.is-on { z-index: 1; }
+.lab-pred .pd-ml .y { font: var(--lbl-w) var(--lbl-xs)/1 var(--num); letter-spacing: .04em; color: var(--ink-2); font-variant-numeric: lining-nums tabular-nums; }
+.lab-pred .pd-ml .w { font: 400 15px/1 var(--serif); color: var(--ink-2); transition: color var(--d-1) var(--ease-out); }
+/* on a phone the year alone labels each pin, and the dot rides the top of its leader, clear of the year beside it */
+@container (max-width: 560px) { .lab-pred .pd-line { --pd-gap: 13px; } .lab-pred .pd-ml .w { display: none; } .lab-pred .pd-dot { bottom: auto; top: -5px; } }
+.lab-pred .pd-mark:is(:hover, :focus-visible) .pd-ml .w, .lab-pred .pd-mark.is-on .pd-ml :is(.w, .y) { color: var(--ink); }
+.lab-pred .pd-mark:focus-visible { outline: none; }
+.lab-pred .pd-mark:focus-visible .pd-ml { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: var(--r-paper); }
+.lab-pred .pd-mark.is-on .pd-stem { background: var(--foil-line); width: 2px; }
+.lab-pred .pd-mark.is-on .pd-dot { scale: 1.3; box-shadow: inset 0 0 0 1.5px var(--foil-line), 0 0 0 2px var(--card), 0 0 0 5px color-mix(in srgb, var(--accent) 20%, transparent); }
+.lab-pred .pd-mark.is-right .pd-dot { background: var(--w-hue, var(--ink)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3), 0 0 0 2px var(--card); }
+.lab-pred .pd-mark.is-wrong .pd-dot { background: var(--card); box-shadow: inset 0 0 0 2px var(--ink), 0 0 0 2px var(--card); }
+.lab-pred .pd-mark.is-x .pd-dot { background: var(--card); box-shadow: 0 0 0 2px var(--card); outline: 1px dashed var(--ink-2); outline-offset: -1px; }
+@media (prefers-reduced-motion: no-preference) {
+  .lab-pred .pd-line.is-drawn .pd-rule { animation: pdRule var(--d-5) var(--ease-curtain) backwards; }
+  .lab-pred .pd-line.is-drawn .pd-stem { animation: pdStem var(--d-4) var(--ease-out) calc(300ms + var(--k, 0) * 70ms) backwards; }
+  .lab-pred .pd-line.is-drawn :is(.pd-ml, .pd-dot) { animation: pdFade var(--d-3) var(--ease-out) calc(420ms + var(--k, 0) * 70ms) backwards; }
+}
+@keyframes pdRule { from { transform: scaleX(0); } }
+@keyframes pdStem { from { transform: scaleY(0); } }
+@keyframes pdFade { from { opacity: 0; } }
+@keyframes pdStamp { from { scale: 1.5; rotate: -9deg; opacity: 0; } }
+.lab-pred .pd-ins { margin: 0 0 18px; font: var(--lbl-w) var(--lbl-xs)/1.5 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink-2); }
+
+/* ---------- the clipping: one forecast, its date, its source, your call beside it ---------- */
+/* the card in front sets the height; a card leaving lifts out of the flow and fades over it */
+.lab-pred .pd-cards { position: relative; display: grid; align-items: start; }
+.lab-pred .pd-cards.is-sizing { overflow: clip; overflow-clip-margin: 24px; transition: height var(--d-3) var(--ease-out); }
+.lab-pred .pd.js .pd-card:not(.is-on) { position: absolute; inset: 0 0 auto; }
+.lab-pred .pd-card { grid-area: 1 / 1; display: grid; grid-template-columns: minmax(0, 1fr); gap: 26px clamp(30px, 6cqi, 64px); align-items: start; min-width: 0;
+  padding: clamp(22px, 4.4cqi, 36px) clamp(18px, 4.4cqi, 36px); background: var(--paper); border: 1px solid var(--hair-strong); border-radius: var(--r-card, 6px);
+  box-shadow: var(--elev-1); visibility: hidden; opacity: 0; translate: 0 10px;
+  transition: opacity var(--d-leave) var(--ease-in), translate 0s linear var(--d-leave), visibility 0s linear var(--d-leave); }
+.lab-pred .pd-card.is-on { visibility: visible; opacity: 1; translate: 0 0; transition: opacity var(--d-2) var(--ease-out) 100ms, translate var(--d-3) var(--ease-out) 100ms, visibility 0s; }
+@container (min-width: 700px) { .lab-pred .pd-card { grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); } }
+.lab-pred :is(.pd-card, .pd-res):focus { outline: none; }
+.lab-pred .pd-when { display: flex; gap: 14px; align-items: baseline; margin: 0; font: var(--lbl-w) var(--lbl-xs)/1.4 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase;
+  color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
+.lab-pred .pd-n { font: 400 22px/1 var(--serif); letter-spacing: 0; text-transform: none; color: var(--bronze); }
+.lab-pred .pd-words { position: relative; margin: 18px 0 0; padding-left: clamp(14px, 2.6cqi, 22px); border-left: 2px solid var(--w-hue, var(--hair-strong)); }
+.lab-pred .pd-words p { margin: 0; font: 400 clamp(24px, 4.6cqi, 38px)/1.2 var(--serif); letter-spacing: -.016em; color: var(--ink); text-indent: -.42em; hanging-punctuation: first;
+  text-wrap: balance; max-width: 26ch; }
+@supports (hanging-punctuation: first) { .lab-pred .pd-words p { text-indent: 0; } }
+.lab-pred .pd-who { margin: 18px 0 0; font-size: 15.5px; line-height: 1.5; color: var(--ink-2); }
+.lab-pred .pd-who b { font-weight: 400; color: var(--ink); background: none; padding: 0; }
+.lab-pred .pd-s { margin: 8px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
+.lab-pred .pd-s span { margin-right: 10px; font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; }
+/* the controls hang from the top of their column; the column rule runs the height of the clipping */
+.lab-pred .pd-side { position: relative; display: grid; align-content: start; min-width: 0; }
+@container (min-width: 700px) { .lab-pred .pd-side { padding-left: clamp(22px, 3.4cqi, 34px); border-left: 1px solid var(--hair); align-self: stretch; } }
+.lab-pred .pd-act, .lab-pred .pd-res { grid-area: 1 / 1; min-width: 0; display: grid; gap: 12px; align-content: start; }
+/* the layer not in use steps out of the flow, so the column is only as tall as the controls or the verdict it shows */
+.lab-pred .pd.js .pd-card:not(.is-done) .pd-res, .lab-pred .pd.js .pd-card.is-done .pd-act { position: absolute; inset: 0 0 auto; }
+.lab-pred .pd-res { visibility: hidden; opacity: 0; }
+.lab-pred .pd-card.is-done .pd-act { visibility: hidden; opacity: 0; transition: opacity var(--d-leave) var(--ease-in), visibility 0s linear var(--d-leave); }
+.lab-pred .pd-card.is-done .pd-res { visibility: visible; opacity: 1; transition: opacity var(--d-2) var(--ease-out) 120ms; }
+@media (prefers-reduced-motion: no-preference) {
+  .lab-pred .pd-card.is-fresh .pd-res > * { animation: psFadeUp var(--d-3) var(--ease-out) backwards; }
+  .lab-pred .pd-card.is-fresh .pd-res > :nth-child(2) { animation-delay: 80ms; }
+  .lab-pred .pd-card.is-fresh .pd-res > :nth-child(3) { animation-delay: 160ms; }
+  .lab-pred .pd-card.is-fresh .pd-res > :nth-child(n + 4) { animation-delay: 240ms; }
+  .lab-pred .pd-card.is-fresh .pd-chip { animation: pdStamp 260ms var(--spring) backwards; }
+}
+/* hit or miss: a two-way switch */
+.lab-pred .pd-hm { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; padding: 4px; border-radius: 28px; background: color-mix(in srgb, var(--ink) 6%, transparent);
+  box-shadow: inset 0 1px 2px color-mix(in srgb, var(--ink) 10%, transparent); }
+.lab-pred .pd-hm button { min-height: 48px; border: 0; border-radius: var(--r-pill); background: none; cursor: pointer; color: var(--ink-2);
+  font: var(--lbl-w) var(--lbl-l)/1 var(--sans); letter-spacing: var(--trk-l); text-transform: uppercase;
+  transition: background-color var(--d-2) var(--ease-out), color var(--d-1) var(--ease-out), scale var(--d-1) var(--spring), box-shadow var(--d-2) var(--ease-out); }
+@media (hover: hover) { .lab-pred .pd-hm button:hover { color: var(--ink); } }
+.lab-pred .pd-hm button:active { scale: .98; }
+.lab-pred .pd-hm button[aria-pressed="true"] { background: var(--ink); color: var(--paper); box-shadow: var(--elev-1); }
+.lab-pred .pd-conf { display: flex; justify-content: space-between; align-items: baseline; margin-top: 10px; }
+.lab-pred .pd-conf span { font: var(--lbl-w) var(--lbl-xs)/1.4 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink-2); }
+.lab-pred .pd-conf output { font: 200 34px/1 var(--stat); letter-spacing: -.03em; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
+.exp .lab-pred .pd-range { margin: 0; }
+.lab-pred .pd-go { justify-self: start; margin-top: 6px; }
+/* the verdict: a rubber stamp on the clipping */
+.lab-pred .pd-chip { justify-self: start; margin: 0; padding: 9px 16px 8px; border-radius: 3px; rotate: -3deg; font: 600 var(--lbl-m)/1 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  background: var(--ink); color: var(--paper); box-shadow: 0 0 0 3px var(--paper), 0 0 0 4px var(--ink); }
+.lab-pred .pd-chip[data-out="0"] { background: none; color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink), 0 0 0 3px var(--paper), 0 0 0 4px color-mix(in srgb, var(--ink) 40%, transparent); }
+.lab-pred .pd-chip[data-out="x"] { background: none; color: var(--ink); box-shadow: none; outline: 1.5px dashed var(--ink-2); outline-offset: -1px; rotate: 0deg; }
+.lab-pred .pd-yours { display: flex; gap: 10px; align-items: baseline; margin: 4px 0 0; font-size: 15px; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
+.lab-pred .pd-yours span { font: var(--lbl-w) var(--lbl-xs)/1 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink-2); }
+.lab-pred .pd-yours b { font-weight: 400; background: none; padding: 0; }
+.lab-pred .pd-what { margin: 0; font: 400 clamp(18px, 2.6cqi, 20px)/1.5 var(--serif); color: var(--ink); text-wrap: pretty; }
+.lab-pred .pd-ctx { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink-2); font-style: italic; text-wrap: pretty; }
+.lab-pred .pd-next { justify-self: start; display: inline-flex; align-items: center; min-height: var(--tap, 44px); padding: 0; border: 0; background: none; cursor: pointer; color: var(--ink);
+  font: var(--lbl-w) var(--lbl-m)/1 var(--sans); letter-spacing: var(--trk-m); text-transform: uppercase; }
+.lab-pred .pd-next[hidden] { display: none; }
+.lab-pred .pd-next .t { background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; padding-bottom: 4px; }
+.lab-pred .pd-next .arr { margin-left: 8px; transition: translate var(--d-2) var(--ease-out); }
+@media (hover: hover) { .lab-pred .pd-next:hover .arr { translate: 3px 0; } }
+
+/* ---------- the score ---------- */
+.lab-pred .pd-score { margin-top: clamp(24px, 4cqi, 36px); padding: clamp(22px, 4.4cqi, 36px) clamp(18px, 4.4cqi, 36px); border-radius: var(--r-card, 6px);
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px clamp(30px, 6cqi, 64px); align-items: start; }
+.lab-pred .pd-score[hidden] { display: none; }
+@container (min-width: 700px) { .lab-pred .pd-score { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); } .lab-pred :is(.pd-ol, .pd-act2) { grid-column: 1; } .lab-pred .pd-brier { grid-column: 2; grid-row: 1 / span 3; } }
+.lab-pred .pd-big { margin: 0; font: 400 clamp(30px, 6cqi, 52px)/1.08 var(--serif); letter-spacing: -.02em; color: var(--ink); text-wrap: balance; }
+.lab-pred .pd-big b { font-weight: 400; background: none; padding: 0; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
+.lab-pred .pd-brier p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+.lab-pred .pd-brier .pd-bl { margin: 0 0 14px; color: var(--ink); }
+.lab-pred .pd-bk { display: block; margin: 0 0 10px; font: var(--lbl-w) var(--lbl-xs)/1.3 var(--sans); letter-spacing: var(--trk-xs); text-transform: uppercase; color: var(--ink-2); }
+.lab-pred .pd-bd { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.lab-pred .pd-bl b { font: 200 clamp(56px, 12cqi, 88px)/.9 var(--stat); letter-spacing: -.04em; color: var(--ink); background: none; padding: 0;
+  font-variant-numeric: lining-nums tabular-nums; }
+.lab-pred .pd-scale { position: relative; height: 44px; margin-top: 18px; }
+.lab-pred .pd-sc-track { position: absolute; left: 0; right: 0; top: 12px; height: 1px; background: var(--ink); }
+.lab-pred .pd-sc-t { position: absolute; top: 8px; left: calc(var(--at) * 100%); width: 1px; height: 9px; }
+.lab-pred .pd-sc-t::before { content: ""; position: absolute; inset: 0; background: var(--ink); }
+.lab-pred .pd-sc-t span { position: absolute; top: 15px; left: 0; translate: -50% 0; font: 400 12px/1 var(--num); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.lab-pred .pd-sc-t:first-of-type span { translate: 0 0; }
+.lab-pred .pd-sc-t:nth-of-type(4) span { translate: -100% 0; }
+.lab-pred .pd-sc-you { position: absolute; top: 6px; left: calc(var(--at, .25) * 100%); width: 13px; height: 13px; margin-left: -6.5px; border-radius: 50%; background: var(--accent);
+  box-shadow: 0 0 0 3px var(--paper), 0 1px 3px rgba(0, 0, 0, .3); transition: left var(--d-4) var(--ease-out); }
+.lab-pred .pd-ol { margin: 0; font: italic 400 16px/1.5 var(--serif); color: var(--ink-2); }
+.lab-pred .pd-src { margin: 24px 0 0; font-size: 13px; line-height: 1.55; color: var(--ink-2); max-width: 70ch; }
+.lab-pred .arr { display: inline-block; margin-left: 8px; }
+@media (prefers-reduced-motion: no-preference) { .lab-pred .pd-score.is-in > * { animation: psFadeUp var(--d-3) var(--ease-out) backwards; } .lab-pred .pd-score.is-in > :nth-child(2) { animation-delay: 90ms; } .lab-pred .pd-score.is-in > :nth-child(n + 3) { animation-delay: 180ms; } }
+
+/* no script: every forecast stays on the page, stacked and open */
+.lab-pred .pd:not(.js) .pd-cards { display: grid; gap: 40px; }
+.lab-pred .pd:not(.js) :is(.pd-card, .pd-res) { grid-area: auto; visibility: visible; opacity: 1; translate: none; }
+.lab-pred .pd:not(.js) :is(.pd-act, .pd-next, .pd-ins) { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-pred :is(.pd-card, .pd-card.is-on, .pd-act, .pd-res) { transition: opacity 160ms linear, visibility 0s !important; translate: none !important; }
+  .lab-pred :is(.pd-hm button, .pd-sc-you, .pd-dot) { transition: none; }
+}
